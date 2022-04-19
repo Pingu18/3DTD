@@ -59,12 +59,12 @@ public class BuildController : MonoBehaviour
             {
                 MouseIndicator();
                 StructurePlacement();
+                mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = true;
             }
             if (buildMode == BuildMode.DELETE)
             {
                 StructureDeletion();
-                mouseIndicatorHighlight.SetActive(false);
-                ;
+                mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
             }
         } else
         {
@@ -77,7 +77,53 @@ public class BuildController : MonoBehaviour
     private void MoveCam()
     {
         Vector3 pos = buildCamera.transform.position; // current camera position
+                                                      //Quaternion rot = buildCamera.transform.rotation;
 
+        //if (Input.GetKey(KeyCode.Mouse1))
+        //{
+        //    if (Input.GetAxis("Mouse X") < 0)
+        //    {
+        //        print("Left");
+        //        rot.y -= 1.0f * Time.deltaTime;
+        //    }
+        //    if (Input.GetAxis("Mouse X") > 0)
+        //    {
+        //        print("Right");
+        //        rot.y += 1.0f * Time.deltaTime;
+        //    }
+        //    if (Input.GetAxis("Mouse Y") < 0)
+        //    {
+        //        print("Down");
+        //        rot.x += 1.0f * Time.deltaTime;
+        //    }
+        //    if (Input.GetAxis("Mouse Y") > 0)
+        //    {
+        //        print("Up");
+        //        rot.x -= 1.0f * Time.deltaTime;
+        //    }
+        //} else
+        //{
+        //    // use WASD or mouse to pan camera
+        //    if (Input.GetKey(KeyCode.W) || Input.mousePosition.y >= Screen.height - panBorder)
+        //    {
+        //        pos.z += camSpeed * Time.deltaTime;
+        //    }
+
+        //    if (Input.GetKey(KeyCode.S) || Input.mousePosition.y <= panBorder)
+        //    {
+        //        pos.z -= camSpeed * Time.deltaTime;
+        //    }
+
+        //    if (Input.GetKey(KeyCode.D) || Input.mousePosition.x >= Screen.width - panBorder)
+        //    {
+        //        pos.x += camSpeed * Time.deltaTime;
+        //    }
+
+        //    if (Input.GetKey(KeyCode.A) || Input.mousePosition.x <= panBorder)
+        //    {
+        //        pos.x -= camSpeed * Time.deltaTime;
+        //    }
+        //}
         // use WASD or mouse to pan camera
         if (Input.GetKey(KeyCode.W) || Input.mousePosition.y >= Screen.height - panBorder)
         {
@@ -103,6 +149,7 @@ public class BuildController : MonoBehaviour
         pos.z = Mathf.Clamp(pos.z, -panLimit.y, panLimit.y);
 
         buildCamera.transform.position = pos; // update with new camera position
+        //buildCamera.transform.rotation = rot;
     }
 
     private void ToggleBuild()
@@ -172,7 +219,8 @@ public class BuildController : MonoBehaviour
             Ray ray = buildCamera.ScreenPointToRay(Input.mousePosition); // shoot ray from camera to mouse position
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, structureLayerMask))
             {
-                Destroy(raycastHit.collider.gameObject);
+                mouseCon.RemoveStructureFromCollisions(raycastHit.collider.gameObject);
+                Destroy(raycastHit.collider.gameObject);   
             }
         }
     }

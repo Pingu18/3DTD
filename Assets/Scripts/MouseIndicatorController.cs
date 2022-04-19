@@ -30,13 +30,16 @@ public class MouseIndicatorController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("Started colliding with: " + other.gameObject.name);
         collisions.Add(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        print("Stopped colliding with: " + other.gameObject.name);
         collisions.Remove(other.gameObject);
+    }
+
+    public void RemoveStructureFromCollisions(GameObject structure)
+    {
+        collisions.Remove(structure);
     }
 }
