@@ -1,16 +1,34 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CameraController : MonoBehaviour
+public class BuildController : MonoBehaviour
 {
     [SerializeField] private Camera buildCamera;
     [SerializeField] private GameObject mouseIndicatorHighlight;
+    public GameObject towerBase;
+    public GameObject tower2;
+    private GameObject activeStructure;
+
+    public Canvas buildCanvas;
+    private int activeSlot;
+    public Image Slot1;
+    public Image Slot2;
+
+    private Color32 defaultColor = new Color32(255, 255, 255, 255);
+    private Color32 activeColor = new Color32(115, 255, 128, 255);
 
     public float camSpeed = 20f;
     public float panBorder = 10f;
     public Vector2 panLimit;
 
     private bool inBuild = false;
-    
+
+    private void Start()
+    {
+        activeStructure = towerBase;
+        activeSlot = 1;
+    }
+
     private void Update()
     {
         ToggleBuild();
@@ -19,9 +37,13 @@ public class CameraController : MonoBehaviour
         {
             MoveCam();
             MouseIndicator();
+            StructurePlacement();
+            BuildUIControl();
+            buildCanvas.gameObject.SetActive(true);
         } else
         {
             mouseIndicatorHighlight.SetActive(false);
+            buildCanvas.gameObject.SetActive(false);
         }
     }
 
@@ -74,6 +96,43 @@ public class CameraController : MonoBehaviour
         else
         {
             mouseIndicatorHighlight.SetActive(false);
+        }
+    }
+
+    private void StructurePlacement()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            activeStructure = towerBase;
+            activeSlot = 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            activeStructure = tower2;
+            activeSlot = 2;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Instantiate(activeStructure, transform.position, Quaternion.identity);
+        }
+    }
+
+    private void BuildUIControl()
+    {
+        switch (activeSlot) 
+        {
+            case 1:
+                Slot1.color = activeColor;
+                Slot2.color = defaultColor;
+                break;
+            case 2:
+                Slot1.color = defaultColor;
+                Slot2.color = activeColor;
+                break;
+            default:
+                break;
         }
     }
 }
