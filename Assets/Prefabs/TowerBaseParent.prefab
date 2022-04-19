@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1625247347}
   - component: {fileID: 1625247346}
   - component: {fileID: 1625247345}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8669465799452634656}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TowerBaseParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
