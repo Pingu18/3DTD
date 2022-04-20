@@ -4,56 +4,48 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject camera;   // reference to GameObject camera
+    private Rigidbody rb;     // reference to Rigidbody component
 
-    private Rigidbody body;     // reference to Rigidbody component
+    [SerializeField] private float speed;      // player speed
+    [SerializeField] private float jumpForce;  // player jump height
 
-    private float speed = 10f;      // player speed
-    private float jumpHeight = 2f;  // player jump height
-
-    private bool isGrounded = true; // whether player is currently grounded
+    private bool isGrounded;        // whether player is currently grounded
     private float distanceToGround; // player's current distance to the ground
 
     void Start()
     {
-        Debug.Log("Starting PlayerController...");
-        body = GetComponent<Rigidbody>();
-        distanceToGround = GetComponent<BoxCollider>().bounds.extents.y;
+        Debug.Log("Getting components... (PlayerController)");
+        rb = GetComponent<Rigidbody>();
+        distanceToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
     }
     void Update()
     {
-        // Add condition for whether player is in build mode or not
-        cameraFollowPlayer();
-        rotatePlayer();
-
-        // Movement logic for player
-        movement();
+        // Jump logic for player
+        jump();
     }
 
-    public void movement()
+    private void FixedUpdate()
+    {
+        // Movement logic for player
+        move();
+    }
+
+    public void move()
+    {
+        float hAxis = Input.GetAxisRaw("Horizontal");
+        float vAxis = Input.GetAxisRaw("Vertical");
+
+        Vector3 movement = new Vector3(hAxis, 0, vAxis) * Time.fixedDeltaTime * speed;
+        Vector3 newPos = rb.position + rb.transform.TransformDirection(movement);
+
+        rb.MovePosition(newPos);
+    }
+
+    private void jump()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
 
-        if (Input.GetKey(KeyCode.W))
-            body.position += transform.forward * Time.deltaTime * speed;
-        else if (Input.GetKey(KeyCode.S))
-            body.position -= transform.forward * Time.deltaTime * speed;
-        else if (Input.GetKey(KeyCode.A))
-            body.position -= transform.right * Time.deltaTime * speed;
-        else if (Input.GetKey(KeyCode.D))
-            body.position += transform.right * Time.deltaTime * speed;
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
-            body.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
-    }
-
-    public void rotatePlayer()
-    {
-        transform.localEulerAngles = new Vector3(0, camera.transform.localEulerAngles.y, 0);
-    }
-
-    public void cameraFollowPlayer()
-    {
-        camera.transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
     }
 }
