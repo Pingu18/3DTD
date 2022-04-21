@@ -19,6 +19,9 @@ public class CameraController : MonoBehaviour
     [Header("Player Orientation")]
     [SerializeField] private Transform orientation;     // reference to player orientation
 
+    [Header("UIContainer Ref")]
+    [SerializeField] private GameObject uiContainer;    // reference to UI container 
+
     [Header("Sensitivity X")]
     [SerializeField] private float sensX = 50f;     // x sensitivity
 
@@ -45,10 +48,10 @@ public class CameraController : MonoBehaviour
 
         Debug.Log("Getting cameras... (CameraController)");
         pCam = pCamRef.GetComponent<Camera>();
-        pCam.enabled = true;
+        pCam.enabled = !buildController.getInBuild();
 
         bCam = bCamRef.GetComponent<Camera>();
-        bCam.enabled = false;
+        bCam.enabled = buildController.getInBuild();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -61,10 +64,28 @@ public class CameraController : MonoBehaviour
             rotateCamera();
     }
 
+    public void toggleMouseLock()
+    {
+        if (buildController.getInBuild())
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
+    public void toggleCanvas()
+    {
+        uiContainer.SetActive(!buildController.getInBuild());
+    }
+
     public void toggleCamera()
     {
-        pCam.enabled = !pCam.enabled;
-        bCam.enabled = !bCam.enabled;
+        pCam.enabled = !buildController.getInBuild();
+        bCam.enabled = buildController.getInBuild();
     }
 
     private void rotateCamera()

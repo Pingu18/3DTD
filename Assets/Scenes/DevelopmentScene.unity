@@ -655,8 +655,8 @@ MonoBehaviour:
     type: 3}
   tower2: {fileID: 8669465799452634657, guid: 8774124b4e3c56d459522c96384e4b14, type: 3}
   buildCanvas: {fileID: 2049602709}
-  Slot1: {fileID: 0}
-  Slot2: {fileID: 0}
+  Slot1: {fileID: 940274620}
+  Slot2: {fileID: 730968249}
   modeText: {fileID: 1515985766}
   camSpeed: 15
   scrollSpeed: 25
@@ -1545,7 +1545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b168691f76a1d9b4abf9ed25f204ab20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildControllerObj: {fileID: 0}
+  buildControllerObj: {fileID: 545281835}
   model: {fileID: 871967538}
   pCamTransform: {fileID: 923252271}
   orientation: {fileID: 382431088}
@@ -1598,11 +1598,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79ffba310459acd449ed1633b709f04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildControllerObj: {fileID: 0}
+  buildControllerObj: {fileID: 545281835}
   pCamRef: {fileID: 1741471076}
   bCamRef: {fileID: 655883413}
   pCamTransform: {fileID: 923252271}
   orientation: {fileID: 382431088}
+  uiContainer: {fileID: 659508649}
   sensX: 50
   sensY: 50
 --- !u!1 &1515985764

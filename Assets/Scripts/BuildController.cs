@@ -171,8 +171,10 @@ public class BuildController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            cameraController.toggleCamera();
             inBuild = !inBuild;
+            cameraController.toggleCamera();
+            cameraController.toggleMouseLock();
+            cameraController.toggleCanvas();
         }
     }
 
