@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 50
   range: 3
-  fireRate: 1
+  fireRate: 5
   targets: []
   attackFX: {fileID: 6537392655905275544, guid: e61947513808a3941951393d37886947,
     type: 3}

@@ -55,7 +55,8 @@ public class TowerController : MonoBehaviour
                 GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                 Destroy(atk, 1.5f);
-                target.GetComponent<EnemyTest>().TakeDamage(damage, this.gameObject);
+                target.GetComponent<IDamageable>().takeDamage(damage, this.gameObject);
+                //target.GetComponent<EnemyTest>().TakeDamage(damage, this.gameObject);
                 nextFire = Time.time + (1 / fireRate);
             }
         }

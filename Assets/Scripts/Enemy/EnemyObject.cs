@@ -7,8 +7,8 @@ public class EnemyObject : MonoBehaviour, IDamageable
     [SerializeField] private EnemyStats enemyStats;
 
     private string name;
-    private int maxHP;
-    private int currHP;
+    private float maxHP;
+    private float currHP;
     private float moveSpeed;
     private float damage;
 
@@ -19,16 +19,20 @@ public class EnemyObject : MonoBehaviour, IDamageable
         currHP = enemyStats.maxHealth;
     }
 
-    public void takeDamage(int dmgTaken)
+    public void takeDamage(float dmgTaken, GameObject tower)
     {
         currHP -= dmgTaken;
-        checkDeath();
+        checkDeath(tower);
     }
 
-    private void checkDeath()
+    private void checkDeath(GameObject tower)
     {
         if (currHP <= 0)
+        {
+            tower.GetComponent<TowerController>().RemoveTargetOnDeath(this.gameObject);
             Destroy(gameObject);
+        }
+
     }
 
     public void setMaxHP(int hp)
@@ -56,12 +60,12 @@ public class EnemyObject : MonoBehaviour, IDamageable
         return name;
     }
 
-    public int getMaxHP()
+    public float getMaxHP()
     {
         return maxHP;
     }
 
-    public int getCurrHP()
+    public float getCurrHP()
     {
         return currHP;
     }

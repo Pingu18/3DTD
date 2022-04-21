@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         controlDrag();
         jump();
 
-        testShooting();
+        //testShooting();
     }
 
     private void FixedUpdate()
@@ -98,8 +98,8 @@ public class PlayerController : MonoBehaviour
             {
                 IDamageable damageable = target.collider.GetComponent<IDamageable>();
 
-                if (damageable != null)
-                    damageable.takeDamage(100);
+                //if (damageable != null)
+                    //damageable.takeDamage(100);
             }
         }
     }

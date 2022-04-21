@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface IDamageable
 {
-    void takeDamage(int dmgTaken);
+    void takeDamage(float dmgTaken, GameObject tower);
 }
