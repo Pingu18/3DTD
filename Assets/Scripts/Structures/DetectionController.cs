@@ -8,6 +8,7 @@ public class DetectionController : MonoBehaviour
     TowerController towerCon;
     private void Start()
     {
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
         parentTower = this.transform.parent.gameObject;
         towerCon = parentTower.GetComponent<TowerController>();
     }
