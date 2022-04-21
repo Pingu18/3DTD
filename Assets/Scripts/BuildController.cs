@@ -9,6 +9,10 @@ public class BuildController : MonoBehaviour
     [SerializeField] private LayerMask placeableLayerMask; // set to Ground layer so can only place structures on ground
     [SerializeField] private LayerMask structureLayerMask;
 
+    [SerializeField] private GameObject cameraControllerObj;    // reference to GameObject that holds CameraController script
+
+    private CameraController cameraController;  // reference to CameraController script
+
     MouseIndicatorController mouseCon;
     public GameObject towerBase;
     public GameObject tower2;
@@ -45,6 +49,8 @@ public class BuildController : MonoBehaviour
         activeStructure = towerBase; // default tower selected
         activeSlot = 1; // default tower highlighted on HUD
         mouseCon = FindObjectOfType<MouseIndicatorController>();
+
+        cameraController = cameraControllerObj.GetComponent<CameraController>();
     }
 
     private void Update()
@@ -165,6 +171,7 @@ public class BuildController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            cameraController.toggleCamera();
             inBuild = !inBuild;
         }
     }
@@ -249,5 +256,10 @@ public class BuildController : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public bool getInBuild()
+    {
+        return inBuild;
     }
 }
