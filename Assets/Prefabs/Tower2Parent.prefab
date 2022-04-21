@@ -173,7 +173,7 @@ MonoBehaviour:
   range: 3
   fireRate: 1
   targets: []
-  attackFX: {fileID: 6537392655905275544, guid: e61947513808a3941951393d37886947,
+  attackFX: {fileID: 6537392655905275544, guid: 9e1026e53fd434345994a7bbb851122b,
     type: 3}
 --- !u!1 &8669465799452634657
 GameObject:
@@ -190,7 +190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8669465799452634656
 Transform:
   m_ObjectHideFlags: 0
