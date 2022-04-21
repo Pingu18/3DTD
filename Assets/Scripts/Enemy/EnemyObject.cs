@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyObject : MonoBehaviour, IDamageable
 {
+    [SerializeField] private EnemyController enemyController;
     [SerializeField] private EnemyStats enemyStats;
 
     private string name;
@@ -17,6 +18,8 @@ public class EnemyObject : MonoBehaviour, IDamageable
         name = enemyStats.name;
         maxHP = enemyStats.maxHealth;
         currHP = enemyStats.maxHealth;
+
+        enemyController = transform.parent.GetComponent<EnemyController>();
     }
 
     public void takeDamage(float dmgTaken, GameObject tower)
@@ -30,6 +33,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
         if (currHP <= 0)
         {
             tower.GetComponent<TowerController>().RemoveTargetOnDeath(this.gameObject);
+            enemyController.decrementEnemiesAlive();
             Destroy(gameObject);
         }
 

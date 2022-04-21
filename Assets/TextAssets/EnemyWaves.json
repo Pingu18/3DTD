@@ -1,0 +1,140 @@
+{
+  "waves":
+  [
+    {
+      "wave": 1,
+      "groups":
+      [
+        {
+          "groupNum": 1,
+          "enemies":
+          [
+            {
+              "enemyName": "TestEnemy",
+              "toSpawn": 3
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "enemies":
+          [
+            {
+              "enemyName": "TestEnemy",
+              "toSpawn": 3
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 2,
+      "groups":
+      [
+        {
+          "groupNum": 1,
+          "enemies":
+          [
+            {
+              "enemyName": "TestEnemy",
+              "toSpawn": 6
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "enemies":
+          [
+            {
+              "enemyName": "TestEnemy",
+              "toSpawn": 6
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 3,
+      "groups":
+      [
+        {
+          "groupNum": 1,
+          "enemies":
+          [
+            {
+              "enemyName": "TestEnemy",
+              "toSpawn": 10
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "enemies":
+          [
+            {
+              "enemyName": "TestEnemy",
+              "toSpawn": 10
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 4,
+      "groups":
+      [
+        {
+          "groupNum": 1,
+          "enemies":
+          [
+            {
+              "enemyName": "TestEnemy",
+              "toSpawn": 15
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "enemies":
+          [
+            {
+              "enemyName": "TestEnemy",
+              "toSpawn": 15
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 5,
+      "groups":
+      [
+        {
+          "groupNum": 1,
+          "enemies":
+          [
+            {
+              "enemyName": "TestEnemy",
+              "toSpawn": 20
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "enemies":
+          [
+            {
+              "enemyName": "TestEnemy",
+              "toSpawn": 20
+            }
+          ]
+        }
+      ]
+    }
+
+  ]
+}

@@ -29,6 +29,7 @@ public class EnemyNavMesh : MonoBehaviour
 
     public void setDestination(Transform dest)
     {
+        Debug.Log("Setting destination to: " + dest.localPosition);
         destination = dest;
     }
 

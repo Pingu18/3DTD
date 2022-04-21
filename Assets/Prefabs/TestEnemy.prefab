@@ -95,7 +95,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8020436554038406277}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 890fc09c3428ac041b149a93a088a097, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4adabbf893a3aa844ad5144291f64dee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyController: {fileID: 0}
   enemyStats: {fileID: 11400000, guid: 8108ef188f585fe4d8e2abd235f666c6, type: 2}
 --- !u!54 &5376175982560322410
 Rigidbody:
