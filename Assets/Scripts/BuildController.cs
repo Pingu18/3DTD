@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -14,8 +16,9 @@ public class BuildController : MonoBehaviour
     private CameraController cameraController;  // reference to CameraController script
 
     MouseIndicatorController mouseCon;
-    public GameObject towerBase;
-    public GameObject tower2;
+    [SerializeField] private List<GameObject> towers;
+    public GameObject iceTower;
+    public GameObject fireTower;
     private GameObject activeStructure;
 
     public Canvas buildCanvas;
@@ -46,7 +49,7 @@ public class BuildController : MonoBehaviour
 
     private void Start()
     {
-        activeStructure = towerBase; // default tower selected
+        activeStructure = iceTower; // default tower selected
         activeSlot = 1; // default tower highlighted on HUD
         mouseCon = FindObjectOfType<MouseIndicatorController>();
 
@@ -213,13 +216,13 @@ public class BuildController : MonoBehaviour
         // use numbers to swap between towers
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            activeStructure = towerBase;
+            activeStructure = iceTower;
             activeSlot = 1;
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            activeStructure = tower2;
+            activeStructure = fireTower;
             activeSlot = 2;
         }
 
