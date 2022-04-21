@@ -5,25 +5,39 @@ using UnityEngine.VFX;
 
 public class TowerController : MonoBehaviour
 {
+    BuildController buildCon;
     public float damage;
     public float range;
     public float fireRate;
     private float nextFire;
     GameObject currentTarget;
     [SerializeField] private List<GameObject> targets = new List<GameObject>();
-    private SphereCollider detectionRadius;
+    private GameObject detectionRadius;
+    private Vector3 detectionScale;
+    private bool drawRadius = false;
     public GameObject attackFX;
 
     private void Start()
     {
+        buildCon = FindObjectOfType<BuildController>();
         nextFire = 0.0f;
-        detectionRadius = this.gameObject.transform.GetChild(0).GetComponent<SphereCollider>();
-        detectionRadius.radius = range;
+        detectionRadius = this.gameObject.transform.GetChild(0).gameObject;
+        detectionScale = new Vector3(range, range / 3, range);
+        detectionRadius.transform.localScale = detectionScale;
     }
 
     private void Update()
     {
         AttackCycle();
+
+        if (buildCon.getInBuild())
+        {
+            detectionRadius.GetComponent<MeshRenderer>().enabled = false; // change to true to view detection radius
+        } else
+        {
+            detectionRadius.GetComponent<MeshRenderer>().enabled = false;
+        }
+
     }
 
     private void AttackCycle()
@@ -51,12 +65,23 @@ public class TowerController : MonoBehaviour
         {
             if (currentTarget != null)
             {
-                print("Attacking: " + target.name);
-                GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
-                atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                Destroy(atk, 1.5f);
-                target.GetComponent<IDamageable>().takeDamage(damage, this.gameObject);
-                //target.GetComponent<EnemyTest>().TakeDamage(damage, this.gameObject);
+                //print("Attacking: " + target.name);
+                if (attackFX.name == "Blast")
+                {
+                    GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
+                    atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                    target.GetComponent<IDamageable>().takeDamage(damage, this.gameObject);
+                    //target.GetComponent<EnemyTest>().TakeDamage(damage, this.gameObject);
+                    Destroy(atk, 1.5f);
+                } else if (attackFX.name == "Chill")
+                {
+                    GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
+                    atk.GetComponent<ChillAttack>().parentTower = this.gameObject;
+                    atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                    Destroy(atk, 1.5f);
+                }
+
+
                 nextFire = Time.time + (1 / fireRate);
             }
         }
