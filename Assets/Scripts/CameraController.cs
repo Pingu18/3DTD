@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("BuildController GameObject Ref")]
+    [SerializeField] private GameObject buildControllerObj; // reference to GameObject buildController
+
     [Header("Player Cam Ref")]
     [SerializeField] private GameObject pCamRef;    // reference to GameObject player camera
 
@@ -22,6 +25,8 @@ public class CameraController : MonoBehaviour
     [Header("Sensitivity Y")]
     [SerializeField] private float sensY = 50f;     // y sensitivity
 
+    private BuildController buildController;    // reference to BuildController script
+
     private Camera pCam;    // reference to player camera
     private Camera bCam;    // reference to build camera
 
@@ -32,11 +37,12 @@ public class CameraController : MonoBehaviour
     private float maxAngle = 90.0f;     // maximum verticle angle movement
     private float multiplier = 0.01f;   // sensitivity multiplier
 
-    private bool inBuild = false;       // whether player is in build mode
-
     // Start is called before the first frame update
     private void Start()
     {
+        Debug.Log("Getting BuildController script... (CameraController");
+        buildController = buildControllerObj.GetComponent<BuildController>();
+
         Debug.Log("Getting cameras... (CameraController)");
         pCam = pCamRef.GetComponent<Camera>();
         pCam.enabled = true;
@@ -51,25 +57,14 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            toggleBuild();
-            toggleCamera();
-        }
-
-        if (!inBuild)
+        if (!buildController.getInBuild())
             rotateCamera();
     }
 
-    private void toggleCamera()
+    public void toggleCamera()
     {
         pCam.enabled = !pCam.enabled;
         bCam.enabled = !bCam.enabled;
-    }
-
-    private void toggleBuild()
-    {
-        inBuild = !inBuild;
     }
 
     private void rotateCamera()

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("BuildController GameObject Ref")]
+    [SerializeField] private GameObject buildControllerObj; // reference to GameObject buildController
+
     [Header("Player Model")]
     [SerializeField] private GameObject model;   // reference to GameObject model
 
@@ -19,7 +22,8 @@ public class PlayerController : MonoBehaviour
     [Header("Jump Power")]
     [SerializeField] private float jumpForce;  // player jump height
 
-    private Rigidbody rb;       // reference to Rigidbody component
+    private BuildController buildController;    // reference to BuildController script
+    private Rigidbody rb;                       // reference to Rigidbody component
 
     private float horizontalMovement;
     private float verticalMovement;
@@ -37,6 +41,9 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Getting BuildController script... (PlayerController)");
+        buildController = buildControllerObj.GetComponent<BuildController>();
+
         Debug.Log("Getting components... (PlayerController)");
         rb = GetComponent<Rigidbody>();
 
@@ -44,10 +51,12 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        input();
-        controlDrag();
-        jump();
-
+        if (!buildController.getInBuild())
+        {
+            input();
+            controlDrag();
+            jump();
+        }
         //testShooting();
     }
 
