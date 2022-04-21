@@ -6,7 +6,7 @@ public class BuildController : MonoBehaviour
 {
     [SerializeField] private Camera buildCamera;
     [SerializeField] private GameObject mouseIndicatorHighlight;
-    [SerializeField] private LayerMask groundLayerMask; // set to Ground layer so can only place structures on ground
+    [SerializeField] private LayerMask placeableLayerMask; // set to Ground layer so can only place structures on ground
     [SerializeField] private LayerMask structureLayerMask;
 
     MouseIndicatorController mouseCon;
@@ -24,8 +24,12 @@ public class BuildController : MonoBehaviour
     private Color32 activeColor = new Color32(115, 255, 128, 255);
 
     public float camSpeed = 20f;
+    public float scrollSpeed = 25f;
     public float panBorder = 10f;
     public Vector2 panLimit;
+    private float scroll;
+    public float minY = 20f;
+    public float maxY = 80f;
 
     enum BuildMode
     {
@@ -57,9 +61,9 @@ public class BuildController : MonoBehaviour
 
             if (buildMode == BuildMode.PLACE)
             {
+                mouseIndicatorHighlight.SetActive(true);
                 MouseIndicator();
                 StructurePlacement();
-                mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = true;
             }
             if (buildMode == BuildMode.DELETE)
             {
@@ -71,6 +75,7 @@ public class BuildController : MonoBehaviour
             mouseIndicatorHighlight.SetActive(false);
             buildCanvas.gameObject.SetActive(false);
             modeText.gameObject.SetActive(false);
+            mouseCon.ClearCollisions();
         }
     }
 
@@ -145,7 +150,11 @@ public class BuildController : MonoBehaviour
             pos.x -= camSpeed * Time.deltaTime;
         }
 
+        scroll = Input.GetAxis("Mouse ScrollWheel");
+        pos.y -= scroll * scrollSpeed * 100f * Time.deltaTime;
+
         pos.x = Mathf.Clamp(pos.x, -panLimit.x, panLimit.x); // limit area you can pan to (can't move camera forever)
+        pos.y = Mathf.Clamp(pos.y, minY, maxY);
         pos.z = Mathf.Clamp(pos.z, -panLimit.y, panLimit.y);
 
         buildCamera.transform.position = pos; // update with new camera position
@@ -178,16 +187,15 @@ public class BuildController : MonoBehaviour
 
     private void MouseIndicator()
     {
-        mouseIndicatorHighlight.SetActive(true);
+        mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = true;
         Ray ray = buildCamera.ScreenPointToRay(Input.mousePosition); // shoot ray from camera to mouse position
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, groundLayerMask))
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, placeableLayerMask))
         {
             transform.position = raycastHit.point;
-
         }
         else
         {
-            mouseIndicatorHighlight.SetActive(false);
+            mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 

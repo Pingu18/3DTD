@@ -11,7 +11,8 @@ public class MouseIndicatorController : MonoBehaviour
 
     private void Start()
     {
-        Physics.IgnoreLayerCollision(0, 6);
+        Physics.IgnoreLayerCollision(9, 6);
+        Physics.IgnoreLayerCollision(9, 0);
     }
 
     private void Update()
@@ -41,5 +42,10 @@ public class MouseIndicatorController : MonoBehaviour
     public void RemoveStructureFromCollisions(GameObject structure)
     {
         collisions.Remove(structure);
+    }
+
+    public void ClearCollisions()
+    {
+        collisions.Clear();
     }
 }
