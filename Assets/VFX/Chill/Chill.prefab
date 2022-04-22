@@ -170,4 +170,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentTower: {fileID: 0}
-  sphereCol: {fileID: 451766114}

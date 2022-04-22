@@ -12,24 +12,31 @@ public class BuildController : MonoBehaviour
     [SerializeField] private LayerMask structureLayerMask;
 
     [SerializeField] private GameObject cameraControllerObj;    // reference to GameObject that holds CameraController script
-
     private CameraController cameraController;  // reference to CameraController script
-
-    MouseIndicatorController mouseCon;
+    private MouseIndicatorController mouseCon;
+    
+    [Header("Structures")]
     [SerializeField] private List<GameObject> towers;
     public GameObject iceTower;
     public GameObject fireTower;
     private GameObject activeStructure;
 
+    [Header("UI")]
     public Canvas buildCanvas;
     private int activeSlot;
     public Image Slot1;
     public Image Slot2;
     public TMP_Text modeText;
+    public TMP_Text towerNameText;
+    public TMP_Text towerADText;
+    public TMP_Text towerASText;
+    public TMP_Text towerRangeText;
+    public GameObject selectedTower;
 
     private Color32 defaultColor = new Color32(255, 255, 255, 255);
     private Color32 activeColor = new Color32(115, 255, 128, 255);
 
+    [Header("Camera Controls")]
     public float camSpeed = 20f;
     public float scrollSpeed = 25f;
     public float panBorder = 10f;
@@ -37,6 +44,9 @@ public class BuildController : MonoBehaviour
     private float scroll;
     public float minY = 20f;
     public float maxY = 80f;
+
+    [Header("Animations")]
+    public Animator towerStats;
 
     enum BuildMode
     {
@@ -240,6 +250,12 @@ public class BuildController : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, structureLayerMask))
             {
                 mouseCon.RemoveStructureFromCollisions(raycastHit.collider.gameObject);
+                if (raycastHit.collider.gameObject == selectedTower)
+                {
+                    selectedTower = null;
+                    towerStats.SetBool("isSelected", false);
+                    towerStats.SetTrigger("deselect");
+                }
                 Destroy(raycastHit.collider.gameObject);   
             }
         }
@@ -260,6 +276,50 @@ public class BuildController : MonoBehaviour
                 break;
             default:
                 break;
+        }
+
+        // select and unselected towers
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            Ray ray = buildCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, structureLayerMask))
+            {
+                if (selectedTower != null && selectedTower != raycastHit.transform.gameObject)
+                {
+                    selectedTower.GetComponent<TowerController>().SetSelected(false); // set previously selected tower to unselected
+                    selectedTower = raycastHit.transform.gameObject;
+                    selectedTower.GetComponent<TowerController>().SetSelected(true);
+                    towerStats.SetBool("isSelected", true);
+                } else
+                {
+                    selectedTower = raycastHit.transform.gameObject;
+                    selectedTower.GetComponent<TowerController>().SetSelected(true);
+                    towerStats.SetBool("isSelected", true);
+                }
+            } else
+            {
+                if (selectedTower != null)
+                {
+                    selectedTower.GetComponent<TowerController>().SetSelected(false);
+                    selectedTower = null;
+                    towerStats.SetBool("isSelected", false);
+                    towerStats.SetTrigger("deselect");
+                }
+            }
+        }
+
+        if (selectedTower != null)
+        {
+            towerNameText.text = selectedTower.name;
+            towerADText.text = "AD: " + selectedTower.GetComponent<TowerController>().damage.ToString();
+            towerASText.text = "AS: " + selectedTower.GetComponent<TowerController>().fireRate.ToString();
+            towerRangeText.text = "Range: " + selectedTower.GetComponent<TowerController>().range.ToString();
+        } else
+        {
+            towerNameText.text = "";
+            towerADText.text = "";
+            towerASText.text = "";
+            towerRangeText.text = "";
         }
     }
 

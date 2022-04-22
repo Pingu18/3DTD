@@ -30,14 +30,13 @@ public class TowerController : MonoBehaviour
     {
         AttackCycle();
 
-        if (buildCon.getInBuild())
+        if (buildCon.getInBuild() && drawRadius)
         {
-            detectionRadius.GetComponent<MeshRenderer>().enabled = false; // change to true to view detection radius
+            detectionRadius.GetComponent<MeshRenderer>().enabled = true;
         } else
         {
             detectionRadius.GetComponent<MeshRenderer>().enabled = false;
         }
-
     }
 
     private void AttackCycle()
@@ -69,6 +68,7 @@ public class TowerController : MonoBehaviour
                 if (attackFX.name == "Blast")
                 {
                     GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
+                    atk.GetComponent<BlastAttack>().target = target;
                     atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                     target.GetComponent<IDamageable>().takeDamage(damage, this.gameObject);
                     //target.GetComponent<EnemyTest>().TakeDamage(damage, this.gameObject);
@@ -80,7 +80,6 @@ public class TowerController : MonoBehaviour
                     atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                     Destroy(atk, 1.5f);
                 }
-
 
                 nextFire = Time.time + (1 / fireRate);
             }
@@ -109,5 +108,18 @@ public class TowerController : MonoBehaviour
             }
         }
         return closestTarget;
+    }
+
+    public void SetSelected(bool isSelected)
+    {
+        if (isSelected)
+        {
+            this.gameObject.GetComponent<Outline>().enabled = true;
+            //drawRadius = true;
+        } else
+        {
+            this.gameObject.GetComponent<Outline>().enabled = false;
+            //drawRadius = false;
+        }
     }
 }
