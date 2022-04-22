@@ -23,11 +23,11 @@ public class EnemyController : MonoBehaviour
     private int currWave;
     private int currGroup;
     private int enemiesAlive;
-    private bool waveCleared;
+    private int groupsSpawned = 0;
+    private bool groupsCleared;
 
     private void Start()
     {
-        //Debug.Log(commonEnemy.name.ToString());
         //StartCoroutine(test());
         StartCoroutine(startWaves(enemyWavesJSON));
         //spawnTestEnemies();
@@ -60,66 +60,83 @@ public class EnemyController : MonoBehaviour
     {
         // Reads individual wave information from JSON file
         Waves allWaves = JsonUtility.FromJson<Waves>(jsonFile.text);
-
+        
         foreach (Wave wave in allWaves.waves)
         {
             // Variable List:
             // wave.wave -> Wave Number
+            // wave.groupsToSpawn -> how many groups to spawn at the same time (how many paths are there)
+            // wave.groups -> array of groups
 
             currWave = wave.wave;
+            //Debug.Log("Groups To Spawn: " + wave.groupsToSpawn);
 
             foreach (Group groups in wave.groups)
             {
                 // Variable List:
                 // groups.groupNum -> Group Number
+                // groups.spawnX -> spawn X position
+                // groups.spawnY -> spawn Y position
+                // groups.spawnZ -> spawn Z position
+                // groups.enemies -> array of enemies
 
                 currGroup = groups.groupNum;
+                groupsCleared = false;
 
-                // Add groupsToSpawn to JSON -> N groups to spawn at the same time
-                // Add amountOfGroups to JSON -> how many groups there are
-                // for loop index by N
-                // add variable: currentGroupToSpawn = 1
-                // whenever coroutine starts, increment currentGroupToSpawn
-                // when group dies, spawn next group (currentGroupToSpawn)
-                // until currentGroupToSpawn > amountOfGroups
+                // Start spawning the enemies
+                StartCoroutine(spawnEnemies(groups));
+                groupsSpawned++;
 
-                // Put this logic into coroutine
-                foreach (Enemy enemy in groups.enemies)
+                // Wait until the same number of groups spawned is equal to waves.groupsToSpawn before checking for clear condition
+                yield return StartCoroutine(checkGroupsSpawned(wave.groupsToSpawn));
+            }
+        }
+        
+
+        Debug.Log("All Waves Cleared!");
+        yield return 0;
+    }
+
+    private IEnumerator checkGroupsSpawned(int groupsToSpawn)
+    {
+        if (groupsSpawned != groupsToSpawn)
+            yield return 0;
+        else
+            yield return StartCoroutine(waitUntilClear());
+    }
+
+    private IEnumerator spawnEnemies(Group groups)
+    {
+        foreach (Enemy enemy in groups.enemies)
+        {
+            // Variable List:
+            // enemy.enemyName -> Name of enemy prefab
+            // enemy.toSpawn -> how much to spawn
+
+            Debug.Log("Starting Wave " + currWave + ": Group " + currGroup);
+            enemiesAlive = enemiesAlive + enemy.toSpawn;
+
+            // Compare enemy names to decide which enemy to spawn
+            if (enemy.enemyName.Equals(commonEnemy.name))
+            {
+                for (int i = 1; i <= enemy.toSpawn; i++)
                 {
-                    // Variable List:
-                    // enemy.enemyName -> Name of enemy prefab
-                    // enemy.toSpawn -> how much to spawn
-
-                    Debug.Log("Starting Wave " + currWave + ": Group " + currGroup);
-                    enemiesAlive = enemiesAlive + enemy.toSpawn;
-
-                    // Compare enemy names to decide which enemy to spawn
-                    if (enemy.enemyName.Equals(commonEnemy.name))
-                    {
-                        for (int i = 1; i <= enemy.toSpawn; i++)
-                        {
-                            spawnEnemy(commonEnemy);
-                            yield return new WaitForSeconds(0.5f);
-                        }
-                    }
-
-                    // Set waveCleared to false
-                    waveCleared = false;
-
-                    // Wait until wave is cleared before spawning next wave
-                    yield return StartCoroutine(waitUntilClear());
+                    // Set spawnPoint of the enemy before spawning
+                    setSpawnPoint(groups.spawnX, groups.spawnY, groups.spawnZ);
+                    spawnEnemy(commonEnemy);
+                    yield return new WaitForSeconds(0.5f);
                 }
             }
         }
 
-        Debug.Log("All Waves Cleared!");
         yield return 0;
     }
 
     private IEnumerator waitUntilClear()
     {
         Debug.Log("Waiting until wave clear...");
-        yield return new WaitUntil(() => waveCleared == true);
+        yield return new WaitUntil(() => groupsCleared == true);
+        groupsSpawned = 0;
     }
 
     public void decrementEnemiesAlive()
@@ -129,7 +146,7 @@ public class EnemyController : MonoBehaviour
         if (enemiesAlive == 0)
         {
             Debug.Log("Wave " + currWave + ": Group " + currGroup + " Cleared...");
-            waveCleared = true;
+            groupsCleared = true;
         }
     }
 
@@ -147,5 +164,10 @@ public class EnemyController : MonoBehaviour
         newEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity, transform);
         enemyNavMesh = newEnemy.GetComponent<EnemyNavMesh>();
         enemyNavMesh.setDestination(destination);
+    }
+
+    private void setSpawnPoint(float x, float y, float z)
+    {
+        spawnPoint.position = new Vector3(x, y, z);
     }
 }

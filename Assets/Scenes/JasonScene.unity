@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 73d32149c3066394a8eee54d46949405, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 472691948f5e99946aa454a509612ccc, type: 2}
 --- !u!1 &43284588
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,9 +665,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   cameraControllerObj: {fileID: 1052603626}
-  towerBase: {fileID: 8669465799452634657, guid: c9d87694bb0653c4a9a5ab1433550ce8,
+  towers: []
+  iceTower: {fileID: 8669465799452634657, guid: c9d87694bb0653c4a9a5ab1433550ce8,
     type: 3}
-  tower2: {fileID: 1081660121}
+  fireTower: {fileID: 8669465799452634657, guid: 8774124b4e3c56d459522c96384e4b14,
+    type: 3}
   buildCanvas: {fileID: 476317809}
   Slot1: {fileID: 630064543}
   Slot2: {fileID: 2009959215}
@@ -830,10 +832,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195841156}
     m_Modifications:
+    - target: {fileID: 8355834185306972506, guid: ed983e62abdee2c4082951528a5db345,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8355834186336070421, guid: ed983e62abdee2c4082951528a5db345,
         type: 3}
       propertyPath: m_Name
       value: Wall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355834186336070421, guid: ed983e62abdee2c4082951528a5db345,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8355834186336070426, guid: ed983e62abdee2c4082951528a5db345,
         type: 3}
@@ -2869,12 +2881,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8774124b4e3c56d459522c96384e4b14, type: 3}
---- !u!1 &1081660121 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8669465799452634657, guid: 8774124b4e3c56d459522c96384e4b14,
-    type: 3}
-  m_PrefabInstance: {fileID: 1081660120}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1139265452
 GameObject:
   m_ObjectHideFlags: 0
@@ -4617,10 +4623,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195841156}
     m_Modifications:
+    - target: {fileID: 8355834185306972506, guid: ed983e62abdee2c4082951528a5db345,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8355834186336070421, guid: ed983e62abdee2c4082951528a5db345,
         type: 3}
       propertyPath: m_Name
       value: Wall (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355834186336070421, guid: ed983e62abdee2c4082951528a5db345,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8355834186336070426, guid: ed983e62abdee2c4082951528a5db345,
         type: 3}
@@ -4697,10 +4713,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195841156}
     m_Modifications:
+    - target: {fileID: 8355834185306972506, guid: ed983e62abdee2c4082951528a5db345,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8355834186336070421, guid: ed983e62abdee2c4082951528a5db345,
         type: 3}
       propertyPath: m_Name
       value: Wall (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355834186336070421, guid: ed983e62abdee2c4082951528a5db345,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8355834186336070426, guid: ed983e62abdee2c4082951528a5db345,
         type: 3}
@@ -4777,10 +4803,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195841156}
     m_Modifications:
+    - target: {fileID: 8355834185306972506, guid: ed983e62abdee2c4082951528a5db345,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8355834186336070421, guid: ed983e62abdee2c4082951528a5db345,
         type: 3}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355834186336070421, guid: ed983e62abdee2c4082951528a5db345,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8355834186336070426, guid: ed983e62abdee2c4082951528a5db345,
         type: 3}
