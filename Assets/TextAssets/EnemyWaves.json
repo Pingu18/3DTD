@@ -3,10 +3,14 @@
   [
     {
       "wave": 1,
+      "groupsToSpawn": 1,
       "groups":
       [
         {
           "groupNum": 1,
+          "spawnX": -22.7,
+          "spawnY": 1.5,
+          "spawnZ": 14.14,
           "enemies":
           [
             {
@@ -17,6 +21,9 @@
         },
         {
           "groupNum": 2,
+          "spawnX": -22.7,
+          "spawnY": 1.5,
+          "spawnZ": 14.14,
           "enemies":
           [
             {
@@ -30,10 +37,14 @@
 
     {
       "wave": 2,
+      "groupsToSpawn": 2,
       "groups":
       [
         {
           "groupNum": 1,
+          "spawnX": -22.7,
+          "spawnY": 1.5,
+          "spawnZ": 14.14,
           "enemies":
           [
             {
@@ -44,6 +55,9 @@
         },
         {
           "groupNum": 2,
+          "spawnX": 0,
+          "spawnY": 1.5,
+          "spawnZ": 10,
           "enemies":
           [
             {
@@ -57,10 +71,14 @@
 
     {
       "wave": 3,
+      "groupsToSpawn": 1,
       "groups":
       [
         {
           "groupNum": 1,
+          "spawnX": -22.7,
+          "spawnY": 1.5,
+          "spawnZ": 14.14,
           "enemies":
           [
             {
@@ -71,6 +89,9 @@
         },
         {
           "groupNum": 2,
+          "spawnX": -22.7,
+          "spawnY": 1.5,
+          "spawnZ": 14.14,
           "enemies":
           [
             {
@@ -84,10 +105,14 @@
 
     {
       "wave": 4,
+      "groupsToSpawn": 1,
       "groups":
       [
         {
           "groupNum": 1,
+          "spawnX": -22.7,
+          "spawnY": 1.5,
+          "spawnZ": 14.14,
           "enemies":
           [
             {
@@ -98,6 +123,9 @@
         },
         {
           "groupNum": 2,
+          "spawnX": -22.7,
+          "spawnY": 1.5,
+          "spawnZ": 14.14,
           "enemies":
           [
             {
@@ -111,10 +139,14 @@
 
     {
       "wave": 5,
+      "groupsToSpawn": 1,
       "groups":
       [
         {
           "groupNum": 1,
+          "spawnX": -22.7,
+          "spawnY": 1.5,
+          "spawnZ": 14.14,
           "enemies":
           [
             {
@@ -125,6 +157,9 @@
         },
         {
           "groupNum": 2,
+          "spawnX": -22.7,
+          "spawnY": 1.5,
+          "spawnZ": 14.14,
           "enemies":
           [
             {
