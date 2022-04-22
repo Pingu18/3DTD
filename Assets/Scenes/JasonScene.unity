@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028346, g: 0.22571373, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -665,9 +665,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   cameraControllerObj: {fileID: 1052603626}
-  towerBase: {fileID: 8669465799452634657, guid: c9d87694bb0653c4a9a5ab1433550ce8,
+  towers: []
+  iceTower: {fileID: 8669465799452634657, guid: c9d87694bb0653c4a9a5ab1433550ce8,
     type: 3}
-  tower2: {fileID: 1081660121}
+  fireTower: {fileID: 8669465799452634657, guid: 8774124b4e3c56d459522c96384e4b14,
+    type: 3}
   buildCanvas: {fileID: 476317809}
   Slot1: {fileID: 630064543}
   Slot2: {fileID: 2009959215}
@@ -2869,12 +2871,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8774124b4e3c56d459522c96384e4b14, type: 3}
---- !u!1 &1081660121 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8669465799452634657, guid: 8774124b4e3c56d459522c96384e4b14,
-    type: 3}
-  m_PrefabInstance: {fileID: 1081660120}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1139265452
 GameObject:
   m_ObjectHideFlags: 0

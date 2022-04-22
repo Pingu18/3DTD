@@ -71,8 +71,9 @@ GameObject:
   - component: {fileID: 1625247346}
   - component: {fileID: 1625247345}
   - component: {fileID: 181888681}
+  - component: {fileID: 2054823216}
   m_Layer: 7
-  m_Name: FireTower
+  m_Name: Fire Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,6 +177,24 @@ MonoBehaviour:
   targets: []
   attackFX: {fileID: 6537392655905275544, guid: 9e1026e53fd434345994a7bbb851122b,
     type: 3}
+--- !u!114 &2054823216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625247343}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.99215686, g: 1, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7532440306580122100
 GameObject:
   m_ObjectHideFlags: 0

@@ -69,6 +69,7 @@ public class TowerController : MonoBehaviour
                 if (attackFX.name == "Blast")
                 {
                     GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
+                    atk.transform.parent = target.transform;
                     atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                     target.GetComponent<IDamageable>().takeDamage(damage, this.gameObject);
                     //target.GetComponent<EnemyTest>().TakeDamage(damage, this.gameObject);
@@ -109,5 +110,16 @@ public class TowerController : MonoBehaviour
             }
         }
         return closestTarget;
+    }
+
+    public void SetSelected(bool isSelected)
+    {
+        if (isSelected)
+        {
+            this.gameObject.GetComponent<Outline>().enabled = true;
+        } else
+        {
+            this.gameObject.GetComponent<Outline>().enabled = false;
+        }
     }
 }
