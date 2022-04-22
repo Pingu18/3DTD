@@ -82,7 +82,6 @@ public class TowerController : MonoBehaviour
                     Destroy(atk, 1.5f);
                 }
 
-
                 nextFire = Time.time + (1 / fireRate);
             }
         }

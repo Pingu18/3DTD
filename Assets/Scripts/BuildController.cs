@@ -250,6 +250,12 @@ public class BuildController : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, structureLayerMask))
             {
                 mouseCon.RemoveStructureFromCollisions(raycastHit.collider.gameObject);
+                if (raycastHit.collider.gameObject == selectedTower)
+                {
+                    selectedTower = null;
+                    towerStats.SetBool("isSelected", false);
+                    towerStats.SetTrigger("deselect");
+                }
                 Destroy(raycastHit.collider.gameObject);   
             }
         }
