@@ -6,12 +6,23 @@ using UnityEngine.VFX;
 public class TowerController : MonoBehaviour
 {
     BuildController buildCon;
+
+    [Header("Tower Details")]
+    public bool canAttack;
     public float damage;
     public float range;
     public float fireRate;
+    public float maxHP;
+    public bool canHeal = false;
+    public float healAmount;
+    public float healRate;
+    private float currentHP;
     private float nextFire;
+    private float nextHeal;
+    private float clearNulls;
     GameObject currentTarget;
-    [SerializeField] private List<GameObject> targets = new List<GameObject>();
+    [SerializeField] private List<GameObject> targets = new List<GameObject>(); // list of enemies in radius
+    [SerializeField] private List<GameObject> structures = new List<GameObject>(); // list of structures in radius
     private GameObject detectionRadius;
     private Vector3 detectionScale;
     private bool drawRadius = false;
@@ -21,14 +32,25 @@ public class TowerController : MonoBehaviour
     {
         buildCon = FindObjectOfType<BuildController>();
         nextFire = 0.0f;
+        nextHeal = 0.0f;
+        clearNulls = 0.0f;
         detectionRadius = this.gameObject.transform.GetChild(0).gameObject;
         detectionScale = new Vector3(range, range / 3, range);
         detectionRadius.transform.localScale = detectionScale;
+        currentHP = maxHP;
     }
 
     private void Update()
     {
-        AttackCycle();
+        if (canAttack)
+        {
+            AttackCycle();
+        }
+
+        if (canHeal)
+        {
+            HealCycle();
+        }
 
         if (buildCon.getInBuild() && drawRadius)
         {
@@ -37,6 +59,7 @@ public class TowerController : MonoBehaviour
         {
             detectionRadius.GetComponent<MeshRenderer>().enabled = false;
         }
+
     }
 
     private void AttackCycle()
@@ -46,7 +69,50 @@ public class TowerController : MonoBehaviour
             currentTarget = SelectBestTarget();
             AttackTarget(currentTarget);
         }
+
+        if (Time.time > clearNulls)
+        {
+            for (int i = 0; i < targets.Count; i++)
+            {
+                if (targets[i] == null)
+                {
+                    targets.Remove(targets[i]);
+                }
+            }
+            clearNulls = Time.time + 10.0f;
+        }
     }
+
+    private void HealCycle()
+    {
+        if (Time.time > nextHeal)
+        {
+            for (int i = 0; i < structures.Count; i++)
+            {
+                if (structures[i] != null && structures[i].GetComponent<TowerController>().GetCurrentHP() < structures[i].GetComponent<TowerController>().maxHP)
+                {
+                    GameObject heal = Instantiate(attackFX, structures[i].transform.position, Quaternion.identity);
+                    heal.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                    Destroy(heal, 1.0f);
+                    structures[i].GetComponent<TowerController>().AddHP(healAmount);
+                }
+            }
+            nextHeal = Time.time + (1 / healRate);
+        }
+
+        if (Time.time > clearNulls)
+        {
+            for (int i = 0; i < structures.Count; i++)
+            {
+                if (structures[i] == null)
+                {
+                    structures.Remove(structures[i]);
+                }
+            }
+            clearNulls = Time.time + 10.0f;
+        }
+    }
+
 
     public void AddTarget(GameObject target)
     {
@@ -72,23 +138,21 @@ public class TowerController : MonoBehaviour
                     atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                     target.GetComponent<IDamageable>().takeDamage(damage, this.gameObject);
                     //target.GetComponent<EnemyTest>().TakeDamage(damage, this.gameObject);
-                    Destroy(atk, 1.5f);
+                    Destroy(atk, 1.0f);
                 } else if (attackFX.name == "Chill")
                 {
                     GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
                     atk.GetComponent<ChillAttack>().parentTower = this.gameObject;
                     atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                    Destroy(atk, 1.5f);
+                    Destroy(atk, 1.2f);
+                } else if (attackFX.name == "Heal")
+                {
+
                 }
 
                 nextFire = Time.time + (1 / fireRate);
             }
         }
-    }
-
-    public void RemoveTargetOnDeath(GameObject target)
-    {
-        targets.Remove(target);
     }
 
     private GameObject SelectBestTarget()
@@ -110,6 +174,16 @@ public class TowerController : MonoBehaviour
         return closestTarget;
     }
 
+    public void AddStructure(GameObject structure)
+    {
+        structures.Add(structure);
+    }
+
+    public void RemoveStructure(GameObject structure)
+    {
+        targets.Remove(structure);
+    }
+
     public void SetSelected(bool isSelected)
     {
         if (isSelected)
@@ -122,4 +196,21 @@ public class TowerController : MonoBehaviour
             //drawRadius = false;
         }
     }
+
+    public float GetCurrentHP()
+    {
+        return this.currentHP;
+    }
+
+    public void AddHP(float amount)
+    {
+        if (this.currentHP + amount > maxHP)
+        {
+            this.currentHP = maxHP;
+        } else
+        {
+            this.currentHP += amount;
+        }
+    }
+
 }

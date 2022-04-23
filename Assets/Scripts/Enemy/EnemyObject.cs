@@ -32,7 +32,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
     {
         if (currHP <= 0)
         {
-            tower.GetComponent<TowerController>().RemoveTargetOnDeath(this.gameObject);
+            tower.GetComponent<TowerController>().RemoveTarget(this.gameObject);
             enemyController.decrementEnemiesAlive();
             Destroy(gameObject);
         }
