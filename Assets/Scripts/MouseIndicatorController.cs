@@ -18,6 +18,7 @@ public class MouseIndicatorController : MonoBehaviour
         Physics.IgnoreLayerCollision(9, 0);
         Physics.IgnoreLayerCollision(9, 9);
         meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
+        canPlace = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,6 +31,22 @@ public class MouseIndicatorController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         collisions.Remove(other.gameObject);
+        UpdateCollisions();
+    }
+
+    public void RemoveStructureFromCollisions(GameObject structure)
+    {
+        collisions.Remove(structure);
+        UpdateCollisions();
+    }
+
+    public void ClearCollisions()
+    {
+        collisions.Clear();
+    }
+
+    private void UpdateCollisions()
+    {
         if (collisions.Count > 0)
         {
             canPlace = false;
@@ -40,15 +57,5 @@ public class MouseIndicatorController : MonoBehaviour
             canPlace = true;
             meshRenderer.material.color = canPlaceColor;
         }
-    }
-
-    public void RemoveStructureFromCollisions(GameObject structure)
-    {
-        collisions.Remove(structure);
-    }
-
-    public void ClearCollisions()
-    {
-        collisions.Clear();
     }
 }

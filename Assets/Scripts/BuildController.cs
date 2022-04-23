@@ -72,9 +72,7 @@ public class BuildController : MonoBehaviour
     {
         activeStructure = iceTower; // default tower selected
         activeSlot = 1; // default tower highlighted on HUD
-        activeIndicator = iceTowerIndicator;
         UpdateSlotsUI();
-        mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
         cameraController = cameraControllerObj.GetComponent<CameraController>();
         currencyController = currencyContainer.GetComponent<CurrencyController>();
     }
@@ -85,21 +83,21 @@ public class BuildController : MonoBehaviour
 
         if (inBuild)
         {
-            ToggleMode();
-            MoveCam();
-            BuildUIControl();
+            ToggleMode(); // toggle between placing and deleting structures
+            MoveCam(); // pan camera with WASD or mouse + zooming
+            BuildUIControl(); // selecting towers + UI elements
             buildCanvas.gameObject.SetActive(true);
             modeText.gameObject.SetActive(true);
 
             if (buildMode == BuildMode.PLACE)
             {
                 activeIndicator.SetActive(true);
-                MouseIndicator();
-                StructurePlacement();
+                MouseIndicator(); // handle structure placement previews
+                StructurePlacement(); // handle placement of structures
             }
             if (buildMode == BuildMode.DELETE)
             {
-                StructureDeletion();
+                StructureDeletion(); // handle deletion of structures
                 activeIndicator.GetComponent<MeshRenderer>().enabled = false;
             }
         } else
@@ -222,7 +220,7 @@ public class BuildController : MonoBehaviour
 
     private void MouseIndicator()
     {
-        switch (activeSlot)
+        switch (activeSlot) // update indicator models
         {
             case 1:
                 mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
@@ -348,6 +346,7 @@ public class BuildController : MonoBehaviour
             }
         }
 
+        // update UI tower stats
         if (selectedTower != null)
         {
             towerNameText.text = selectedTower.name;

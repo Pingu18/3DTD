@@ -8,7 +8,13 @@ public class EnemyNavMesh : MonoBehaviour
     private Transform destination;
     private NavMeshAgent navMeshAgent;
 
-    private float chillTime = 0.0f;
+    private float baseSpeed = 3.5f;
+
+    [SerializeField] private bool isSlowed = false;
+    [SerializeField] private bool isStunned = false;
+
+    private float slowTime = 0.0f;
+    private float stunTime = 0.0f;
 
     // Start is called before the first frame update
     private void Awake()
@@ -21,9 +27,22 @@ public class EnemyNavMesh : MonoBehaviour
     {
         navMeshAgent.destination = destination.position;
 
-        if (Time.time > chillTime)
+        if (Time.time > slowTime)
         {
-            navMeshAgent.speed = 3.5f;
+            isSlowed = false;
+        }
+
+        if (Time.time > stunTime)
+        {
+            isStunned = false;
+        }
+
+        if (!isSlowed && !isStunned)
+        {
+            navMeshAgent.speed = baseSpeed;
+        } else if (isStunned)
+        {
+            navMeshAgent.speed = 0.0f;
         }
     }
 
@@ -33,9 +52,20 @@ public class EnemyNavMesh : MonoBehaviour
         destination = dest;
     }
 
-    public void setSpeed(float speed)
+    public void applySlow(float slowPercent)
     {
-        navMeshAgent.speed = speed;
-        chillTime = Time.time + 1.5f;
+        float newSpeed = baseSpeed * slowPercent;
+        if (newSpeed < navMeshAgent.speed)
+        {
+            navMeshAgent.speed = newSpeed;
+        }
+        slowTime = Time.time + 1.5f;
+        isSlowed = true;
+    }
+
+    public void applyStun(float stunDuration)
+    {
+        stunTime = Time.time + stunDuration;
+        isStunned = true;
     }
 }
