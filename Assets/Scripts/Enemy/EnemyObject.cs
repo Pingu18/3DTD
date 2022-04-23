@@ -6,20 +6,38 @@ public class EnemyObject : MonoBehaviour, IDamageable
 {
     [SerializeField] private EnemyStats enemyStats;
     private EnemyController enemyController;
+    private CurrencyController currencyController;
 
     private string name;
+    private string element;
+    private float takeDamageMultiplier;
+
     private float maxHP;
     private float currHP;
-    private float moveSpeed;
     private float damage;
+    private float attackSpeed;
+    private float range;
+    private float moveSpeed;
+
+    private int worth;
 
     private void Start()
     {
         name = enemyStats.name;
+        element = enemyStats.element;
+        takeDamageMultiplier = enemyStats.damageMultiplier;
+
         maxHP = enemyStats.maxHealth;
         currHP = enemyStats.maxHealth;
+        damage = enemyStats.damage;
+        attackSpeed = enemyStats.attackSpeed;
+        range = enemyStats.range;
+        moveSpeed = enemyStats.speed;
+
+        worth = enemyStats.worth;
 
         enemyController = transform.parent.GetComponent<EnemyController>();
+        currencyController = GameObject.Find("CurrencyContainer").GetComponent<CurrencyController>();
     }
 
     public void takeDamage(float dmgTaken, GameObject tower)
@@ -34,6 +52,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
         {
             tower.GetComponent<TowerController>().RemoveTarget(this.gameObject);
             enemyController.decrementEnemiesAlive();
+            currencyController.addMoney(worth);
             Destroy(gameObject);
         }
 

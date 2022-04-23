@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4adabbf893a3aa844ad5144291f64dee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyController: {fileID: 0}
   enemyStats: {fileID: 11400000, guid: 8108ef188f585fe4d8e2abd235f666c6, type: 2}
+  currencyContainer: {fileID: 0}
 --- !u!54 &5376175982560322410
 Rigidbody:
   m_ObjectHideFlags: 0

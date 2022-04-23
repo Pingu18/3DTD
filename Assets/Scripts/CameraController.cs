@@ -43,7 +43,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Debug.Log("Getting BuildController script... (CameraController");
+        Debug.Log("Getting BuildController script... (CameraController)");
         buildController = buildControllerObj.GetComponent<BuildController>();
 
         Debug.Log("Getting cameras... (CameraController)");

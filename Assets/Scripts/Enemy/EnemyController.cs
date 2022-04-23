@@ -2,14 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class EnemyController : MonoBehaviour
 {
     // JSON file containing information about each waves
     [SerializeField] private TextAsset enemyWavesJSON;
 
-    // Reference to each different type of enemies
-    [SerializeField] private GameObject commonEnemy;
+    // Reference to currencyContainer
+    [SerializeField] private GameObject currencyContainer;
+
+    [SerializeField] private TMP_Text notStartedText;
+    [SerializeField] private TMP_Text timerText;
+    [SerializeField] private TMP_Text skipText;
 
     // Where the enemies spawn
     [SerializeField] private Transform spawnPoint;
@@ -17,11 +22,15 @@ public class EnemyController : MonoBehaviour
     // Destination that the enemies are trying to reach
     [SerializeField] private Transform destination;
 
+    // EnemyDict that contains a reference to each different type of enemy
+    private EnemyDict enemyDict;
+
     private GameObject newEnemy;
     private EnemyNavMesh enemyNavMesh;
 
     private float timeToWait = 30f;
 
+    private bool levelStarted;
     private int currWave;
     private int currGroup;
     private int enemiesAlive;
@@ -32,15 +41,30 @@ public class EnemyController : MonoBehaviour
     private bool timerOn = false;
     private bool checkSkipOn = false;
     private bool skip;
+
     private void Start()
     {
-        timerValue = timeToWait;
+        Debug.Log("Getting enemyDict... (EnemyController)");
+        enemyDict = GetComponent<EnemyDict>();
 
-        StartCoroutine(startWaves(enemyWavesJSON));
+        Debug.Log("Initializing parameters... (EnemyController)");
+        timerValue = timeToWait;
+        levelStarted = false;
+
+        StartCoroutine(startGame());
     }
 
     private void Update()
     {
+        if (!levelStarted)
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                levelStarted = true;
+                notStartedText.enabled = false;
+            }
+        }
+
         if (timerOn)
         {
             if (timerValue > 0)
@@ -52,6 +76,8 @@ public class EnemyController : MonoBehaviour
                 timerValue = 0;
                 finishTimer();
             }
+
+            timerText.text = "Until next wave: " + Mathf.FloorToInt(timerValue % 60).ToString();
         }
 
         if (checkSkipOn)
@@ -63,6 +89,13 @@ public class EnemyController : MonoBehaviour
                 endTimer();
             }
         }
+    }
+
+    private IEnumerator startGame()
+    {
+        yield return new WaitUntil(() => levelStarted == true);
+        currencyContainer.GetComponent<CurrencyController>().setMoney(200);
+        StartCoroutine(startWaves(enemyWavesJSON));
     }
 
     private IEnumerator startWaves(TextAsset jsonFile)
@@ -102,11 +135,15 @@ public class EnemyController : MonoBehaviour
     private void startTimer()
     {
         timerOn = true;
+        timerText.enabled = true;
+        skipText.enabled = true;
     }
 
     public void endTimer()
     {
         timerOn = false;
+        timerText.enabled = false;
+        skipText.enabled = false;
     }
 
     private void resetTimer()
@@ -156,20 +193,16 @@ public class EnemyController : MonoBehaviour
     {
         foreach (Enemy enemy in groups.enemies)
         {
-            // Variable List: enemy.enemyName/toSpawn
+            // Variable List: enemy.enemyName / toSpawn
             Debug.Log("Starting Wave " + currWave + ": Group " + currGroup);
             enemiesAlive = enemiesAlive + enemy.toSpawn;
 
-            // Compare enemy names to decide which enemy to spawn
-            if (enemy.enemyName.Equals(commonEnemy.name))
+            for (int i = 1; i <= enemy.toSpawn; i++)
             {
-                for (int i = 1; i <= enemy.toSpawn; i++)
-                {
-                    // Set spawnPoint of the enemy before spawning
-                    setSpawnPoint(groups.spawnX, groups.spawnY, groups.spawnZ);
-                    spawnEnemy(commonEnemy);
-                    yield return new WaitForSeconds(0.5f);
-                }
+                // Set spawnPoint of the enemy before spawning
+                setSpawnPoint(groups.spawnX, groups.spawnY, groups.spawnZ);
+                spawnEnemy(enemyDict.getEnemyPrefab(enemy.enemyName));
+                yield return new WaitForSeconds(0.5f);
             }
         }
 
@@ -212,7 +245,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log("Spawning test enemies...");
         for (int i = -10; i <= 10; i += 2)
         {
-            spawnEnemy(commonEnemy);
+            spawnEnemy(enemyDict.getEnemyPrefab("TestEnemy"));
         }
     }
 }
