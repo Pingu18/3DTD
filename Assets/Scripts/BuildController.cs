@@ -16,9 +16,13 @@ public class BuildController : MonoBehaviour
     [SerializeField] private GameObject cameraControllerObj;    // reference to GameObject that holds CameraController script
     private CameraController cameraController;  // reference to CameraController script
     private MouseIndicatorController mouseCon;
+
+    [SerializeField] private GameObject currencyContainer;
+    private CurrencyController currencyController;
+
+    [SerializeField] private int testCost;
     
     [Header("Structures")]
-    [SerializeField] private List<GameObject> towers;
     public GameObject iceTower;
     public GameObject fireTower;
     public GameObject grassTower;
@@ -33,6 +37,7 @@ public class BuildController : MonoBehaviour
     public Image Slot3;
     public Image Slot4;
     public TMP_Text modeText;
+    public TMP_Text poorText;
     public TMP_Text towerNameText;
     public TMP_Text towerADText;
     public TMP_Text towerASText;
@@ -71,6 +76,7 @@ public class BuildController : MonoBehaviour
         UpdateSlotsUI();
         mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
         cameraController = cameraControllerObj.GetComponent<CameraController>();
+        currencyController = currencyContainer.GetComponent<CurrencyController>();
     }
 
     private void Update()
@@ -279,7 +285,15 @@ public class BuildController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && mouseCon.canPlace)
         {
-            Instantiate(activeStructure, transform.position, Quaternion.identity); // place tower at mouse location
+            if (currencyController.checkSufficientMoney(testCost))
+            {
+                Instantiate(activeStructure, transform.position, Quaternion.identity); // place tower at mouse location
+                currencyController.removeMoney(testCost);
+                poorText.enabled = false;
+            } else {
+                poorText.enabled = true;
+                StartCoroutine(wait(3));
+            }
         }
     }
 
@@ -388,6 +402,12 @@ public class BuildController : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private IEnumerator wait(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        poorText.enabled = false;
     }
     public bool getInBuild()
     {

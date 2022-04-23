@@ -7,7 +7,7 @@ public class MouseIndicatorController : MonoBehaviour
     [SerializeField] private Material canPlaceMat;
     [SerializeField] private Material cannotPlaceMat;
     [SerializeField] private List<GameObject> collisions = new List<GameObject>();
-    public bool canPlace = true;
+    [SerializeField] public bool canPlace = true;
     MeshRenderer meshRenderer;
     public Color32 canPlaceColor = new Color32(0, 255, 255, 100);
     public Color32 cannotPlaceColor = new Color32(255, 5, 0, 100);

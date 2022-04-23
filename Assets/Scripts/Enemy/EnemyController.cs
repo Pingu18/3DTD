@@ -2,14 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class EnemyController : MonoBehaviour
 {
     // JSON file containing information about each waves
     [SerializeField] private TextAsset enemyWavesJSON;
 
-    // Reference to each different type of enemies
-    [SerializeField] private GameObject commonEnemy;
+    // Reference to currencyContainer
+    [SerializeField] private GameObject currencyContainer;
+
+    [SerializeField] private TMP_Text notStartedText;
+    [SerializeField] private TMP_Text timerText;
+    [SerializeField] private TMP_Text skipText;
 
     // Where the enemies spawn
     [SerializeField] private Transform spawnPoint;
@@ -17,44 +22,81 @@ public class EnemyController : MonoBehaviour
     // Destination that the enemies are trying to reach
     [SerializeField] private Transform destination;
 
+    // EnemyDict that contains a reference to each different type of enemy
+    private EnemyDict enemyDict;
+
     private GameObject newEnemy;
     private EnemyNavMesh enemyNavMesh;
 
+    private float timeToWait = 30f;
+
+    private bool levelStarted;
     private int currWave;
     private int currGroup;
     private int enemiesAlive;
     private int groupsSpawned = 0;
     private bool groupsCleared;
 
+    private float timerValue;
+    private bool timerOn = false;
+    private bool checkSkipOn = false;
+    private bool skip;
+
     private void Start()
     {
-        //StartCoroutine(test());
-        StartCoroutine(startWaves(enemyWavesJSON));
-        //spawnTestEnemies();
+        Debug.Log("Getting enemyDict... (EnemyController)");
+        enemyDict = GetComponent<EnemyDict>();
+
+        Debug.Log("Initializing parameters... (EnemyController)");
+        timerValue = timeToWait;
+        levelStarted = false;
+
+        StartCoroutine(startGame());
     }
 
     private void Update()
     {
-        // Nothing atm...
+        if (!levelStarted)
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                levelStarted = true;
+                notStartedText.enabled = false;
+            }
+        }
+
+        if (timerOn)
+        {
+            if (timerValue > 0)
+            {
+                timerValue -= Time.deltaTime;
+            }
+            else
+            {
+                timerValue = 0;
+                finishTimer();
+            }
+
+            timerText.text = "Until next wave: " + Mathf.FloorToInt(timerValue % 60).ToString();
+        }
+
+        if (checkSkipOn)
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Debug.Log("Skip!");
+                skip = true;
+                endTimer();
+            }
+        }
     }
 
-    /*
-    private IEnumerator test()
+    private IEnumerator startGame()
     {
-        Debug.Log("Running test...");
-
-        yield return StartCoroutine(waitUntilTest());
-        Debug.Log("Waited 10 seconds...");
-
-        yield return 0;
+        yield return new WaitUntil(() => levelStarted == true);
+        currencyContainer.GetComponent<CurrencyController>().setMoney(200);
+        StartCoroutine(startWaves(enemyWavesJSON));
     }
-
-    private IEnumerator waitUntilTest()
-    {
-        Debug.Log("Running waitUntilTest");
-        yield return new WaitForSeconds(10);
-    }
-    */
 
     private IEnumerator startWaves(TextAsset jsonFile)
     {
@@ -63,23 +105,13 @@ public class EnemyController : MonoBehaviour
         
         foreach (Wave wave in allWaves.waves)
         {
-            // Variable List:
-            // wave.wave -> Wave Number
-            // wave.groupsToSpawn -> how many groups to spawn at the same time (how many paths are there)
-            // wave.groups -> array of groups
-
+            // Variable List: wave.wave/groupsToSpawn/groups
             currWave = wave.wave;
-            //Debug.Log("Groups To Spawn: " + wave.groupsToSpawn);
+            skip = false;
 
             foreach (Group groups in wave.groups)
             {
-                // Variable List:
-                // groups.groupNum -> Group Number
-                // groups.spawnX -> spawn X position
-                // groups.spawnY -> spawn Y position
-                // groups.spawnZ -> spawn Z position
-                // groups.enemies -> array of enemies
-
+                // Variable List: groups.groupNum/spawnX/spawnY/spawnZ/enemies
                 currGroup = groups.groupNum;
                 groupsCleared = false;
 
@@ -90,11 +122,63 @@ public class EnemyController : MonoBehaviour
                 // Wait until the same number of groups spawned is equal to waves.groupsToSpawn before checking for clear condition
                 yield return StartCoroutine(checkGroupsSpawned(wave.groupsToSpawn));
             }
+
+            // Add yield return for set amount of time or check for player skip
+            Debug.Log("Break between waves...");
+            yield return StartCoroutine(downtime());
         }
-        
 
         Debug.Log("All Waves Cleared!");
         yield return 0;
+    }
+
+    private void startTimer()
+    {
+        timerOn = true;
+        timerText.enabled = true;
+        skipText.enabled = true;
+    }
+
+    public void endTimer()
+    {
+        timerOn = false;
+        timerText.enabled = false;
+        skipText.enabled = false;
+    }
+
+    private void resetTimer()
+    {
+        timerValue = timeToWait;
+    }
+
+    private void finishTimer()
+    {
+        if (timerValue <= 0)
+        {
+            skip = true;
+            endTimer();
+        }
+    }
+
+    private void startCheckSkip()
+    {
+        checkSkipOn = true;
+    }
+
+    private void resetCheckSkip()
+    {
+        checkSkipOn = false;
+    }
+
+    private IEnumerator downtime()
+    {
+        startCheckSkip();
+        startTimer();
+
+        yield return new WaitUntil(() => skip == true);
+
+        resetTimer();
+        resetCheckSkip();
     }
 
     private IEnumerator checkGroupsSpawned(int groupsToSpawn)
@@ -109,23 +193,16 @@ public class EnemyController : MonoBehaviour
     {
         foreach (Enemy enemy in groups.enemies)
         {
-            // Variable List:
-            // enemy.enemyName -> Name of enemy prefab
-            // enemy.toSpawn -> how much to spawn
-
+            // Variable List: enemy.enemyName / toSpawn
             Debug.Log("Starting Wave " + currWave + ": Group " + currGroup);
             enemiesAlive = enemiesAlive + enemy.toSpawn;
 
-            // Compare enemy names to decide which enemy to spawn
-            if (enemy.enemyName.Equals(commonEnemy.name))
+            for (int i = 1; i <= enemy.toSpawn; i++)
             {
-                for (int i = 1; i <= enemy.toSpawn; i++)
-                {
-                    // Set spawnPoint of the enemy before spawning
-                    setSpawnPoint(groups.spawnX, groups.spawnY, groups.spawnZ);
-                    spawnEnemy(commonEnemy);
-                    yield return new WaitForSeconds(0.5f);
-                }
+                // Set spawnPoint of the enemy before spawning
+                setSpawnPoint(groups.spawnX, groups.spawnY, groups.spawnZ);
+                spawnEnemy(enemyDict.getEnemyPrefab(enemy.enemyName));
+                yield return new WaitForSeconds(0.5f);
             }
         }
 
@@ -134,7 +211,7 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator waitUntilClear()
     {
-        Debug.Log("Waiting until wave clear...");
+        Debug.Log("Waiting until clear...");
         yield return new WaitUntil(() => groupsCleared == true);
         groupsSpawned = 0;
     }
@@ -150,15 +227,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void spawnTestEnemies()
-    {
-        Debug.Log("Spawning test enemies...");
-        for (int i = -10; i <= 10; i += 2)
-        {
-            spawnEnemy(commonEnemy);
-        }
-    }
-
     private void spawnEnemy(GameObject prefab)
     {
         newEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity, transform);
@@ -169,5 +237,15 @@ public class EnemyController : MonoBehaviour
     private void setSpawnPoint(float x, float y, float z)
     {
         spawnPoint.position = new Vector3(x, y, z);
+    }
+
+    // Function used for development only (to test enemy spawning)
+    private void spawnTestEnemies()
+    {
+        Debug.Log("Spawning test enemies...");
+        for (int i = -10; i <= 10; i += 2)
+        {
+            spawnEnemy(enemyDict.getEnemyPrefab("TestEnemy"));
+        }
     }
 }

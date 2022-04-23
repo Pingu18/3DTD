@@ -6,5 +6,14 @@ using UnityEngine;
 public class EnemyStats : ScriptableObject
 {
     public string enemyName;
+    public string element;
+    public float damageMultiplier;
+
     public int maxHealth;
+    public float damage;
+    public float attackSpeed;
+    public float range;
+    public float speed;
+
+    public int worth;
 }
