@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyObject : MonoBehaviour, IDamageable
 {
-    [SerializeField] private EnemyController enemyController;
     [SerializeField] private EnemyStats enemyStats;
+    private EnemyController enemyController;
 
     private string name;
     private float maxHP;
