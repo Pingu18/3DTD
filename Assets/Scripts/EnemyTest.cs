@@ -11,7 +11,7 @@ public class EnemyTest : MonoBehaviour
         hp -= dmg;
         if (hp <= 0)
         {
-            tower.GetComponent<TowerController>().RemoveTargetOnDeath(this.gameObject);
+            tower.GetComponent<TowerController>().RemoveTarget(this.gameObject);
             Destroy(this.gameObject);
         }
     }

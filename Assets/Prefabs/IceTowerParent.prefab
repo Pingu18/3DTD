@@ -61,12 +61,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 4807899482857503139}
     m_Modifications:
     - target: {fileID: 1056202792, guid: bc9d029c9543bd34486111009f1b12b9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.40000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 1056202792, guid: bc9d029c9543bd34486111009f1b12b9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 0.40000004
       objectReference: {fileID: 0}
     - target: {fileID: 1056202792, guid: bc9d029c9543bd34486111009f1b12b9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.40000004
       objectReference: {fileID: 0}
     - target: {fileID: 54128456849247627, guid: bc9d029c9543bd34486111009f1b12b9,
         type: 3}
@@ -136,12 +140,27 @@ PrefabInstance:
     - target: {fileID: 1999793927289498718, guid: bc9d029c9543bd34486111009f1b12b9,
         type: 3}
       propertyPath: m_Name
-      value: Ice_Tower
+      value: Ice Tower
       objectReference: {fileID: 0}
     - target: {fileID: 1999793927289498718, guid: bc9d029c9543bd34486111009f1b12b9,
         type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1999793927289498718, guid: bc9d029c9543bd34486111009f1b12b9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Structure
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807899482230975675, guid: bc9d029c9543bd34486111009f1b12b9,
+        type: 3}
+      propertyPath: maxHP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807899482230975675, guid: bc9d029c9543bd34486111009f1b12b9,
+        type: 3}
+      propertyPath: canAttack
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4807899482230975676, guid: bc9d029c9543bd34486111009f1b12b9,
         type: 3}

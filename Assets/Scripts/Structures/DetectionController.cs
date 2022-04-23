@@ -15,17 +15,27 @@ public class DetectionController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && towerCon.canAttack)
         {
             towerCon.AddTarget(other.gameObject);
+        }
+
+        if (other.gameObject.CompareTag("Structure") && towerCon.canHeal)
+        {
+            towerCon.AddStructure(other.gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && towerCon.canAttack)
         {
             towerCon.RemoveTarget(other.gameObject);
+        }
+
+        if (other.gameObject.CompareTag("Structure") && towerCon.canHeal)
+        {
+            towerCon.RemoveStructure(other.gameObject);
         }
     }
 }

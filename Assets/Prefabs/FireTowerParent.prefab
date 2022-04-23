@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 2054823216}
   m_Layer: 7
   m_Name: Fire Tower
-  m_TagString: Untagged
+  m_TagString: Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -171,9 +171,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59149794251bee74da7c0f20dd9f1b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canAttack: 1
   damage: 50
   range: 20
   fireRate: 1
+  maxHP: 100
+  canHeal: 0
+  healAmount: 0
+  healRate: 0
   targets: []
   attackFX: {fileID: 6537392655905275544, guid: 9e1026e53fd434345994a7bbb851122b,
     type: 3}

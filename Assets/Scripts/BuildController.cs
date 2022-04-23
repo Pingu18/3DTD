@@ -7,7 +7,9 @@ using TMPro;
 public class BuildController : MonoBehaviour
 {
     [SerializeField] private Camera buildCamera;
+    private GameObject activeIndicator;
     [SerializeField] private GameObject mouseIndicatorHighlight;
+    [SerializeField] private GameObject iceTowerIndicator;
     [SerializeField] private LayerMask placeableLayerMask; // set to Ground layer so can only place structures on ground
     [SerializeField] private LayerMask structureLayerMask;
 
@@ -19,6 +21,7 @@ public class BuildController : MonoBehaviour
     [SerializeField] private List<GameObject> towers;
     public GameObject iceTower;
     public GameObject fireTower;
+    public GameObject grassTower;
     private GameObject activeStructure;
 
     [Header("UI")]
@@ -26,6 +29,7 @@ public class BuildController : MonoBehaviour
     private int activeSlot;
     public Image Slot1;
     public Image Slot2;
+    public Image Slot3;
     public TMP_Text modeText;
     public TMP_Text towerNameText;
     public TMP_Text towerADText;
@@ -61,8 +65,9 @@ public class BuildController : MonoBehaviour
     {
         activeStructure = iceTower; // default tower selected
         activeSlot = 1; // default tower highlighted on HUD
-        mouseCon = FindObjectOfType<MouseIndicatorController>();
-
+        activeIndicator = iceTowerIndicator;
+        UpdateSlotsUI();
+        mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
         cameraController = cameraControllerObj.GetComponent<CameraController>();
     }
 
@@ -80,18 +85,18 @@ public class BuildController : MonoBehaviour
 
             if (buildMode == BuildMode.PLACE)
             {
-                mouseIndicatorHighlight.SetActive(true);
+                activeIndicator.SetActive(true);
                 MouseIndicator();
                 StructurePlacement();
             }
             if (buildMode == BuildMode.DELETE)
             {
                 StructureDeletion();
-                mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
+                activeIndicator.GetComponent<MeshRenderer>().enabled = false;
             }
         } else
         {
-            mouseIndicatorHighlight.SetActive(false);
+            activeIndicator.SetActive(false);
             buildCanvas.gameObject.SetActive(false);
             modeText.gameObject.SetActive(false);
             mouseCon.ClearCollisions();
@@ -209,7 +214,22 @@ public class BuildController : MonoBehaviour
 
     private void MouseIndicator()
     {
-        mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = true;
+        switch (activeSlot)
+        {
+            case 1:
+                mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
+                break;
+            case 2:
+                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                break;
+            case 3:
+                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                break;
+            default:
+                break;
+        }
+
+        activeIndicator.GetComponent<MeshRenderer>().enabled = true;
         Ray ray = buildCamera.ScreenPointToRay(Input.mousePosition); // shoot ray from camera to mouse position
         if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, placeableLayerMask))
         {
@@ -217,7 +237,7 @@ public class BuildController : MonoBehaviour
         }
         else
         {
-            mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
+            activeIndicator.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
@@ -228,12 +248,21 @@ public class BuildController : MonoBehaviour
         {
             activeStructure = iceTower;
             activeSlot = 1;
+            UpdateSlotsUI();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             activeStructure = fireTower;
             activeSlot = 2;
+            UpdateSlotsUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            activeStructure = grassTower;
+            activeSlot = 3;
+            UpdateSlotsUI();
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && mouseCon.canPlace)
@@ -263,21 +292,6 @@ public class BuildController : MonoBehaviour
 
     private void BuildUIControl()
     {
-        // handle UI for build mode
-        switch (activeSlot) 
-        {
-            case 1:
-                Slot1.color = activeColor;
-                Slot2.color = defaultColor;
-                break;
-            case 2:
-                Slot1.color = defaultColor;
-                Slot2.color = activeColor;
-                break;
-            default:
-                break;
-        }
-
         // select and unselected towers
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
@@ -323,6 +337,35 @@ public class BuildController : MonoBehaviour
         }
     }
 
+    private void UpdateSlotsUI()
+    {
+        switch (activeSlot)
+        {
+            case 1:
+                activeIndicator = iceTowerIndicator;
+                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                Slot1.color = activeColor;
+                Slot2.color = defaultColor;
+                Slot3.color = defaultColor;
+                break;
+            case 2:
+                activeIndicator = mouseIndicatorHighlight;
+                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                Slot1.color = defaultColor;
+                Slot2.color = activeColor;
+                Slot3.color = defaultColor;
+                break;
+            case 3:
+                activeIndicator = mouseIndicatorHighlight;
+                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                Slot1.color = defaultColor;
+                Slot2.color = defaultColor;
+                Slot3.color = activeColor;
+                break;
+            default:
+                break;
+        }
+    }
     public bool getInBuild()
     {
         return inBuild;
