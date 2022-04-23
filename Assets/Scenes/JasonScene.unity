@@ -1114,7 +1114,7 @@ MonoBehaviour:
     m_Bits: 128
   cameraControllerObj: {fileID: 1052603626}
   currencyContainer: {fileID: 1916447609}
-  testCost: 0
+  testCost: 200
   iceTower: {fileID: 4807899482857503138, guid: 3f670b1a7a8dc5741aa30163825f1913,
     type: 3}
   fireTower: {fileID: 8669465799452634657, guid: 8774124b4e3c56d459522c96384e4b14,

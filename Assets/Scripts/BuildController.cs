@@ -68,8 +68,6 @@ public class BuildController : MonoBehaviour
 
     private void Start()
     {
-        testCost = 200;
-
         activeStructure = iceTower; // default tower selected
         activeSlot = 1; // default tower highlighted on HUD
         activeIndicator = iceTowerIndicator;
