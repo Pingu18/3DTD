@@ -22,6 +22,7 @@ public class BuildController : MonoBehaviour
     public GameObject iceTower;
     public GameObject fireTower;
     public GameObject grassTower;
+    public GameObject lightningTower;
     private GameObject activeStructure;
 
     [Header("UI")]
@@ -30,6 +31,7 @@ public class BuildController : MonoBehaviour
     public Image Slot1;
     public Image Slot2;
     public Image Slot3;
+    public Image Slot4;
     public TMP_Text modeText;
     public TMP_Text towerNameText;
     public TMP_Text towerADText;
@@ -225,6 +227,9 @@ public class BuildController : MonoBehaviour
             case 3:
                 iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
                 break;
+            case 4:
+                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                break;
             default:
                 break;
         }
@@ -262,6 +267,13 @@ public class BuildController : MonoBehaviour
         {
             activeStructure = grassTower;
             activeSlot = 3;
+            UpdateSlotsUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            activeStructure = lightningTower;
+            activeSlot = 4;
             UpdateSlotsUI();
         }
 
@@ -347,6 +359,7 @@ public class BuildController : MonoBehaviour
                 Slot1.color = activeColor;
                 Slot2.color = defaultColor;
                 Slot3.color = defaultColor;
+                Slot4.color = defaultColor;
                 break;
             case 2:
                 activeIndicator = mouseIndicatorHighlight;
@@ -354,6 +367,7 @@ public class BuildController : MonoBehaviour
                 Slot1.color = defaultColor;
                 Slot2.color = activeColor;
                 Slot3.color = defaultColor;
+                Slot4.color = defaultColor;
                 break;
             case 3:
                 activeIndicator = mouseIndicatorHighlight;
@@ -361,6 +375,15 @@ public class BuildController : MonoBehaviour
                 Slot1.color = defaultColor;
                 Slot2.color = defaultColor;
                 Slot3.color = activeColor;
+                Slot4.color = defaultColor;
+                break;
+            case 4:
+                activeIndicator = mouseIndicatorHighlight;
+                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                Slot1.color = defaultColor;
+                Slot2.color = defaultColor;
+                Slot3.color = defaultColor;
+                Slot4.color = activeColor;
                 break;
             default:
                 break;

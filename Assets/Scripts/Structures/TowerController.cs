@@ -35,7 +35,7 @@ public class TowerController : MonoBehaviour
         nextHeal = 0.0f;
         clearNulls = 0.0f;
         detectionRadius = this.gameObject.transform.GetChild(0).gameObject;
-        detectionScale = new Vector3(range, range / 3, range);
+        detectionScale = new Vector3(range, range, range);
         detectionRadius.transform.localScale = detectionScale;
         currentHP = maxHP;
     }
@@ -145,9 +145,11 @@ public class TowerController : MonoBehaviour
                     atk.GetComponent<ChillAttack>().parentTower = this.gameObject;
                     atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                     Destroy(atk, 1.2f);
-                } else if (attackFX.name == "Heal")
+                } else if (attackFX.name == "Zap")
                 {
-
+                    GameObject atk = Instantiate(attackFX, this.transform.position, Quaternion.identity);
+                    atk.GetComponent<ZapAttack>().parentTower = this.gameObject;
+                    atk.GetComponent<ZapAttack>().BeginAttack(this.gameObject, target, 3);
                 }
 
                 nextFire = Time.time + (1 / fireRate);
