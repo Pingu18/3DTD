@@ -11,8 +11,8 @@ public class ChillAttack : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy") && parentTower != null)
         {
             //print(parentTower.name);
-            other.gameObject.GetComponent<IDamageable>().queueDamage(parentTower.GetComponent<TowerController>().damage, parentTower);
-            other.gameObject.GetComponent<EnemyNavMesh>().setSpeed(1.5f);
+            other.gameObject.GetComponent<IDamageable>().takeDamage(parentTower.GetComponent<TowerController>().damage, parentTower);
+            other.gameObject.GetComponent<EnemyNavMesh>().applySlow(0.6f);
             //other.gameObject.GetComponent<EnemyTest>().TakeDamage(parentTower.GetComponent<TowerController>().damage, parentTower);
         }
     }

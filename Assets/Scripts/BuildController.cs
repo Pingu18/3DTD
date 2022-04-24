@@ -26,6 +26,7 @@ public class BuildController : MonoBehaviour
     public GameObject iceTower;
     public GameObject fireTower;
     public GameObject grassTower;
+    public GameObject lightningTower;
     private GameObject activeStructure;
 
     [Header("UI")]
@@ -34,6 +35,7 @@ public class BuildController : MonoBehaviour
     public Image Slot1;
     public Image Slot2;
     public Image Slot3;
+    public Image Slot4;
     public TMP_Text modeText;
     public TMP_Text poorText;
     public TMP_Text towerNameText;
@@ -70,9 +72,7 @@ public class BuildController : MonoBehaviour
     {
         activeStructure = iceTower; // default tower selected
         activeSlot = 1; // default tower highlighted on HUD
-        activeIndicator = iceTowerIndicator;
         UpdateSlotsUI();
-        mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
         cameraController = cameraControllerObj.GetComponent<CameraController>();
         currencyController = currencyContainer.GetComponent<CurrencyController>();
     }
@@ -83,21 +83,21 @@ public class BuildController : MonoBehaviour
 
         if (inBuild)
         {
-            ToggleMode();
-            MoveCam();
-            BuildUIControl();
+            ToggleMode(); // toggle between placing and deleting structures
+            MoveCam(); // pan camera with WASD or mouse + zooming
+            BuildUIControl(); // selecting towers + UI elements
             buildCanvas.gameObject.SetActive(true);
             modeText.gameObject.SetActive(true);
 
             if (buildMode == BuildMode.PLACE)
             {
                 activeIndicator.SetActive(true);
-                MouseIndicator();
-                StructurePlacement();
+                MouseIndicator(); // handle structure placement previews
+                StructurePlacement(); // handle placement of structures
             }
             if (buildMode == BuildMode.DELETE)
             {
-                StructureDeletion();
+                StructureDeletion(); // handle deletion of structures
                 activeIndicator.GetComponent<MeshRenderer>().enabled = false;
             }
         } else
@@ -220,7 +220,7 @@ public class BuildController : MonoBehaviour
 
     private void MouseIndicator()
     {
-        switch (activeSlot)
+        switch (activeSlot) // update indicator models
         {
             case 1:
                 mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
@@ -229,6 +229,9 @@ public class BuildController : MonoBehaviour
                 iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
                 break;
             case 3:
+                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                break;
+            case 4:
                 iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
                 break;
             default:
@@ -268,6 +271,13 @@ public class BuildController : MonoBehaviour
         {
             activeStructure = grassTower;
             activeSlot = 3;
+            UpdateSlotsUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            activeStructure = lightningTower;
+            activeSlot = 4;
             UpdateSlotsUI();
         }
 
@@ -336,6 +346,7 @@ public class BuildController : MonoBehaviour
             }
         }
 
+        // update UI tower stats
         if (selectedTower != null)
         {
             towerNameText.text = selectedTower.name;
@@ -361,6 +372,7 @@ public class BuildController : MonoBehaviour
                 Slot1.color = activeColor;
                 Slot2.color = defaultColor;
                 Slot3.color = defaultColor;
+                Slot4.color = defaultColor;
                 break;
             case 2:
                 activeIndicator = mouseIndicatorHighlight;
@@ -368,6 +380,7 @@ public class BuildController : MonoBehaviour
                 Slot1.color = defaultColor;
                 Slot2.color = activeColor;
                 Slot3.color = defaultColor;
+                Slot4.color = defaultColor;
                 break;
             case 3:
                 activeIndicator = mouseIndicatorHighlight;
@@ -375,6 +388,15 @@ public class BuildController : MonoBehaviour
                 Slot1.color = defaultColor;
                 Slot2.color = defaultColor;
                 Slot3.color = activeColor;
+                Slot4.color = defaultColor;
+                break;
+            case 4:
+                activeIndicator = mouseIndicatorHighlight;
+                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                Slot1.color = defaultColor;
+                Slot2.color = defaultColor;
+                Slot3.color = defaultColor;
+                Slot4.color = activeColor;
                 break;
             default:
                 break;
