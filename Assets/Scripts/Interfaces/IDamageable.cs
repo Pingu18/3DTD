@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    void takeDamage(float dmgTaken, GameObject tower);
+    void queueDamage(float dmgTaken, GameObject tower);
 }

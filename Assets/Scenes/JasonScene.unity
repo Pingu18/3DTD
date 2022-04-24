@@ -4991,6 +4991,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testEnemy: {fileID: 8020436554038406277, guid: 9f432ed880b892348b0f25e5fdd54ce2,
     type: 3}
+  testEnemyGiant: {fileID: 8020436554038406277, guid: 0a5ea4937207dbd4c84ef1071e32527a,
+    type: 3}
 --- !u!1 &1455815567
 GameObject:
   m_ObjectHideFlags: 0

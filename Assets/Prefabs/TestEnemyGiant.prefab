@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1647799588049102505}
   - component: {fileID: 4764846116044683220}
   m_Layer: 0
-  m_Name: TestEnemy
+  m_Name: TestEnemyGiant
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 8020436554038406277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4.34, z: 10.35}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b385259d0c2cc1b4c8f727b143e931bb, type: 2}
+  - {fileID: 2100000, guid: f1474d3939c7d6a46a5d1910adb1c4b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4adabbf893a3aa844ad5144291f64dee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 11400000, guid: 8108ef188f585fe4d8e2abd235f666c6, type: 2}
+  enemyStats: {fileID: 11400000, guid: 29d6ca64eed8ab4459dc5105b29d5d48, type: 2}
 --- !u!114 &4764846116044683220
 MonoBehaviour:
   m_ObjectHideFlags: 0
