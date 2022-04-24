@@ -8,6 +8,8 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private EnemyController enemyController;
     private CurrencyController currencyController;
 
+    private Queue<DamageInfo> damageQueue = new Queue<DamageInfo>();
+
     private string name;
     private string element;
     private float takeDamageMultiplier;
@@ -20,6 +22,18 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private float moveSpeed;
 
     private int worth;
+
+    struct DamageInfo
+    {
+        public float damageTaken;
+        public GameObject tower;
+
+        public DamageInfo(float dmgTaken, GameObject obj)
+        {
+            damageTaken = dmgTaken;
+            tower = obj;
+        }
+    }
 
     private void Start()
     {
@@ -40,8 +54,29 @@ public class EnemyObject : MonoBehaviour, IDamageable
         currencyController = GameObject.Find("CurrencyContainer").GetComponent<CurrencyController>();
     }
 
-    public void takeDamage(float dmgTaken, GameObject tower)
+    private void Update()
     {
+        if (damageQueue.Count != 0)
+        {
+            DamageInfo dInfo = damageQueue.Dequeue();
+
+            if ((currHP - dInfo.damageTaken) <= 0)
+                damageQueue.Clear();
+
+            takeDamage(dInfo.damageTaken, dInfo.tower);
+        }
+    }
+
+    public void queueDamage(float dmgTaken, GameObject tower)
+    {
+        Debug.Log("Queuing damage...");
+        DamageInfo dInfo = new DamageInfo(dmgTaken, tower);
+        damageQueue.Enqueue(dInfo);
+    }
+
+    private void takeDamage(float dmgTaken, GameObject tower)
+    {
+        Debug.Log("Taking damage...");
         currHP -= dmgTaken;
         checkDeath(tower);
     }
@@ -50,12 +85,12 @@ public class EnemyObject : MonoBehaviour, IDamageable
     {
         if (currHP <= 0)
         {
-            //tower.GetComponent<TowerController>().RemoveTarget(this.gameObject);
+            tower.GetComponent<TowerController>().RemoveTarget(this.gameObject);
+            Debug.Log(name + " died...");
             enemyController.decrementEnemiesAlive();
             currencyController.addMoney(worth);
             Destroy(gameObject);
         }
-
     }
 
     public void setMaxHP(int hp)

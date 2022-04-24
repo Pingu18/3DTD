@@ -194,15 +194,15 @@ public class EnemyController : MonoBehaviour
         foreach (Enemy enemy in groups.enemies)
         {
             // Variable List: enemy.enemyName / toSpawn
+            enemiesAlive += enemy.toSpawn;
             Debug.Log("Starting Wave " + currWave + ": Group " + currGroup);
-            enemiesAlive = enemiesAlive + enemy.toSpawn;
 
             for (int i = 1; i <= enemy.toSpawn; i++)
             {
                 // Set spawnPoint of the enemy before spawning
                 setSpawnPoint(groups.spawnX, groups.spawnY, groups.spawnZ);
                 spawnEnemy(enemyDict.getEnemyPrefab(enemy.enemyName));
-                yield return new WaitForSeconds(0.5f);
+                //yield return new WaitForSeconds(0.5f);
             }
         }
 

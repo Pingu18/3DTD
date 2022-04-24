@@ -6,6 +6,7 @@ public class EnemyDict : MonoBehaviour
 {
     // Reference to each different type of enemies
     [SerializeField] private GameObject testEnemy;
+    [SerializeField] private GameObject testEnemyGiant;
 
     // Dictionary containing key-value pairs where: <name of enemy, prefab of enemy>
     Dictionary<string, GameObject> dict = new Dictionary<string, GameObject>();
@@ -17,6 +18,7 @@ public class EnemyDict : MonoBehaviour
 
         // Add enemies into dictionary
         dict.Add(testEnemy.name, testEnemy);
+        dict.Add(testEnemyGiant.name, testEnemyGiant);
     }
 
     public GameObject getEnemyPrefab(string name)

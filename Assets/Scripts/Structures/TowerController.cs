@@ -129,7 +129,7 @@ public class TowerController : MonoBehaviour
                     GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
                     atk.GetComponent<BlastAttack>().target = target;
                     atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                    target.GetComponent<IDamageable>().takeDamage(damage, this.gameObject);
+                    target.GetComponent<IDamageable>().queueDamage(damage, this.gameObject);
                     //target.GetComponent<EnemyTest>().TakeDamage(damage, this.gameObject);
                     Destroy(atk, 1.0f);
                 } else if (attackFX.name == "Chill")

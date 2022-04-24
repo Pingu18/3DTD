@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f772c21e0de33ed45b2a95679e9f44bd, type: 3}
-  m_Name: TestEnemy
+  m_Name: TestEnemyGiant
   m_EditorClassIdentifier: 
-  enemyName: TestEnemy
+  enemyName: TestEnemyGiant
   element: 
   damageMultiplier: 0
-  maxHealth: 100
+  maxHealth: 500
   damage: 0
   attackSpeed: 0
   range: 0
   speed: 0
-  worth: 5
+  worth: 50
