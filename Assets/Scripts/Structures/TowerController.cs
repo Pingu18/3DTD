@@ -72,14 +72,8 @@ public class TowerController : MonoBehaviour
 
         if (Time.time > clearNulls)
         {
-            for (int i = 0; i < targets.Count; i++)
-            {
-                if (targets[i] == null)
-                {
-                    targets.Remove(targets[i]);
-                }
-            }
-            clearNulls = Time.time + 10.0f;
+            targets.RemoveAll(x => x == null);
+            clearNulls += 0.5f;
         }
     }
 
@@ -112,7 +106,6 @@ public class TowerController : MonoBehaviour
             clearNulls = Time.time + 10.0f;
         }
     }
-
 
     public void AddTarget(GameObject target)
     {
