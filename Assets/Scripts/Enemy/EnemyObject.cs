@@ -166,7 +166,10 @@ public class EnemyObject : MonoBehaviour, IDamageable
     {
         if (currHP <= 0)
         {
-            tower.GetComponent<TowerObject>().RemoveTarget(this.gameObject);
+            if (tower != null)
+            {
+                tower.GetComponent<TowerObject>().RemoveTarget(this.gameObject);
+            }
             enemyController.decrementEnemiesAlive();
             currencyController.addMoney(worth);
             Destroy(gameObject);
