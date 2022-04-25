@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyUI : MonoBehaviour
+public class HealthUI : MonoBehaviour
 {
     private CameraController cameraController;
     private Camera activeCamera;
 
     private void Start()
     {
-        Debug.Log("Getting cameraController... (EnemyUI)");
+        Debug.Log("Getting cameraController... (HealthUI)");
         cameraController = GameObject.Find("PlayerContainer").GetComponent<CameraController>();
 
         activeCamera = cameraController.getActiveCamera();

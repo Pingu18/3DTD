@@ -5,37 +5,43 @@ using UnityEngine;
 public class DetectionController : MonoBehaviour
 {
     private GameObject parentTower;
-    TowerController towerCon;
+    private TowerObject towerCon;
+    private Heal healScript;
+
     private void Start()
     {
         this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+
         parentTower = this.transform.parent.gameObject;
-        towerCon = parentTower.GetComponent<TowerController>();
+        towerCon = parentTower.GetComponent<TowerObject>();
+        healScript = parentTower.GetComponent<Heal>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy") && towerCon.canAttack)
+        if (other.gameObject.CompareTag("Enemy"))
         {
             towerCon.AddTarget(other.gameObject);
         }
 
-        if (other.gameObject.CompareTag("Structure") && towerCon.canHeal)
+        if (healScript)
         {
-            towerCon.AddStructure(other.gameObject);
+            if (other.gameObject.CompareTag("Structure"))
+                healScript.AddStructure(other.gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy") && towerCon.canAttack)
+        if (other.gameObject.CompareTag("Enemy"))
         {
             towerCon.RemoveTarget(other.gameObject);
         }
 
-        if (other.gameObject.CompareTag("Structure") && towerCon.canHeal)
+        if (healScript)
         {
-            towerCon.RemoveStructure(other.gameObject);
+            if (other.gameObject.CompareTag("Structure"))
+                healScript.RemoveStructure(other.gameObject);
         }
     }
 }

@@ -155,8 +155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStats: {fileID: 11400000, guid: 8108ef188f585fe4d8e2abd235f666c6, type: 2}
   healthBarImage: {fileID: 2968620468842545727}
-  maxHPColor: {r: 1, g: 1, b: 1, a: 0}
-  minHPColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!114 &4764846116044683220
 MonoBehaviour:
   m_ObjectHideFlags: 0
