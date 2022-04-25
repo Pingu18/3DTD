@@ -42,7 +42,8 @@ public class BuildController : MonoBehaviour
     public TMP_Text towerADText;
     public TMP_Text towerASText;
     public TMP_Text towerRangeText;
-    public GameObject selectedTower;
+    public GameObject towerObj;
+    private TowerObject selectedTower;
 
     private Color32 defaultColor = new Color32(255, 255, 255, 255);
     private Color32 activeColor = new Color32(115, 255, 128, 255);
@@ -112,53 +113,8 @@ public class BuildController : MonoBehaviour
     private void MoveCam()
     {
         Vector3 pos = buildCamera.transform.position; // current camera position
-                                                      //Quaternion rot = buildCamera.transform.rotation;
+                                                      // Quaternion rot = buildCamera.transform.rotation;
 
-        //if (Input.GetKey(KeyCode.Mouse1))
-        //{
-        //    if (Input.GetAxis("Mouse X") < 0)
-        //    {
-        //        print("Left");
-        //        rot.y -= 1.0f * Time.deltaTime;
-        //    }
-        //    if (Input.GetAxis("Mouse X") > 0)
-        //    {
-        //        print("Right");
-        //        rot.y += 1.0f * Time.deltaTime;
-        //    }
-        //    if (Input.GetAxis("Mouse Y") < 0)
-        //    {
-        //        print("Down");
-        //        rot.x += 1.0f * Time.deltaTime;
-        //    }
-        //    if (Input.GetAxis("Mouse Y") > 0)
-        //    {
-        //        print("Up");
-        //        rot.x -= 1.0f * Time.deltaTime;
-        //    }
-        //} else
-        //{
-        //    // use WASD or mouse to pan camera
-        //    if (Input.GetKey(KeyCode.W) || Input.mousePosition.y >= Screen.height - panBorder)
-        //    {
-        //        pos.z += camSpeed * Time.deltaTime;
-        //    }
-
-        //    if (Input.GetKey(KeyCode.S) || Input.mousePosition.y <= panBorder)
-        //    {
-        //        pos.z -= camSpeed * Time.deltaTime;
-        //    }
-
-        //    if (Input.GetKey(KeyCode.D) || Input.mousePosition.x >= Screen.width - panBorder)
-        //    {
-        //        pos.x += camSpeed * Time.deltaTime;
-        //    }
-
-        //    if (Input.GetKey(KeyCode.A) || Input.mousePosition.x <= panBorder)
-        //    {
-        //        pos.x -= camSpeed * Time.deltaTime;
-        //    }
-        //}
         // use WASD or mouse to pan camera
         if (Input.GetKey(KeyCode.W) || Input.mousePosition.y >= Screen.height - panBorder)
         {
@@ -188,7 +144,6 @@ public class BuildController : MonoBehaviour
         pos.z = Mathf.Clamp(pos.z, -panLimit.y, panLimit.y);
 
         buildCamera.transform.position = pos; // update with new camera position
-        //buildCamera.transform.rotation = rot;
     }
 
     private void ToggleBuild()
@@ -303,9 +258,10 @@ public class BuildController : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, structureLayerMask))
             {
                 mouseCon.RemoveStructureFromCollisions(raycastHit.collider.gameObject);
-                if (raycastHit.collider.gameObject == selectedTower)
+                if (raycastHit.collider.gameObject == towerObj)
                 {
-                    selectedTower = null;
+                    towerObj = null;
+                    selectedTower = towerObj.GetComponent<TowerObject>();
                     towerStats.SetBool("isSelected", false);
                     towerStats.SetTrigger("deselect");
                 }
@@ -322,24 +278,24 @@ public class BuildController : MonoBehaviour
             Ray ray = buildCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, structureLayerMask))
             {
-                if (selectedTower != null && selectedTower != raycastHit.transform.gameObject)
+                if (towerObj != null && towerObj != raycastHit.transform.gameObject)
                 {
-                    selectedTower.GetComponent<TowerController>().SetSelected(false); // set previously selected tower to unselected
-                    selectedTower = raycastHit.transform.gameObject;
-                    selectedTower.GetComponent<TowerController>().SetSelected(true);
+                    selectedTower.SetSelected(false); // set previously selected tower to unselected
+                    towerObj = raycastHit.transform.gameObject;
+                    selectedTower.SetSelected(true);
                     towerStats.SetBool("isSelected", true);
                 } else
                 {
-                    selectedTower = raycastHit.transform.gameObject;
-                    selectedTower.GetComponent<TowerController>().SetSelected(true);
+                    towerObj = raycastHit.transform.gameObject;
+                    selectedTower.SetSelected(true);
                     towerStats.SetBool("isSelected", true);
                 }
             } else
             {
-                if (selectedTower != null)
+                if (towerObj != null)
                 {
-                    selectedTower.GetComponent<TowerController>().SetSelected(false);
-                    selectedTower = null;
+                    selectedTower.SetSelected(false);
+                    towerObj = null;
                     towerStats.SetBool("isSelected", false);
                     towerStats.SetTrigger("deselect");
                 }
@@ -347,12 +303,12 @@ public class BuildController : MonoBehaviour
         }
 
         // update UI tower stats
-        if (selectedTower != null)
+        if (towerObj != null)
         {
-            towerNameText.text = selectedTower.name;
-            towerADText.text = "AD: " + selectedTower.GetComponent<TowerController>().damage.ToString();
-            towerASText.text = "AS: " + selectedTower.GetComponent<TowerController>().fireRate.ToString();
-            towerRangeText.text = "Range: " + selectedTower.GetComponent<TowerController>().range.ToString();
+            towerNameText.text = towerObj.name;
+            towerADText.text = "AD: " + selectedTower.getDamage().ToString();
+            towerASText.text = "AS: " + selectedTower.getFireRate().ToString();
+            towerRangeText.text = "Range: " + selectedTower.getRange().ToString();
         } else
         {
             towerNameText.text = "";
