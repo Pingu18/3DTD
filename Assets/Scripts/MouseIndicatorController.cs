@@ -47,6 +47,7 @@ public class MouseIndicatorController : MonoBehaviour
 
     private void UpdateCollisions()
     {
+        collisions.RemoveAll(x => x == null);
         if (collisions.Count > 0)
         {
             canPlace = false;
