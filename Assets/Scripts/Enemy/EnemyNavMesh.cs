@@ -8,7 +8,7 @@ public class EnemyNavMesh : MonoBehaviour
     private Transform destination;
     private NavMeshAgent navMeshAgent;
 
-    private float baseSpeed = 3.5f;
+    private float baseSpeed = 7.0f;
 
     [SerializeField] private bool isSlowed = false;
     [SerializeField] private bool isStunned = false;

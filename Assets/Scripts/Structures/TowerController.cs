@@ -36,7 +36,8 @@ public class TowerController : MonoBehaviour
         clearNulls = 0.0f;
         detectionRadius = this.gameObject.transform.GetChild(0).gameObject;
         detectionScale = new Vector3(range, range, range);
-        detectionRadius.transform.localScale = detectionScale;
+        //detectionRadius.transform.lossyScale = detectionScale;
+        SetGlobalScale(detectionRadius.transform, detectionScale);
         currentHP = maxHP;
     }
 
@@ -208,4 +209,9 @@ public class TowerController : MonoBehaviour
         }
     }
 
+    private void SetGlobalScale(Transform transform, Vector3 globalScale)
+    {
+        transform.localScale = Vector3.one;
+        transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
+    }
 }

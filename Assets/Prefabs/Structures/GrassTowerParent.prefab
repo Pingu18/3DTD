@@ -257,7 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canAttack: 0
   damage: 0
-  range: 20
+  range: 40
   fireRate: 0
   maxHP: 150
   canHeal: 1
