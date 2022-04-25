@@ -9,10 +9,9 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private EnemyController enemyController;
     private CurrencyController currencyController;
 
-    private Slider healthBar;
-    [SerializeField] private Image healthBarImage;
-    private Color maxHPColor;
-    private Color minHPColor;
+    [SerializeField] private List<GameObject> targets = new List<GameObject>(); // list of enemies in radius
+    private GameObject currentTarget;
+    private float nextAttack;
 
     private Queue<DamageInfo> damageQueue = new Queue<DamageInfo>();
 
@@ -28,6 +27,11 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private float moveSpeed;
 
     private int worth;
+
+    private Slider healthBar;
+    [SerializeField] private Image healthBarImage;
+    private Color maxHPColor;
+    private Color minHPColor;
 
     struct DamageInfo
     {
@@ -56,6 +60,8 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
         worth = enemyStats.worth;
 
+        nextAttack = 0.0f;
+
         enemyController = transform.parent.GetComponent<EnemyController>();
         currencyController = GameObject.Find("CurrencyContainer").GetComponent<CurrencyController>();
 
@@ -67,6 +73,8 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        attackCycle();
+
         if (damageQueue.Count != 0)
         {
             DamageInfo dInfo = damageQueue.Dequeue();
@@ -76,6 +84,56 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
             takeDamage(dInfo.damageTaken, dInfo.tower);
         }
+    }
+
+    private void attackCycle()
+    {
+        if (targets.Count > 0) // enemies in range
+        {
+            currentTarget = selectBestTarget();
+            attackTarget(currentTarget);
+        }
+    }
+
+    private GameObject selectBestTarget()
+    {
+        float closestDist = 999;
+        GameObject closestTarget = targets[0];
+
+        for (int i = 0; i < targets.Count; i++)
+        {
+            if (targets[i] != null)
+            {
+                if (Vector3.Distance(transform.position, targets[i].transform.position) < closestDist)
+                {
+                    closestDist = Vector3.Distance(transform.position, targets[i].transform.position);
+                    closestTarget = targets[i].gameObject;
+                }
+            }
+        }
+        return closestTarget;
+    }
+
+    private void attackTarget(GameObject target)
+    {
+        if (Time.time > nextAttack)
+        {
+            if (currentTarget != null)
+            {
+                currentTarget.GetComponent<IDamageable>().queueDamage(damage, this.gameObject);
+                nextAttack = Time.time + (1 / attackSpeed);
+            }
+        }
+    }
+
+    public void addTarget(GameObject target)
+    {
+        targets.Add(target);
+    }
+
+    public void removeTarget(GameObject target)
+    {
+        targets.Remove(target);
     }
 
     public void queueDamage(float dmgTaken, GameObject tower)

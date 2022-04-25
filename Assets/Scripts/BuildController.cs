@@ -20,8 +20,6 @@ public class BuildController : MonoBehaviour
 
     [SerializeField] private GameObject currencyContainer;
     private CurrencyController currencyController;
-
-    [SerializeField] private int testCost;
     
     [Header("Structures")]
     public GameObject iceTower;
@@ -45,6 +43,7 @@ public class BuildController : MonoBehaviour
     public TMP_Text towerRangeText;
     public GameObject towerObj;
     private TowerObject selectedTower;
+    private MeshRenderer meshRenderer;
 
     private Color32 defaultColor = new Color32(255, 255, 255, 255);
     private Color32 activeColor = new Color32(115, 255, 128, 255);
@@ -77,6 +76,7 @@ public class BuildController : MonoBehaviour
         UpdateSlotsUI();
         cameraController = cameraControllerObj.GetComponent<CameraController>();
         currencyController = currencyContainer.GetComponent<CurrencyController>();
+        meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
     }
 
     private void Update()
@@ -100,7 +100,7 @@ public class BuildController : MonoBehaviour
             if (buildMode == BuildMode.DELETE)
             {
                 StructureDeletion(); // handle deletion of structures
-                activeIndicator.GetComponent<MeshRenderer>().enabled = false;
+                meshRenderer.enabled = false;
             }
         } else
         {
@@ -200,7 +200,7 @@ public class BuildController : MonoBehaviour
                 break;
         }
 
-        activeIndicator.GetComponent<MeshRenderer>().enabled = true;
+        meshRenderer.enabled = true;
         Ray ray = buildCamera.ScreenPointToRay(Input.mousePosition); // shoot ray from camera to mouse position
         if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, placeableLayerMask))
         {
@@ -208,7 +208,7 @@ public class BuildController : MonoBehaviour
         }
         else
         {
-            activeIndicator.GetComponent<MeshRenderer>().enabled = false;
+            meshRenderer.enabled = false;
         }
     }
 
@@ -220,6 +220,7 @@ public class BuildController : MonoBehaviour
             activeStructure = iceTower;
             activeSlot = 1;
             UpdateSlotsUI();
+            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -227,6 +228,7 @@ public class BuildController : MonoBehaviour
             activeStructure = fireTower;
             activeSlot = 2;
             UpdateSlotsUI();
+            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -234,6 +236,7 @@ public class BuildController : MonoBehaviour
             activeStructure = grassTower;
             activeSlot = 3;
             UpdateSlotsUI();
+            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -241,14 +244,14 @@ public class BuildController : MonoBehaviour
             activeStructure = lightningTower;
             activeSlot = 4;
             UpdateSlotsUI();
+            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && mouseCon.canPlace)
         {
-            if (currencyController.checkSufficientMoney(testCost))
+            if (currencyController.checkSufficientMoney(activeStructure))
             {
                 Instantiate(activeStructure, transform.position, Quaternion.identity); // place tower at mouse location
-                currencyController.removeMoney(testCost);
                 poorText.enabled = false;
             } else {
                 poorText.enabled = true;
@@ -268,7 +271,6 @@ public class BuildController : MonoBehaviour
                 if (raycastHit.collider.gameObject == towerObj)
                 {
                     towerObj = null;
-                    selectedTower = towerObj.GetComponent<TowerObject>();
                     towerStats.SetBool("isSelected", false);
                     towerStats.SetTrigger("deselect");
                 }
@@ -285,21 +287,20 @@ public class BuildController : MonoBehaviour
             Ray ray = buildCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, structureLayerMask))
             {
-                if (towerObj != null && towerObj != raycastHit.transform.gameObject)
-                {
-                    selectedTower.SetSelected(false); // set previously selected tower to unselected
-                    towerObj = raycastHit.transform.gameObject;
-                    selectedTower.SetSelected(true);
-                    towerStats.SetBool("isSelected", true);
-                } else
+                if (raycastHit.transform.gameObject.GetComponent<TowerObject>())
                 {
                     towerObj = raycastHit.transform.gameObject;
+
+                    if (selectedTower != towerObj.GetComponent<TowerObject>() && selectedTower != null)
+                        selectedTower.SetSelected(false);
+
+                    selectedTower = towerObj.GetComponent<TowerObject>();
                     selectedTower.SetSelected(true);
                     towerStats.SetBool("isSelected", true);
                 }
             } else
             {
-                if (towerObj != null)
+                if (selectedTower != null)
                 {
                     selectedTower.SetSelected(false);
                     towerObj = null;

@@ -4,24 +4,33 @@ using UnityEngine;
 
 public class DetectionController : MonoBehaviour
 {
-    private GameObject parentTower;
-    private TowerObject towerCon;
+    private GameObject parentObj;
+    private TowerObject towerObj;
+    private EnemyObject enemyObj;
     private Heal healScript;
 
     private void Start()
     {
-        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
 
-        parentTower = this.transform.parent.gameObject;
-        towerCon = parentTower.GetComponent<TowerObject>();
-        healScript = parentTower.GetComponent<Heal>();
+        parentObj = transform.parent.gameObject;
+        towerObj = parentObj.GetComponent<TowerObject>();
+        enemyObj = parentObj.GetComponent<EnemyObject>();
+        healScript = parentObj.GetComponent<Heal>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (towerObj)
         {
-            towerCon.AddTarget(other.gameObject);
+            if (other.gameObject.CompareTag("Enemy"))
+                towerObj.AddTarget(other.gameObject);
+        }
+
+        if (enemyObj)
+        {
+            if (other.gameObject.CompareTag("Structure"))
+                enemyObj.addTarget(other.gameObject);
         }
 
         if (healScript)
@@ -33,9 +42,16 @@ public class DetectionController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (towerObj)
         {
-            towerCon.RemoveTarget(other.gameObject);
+            if (other.gameObject.CompareTag("Enemy"))
+                towerObj.RemoveTarget(other.gameObject);
+        }
+
+        if (enemyObj)
+        {
+            if (other.gameObject.CompareTag("Structure"))
+                enemyObj.removeTarget(other.gameObject);
         }
 
         if (healScript)

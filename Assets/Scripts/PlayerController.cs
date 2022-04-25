@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
             controlDrag();
             jump();
         }
-        //testShooting();
+        testShooting();
     }
 
     private void FixedUpdate()
@@ -105,7 +105,13 @@ public class PlayerController : MonoBehaviour
             RaycastHit target;
             if (Physics.Raycast(pCamTransform.transform.position, pCamTransform.transform.forward, out target, Mathf.Infinity))
             {
-                IDamageable damageable = target.collider.GetComponent<IDamageable>();
+                TowerObject towerObj;
+
+                if (target.collider.GetComponent<TowerObject>())
+                {
+                    towerObj = target.collider.GetComponent<TowerObject>();
+                    Debug.Log(towerObj.getCurrentHP());
+                }
 
                 //if (damageable != null)
                     //damageable.takeDamage(100);
