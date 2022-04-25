@@ -45,7 +45,7 @@ public class MouseIndicatorController : MonoBehaviour
         collisions.Clear();
     }
 
-    private void UpdateCollisions()
+    public void UpdateCollisions()
     {
         collisions.RemoveAll(x => x == null);
         if (collisions.Count > 0)

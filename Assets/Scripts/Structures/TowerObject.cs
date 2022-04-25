@@ -66,7 +66,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         nextFire = 0.0f;
         detectionRadius = this.gameObject.transform.GetChild(0).gameObject;
         detectionScale = new Vector3(range, range, range);
-        detectionRadius.transform.localScale = detectionScale;
+        SetGlobalScale(detectionRadius.transform, detectionScale);
 
         healthBar = GetComponentInChildren<Slider>();
         maxHPColor = new Color(42f / 255f, 255f / 255f, 46f / 255f);
@@ -252,5 +252,11 @@ public class TowerObject : MonoBehaviour, IDamageable
     public float getRange()
     {
         return range;
+    }
+
+    private void SetGlobalScale(Transform transform, Vector3 globalScale)
+    {
+        transform.localScale = Vector3.one;
+        transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
     }
 }
