@@ -9,9 +9,6 @@ public class EnemyController : MonoBehaviour
     // JSON file containing information about each waves
     [SerializeField] private TextAsset enemyWavesJSON;
 
-    // Reference to currencyContainer
-    [SerializeField] private GameObject currencyContainer;
-
     [SerializeField] private TMP_Text notStartedText;
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private TMP_Text skipText;
@@ -94,7 +91,6 @@ public class EnemyController : MonoBehaviour
     private IEnumerator startGame()
     {
         yield return new WaitUntil(() => levelStarted == true);
-        currencyContainer.GetComponent<CurrencyController>().setMoney(200);
         StartCoroutine(startWaves(enemyWavesJSON));
     }
 
@@ -114,6 +110,8 @@ public class EnemyController : MonoBehaviour
                 // Variable List: groups.groupNum/spawnX/spawnY/spawnZ/enemies
                 currGroup = groups.groupNum;
                 groupsCleared = false;
+
+                enemiesAlive += groups.totalEnemies;
 
                 // Start spawning the enemies
                 StartCoroutine(spawnEnemies(groups));
@@ -193,8 +191,7 @@ public class EnemyController : MonoBehaviour
     {
         foreach (Enemy enemy in groups.enemies)
         {
-            // Variable List: enemy.enemyName / toSpawn
-            enemiesAlive += enemy.toSpawn;
+            // Variable List: enemy.enemyName / toSpawn / toWait
             Debug.Log("Starting Wave " + currWave + ": Group " + currGroup);
 
             for (int i = 1; i <= enemy.toSpawn; i++)
@@ -202,7 +199,7 @@ public class EnemyController : MonoBehaviour
                 // Set spawnPoint of the enemy before spawning
                 setSpawnPoint(groups.spawnX, groups.spawnY, groups.spawnZ);
                 spawnEnemy(enemyDict.getEnemyPrefab(enemy.enemyName));
-                //yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(enemy.toWait);
             }
         }
 

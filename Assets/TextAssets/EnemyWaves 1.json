@@ -9,9 +9,11 @@
           "spawnX": -31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
+          "totalEnemies": 5,
           "enemies": [
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 5
             }
           ]
@@ -21,9 +23,11 @@
           "spawnX": 31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
+          "totalEnemies": 5,
           "enemies": [
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 5
             }
           ]
@@ -40,13 +44,16 @@
           "spawnX": -31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
+          "totalEnemies": 6,
           "enemies": [
             {
               "enemyName": "TestEnemyGiant",
+              "toWait": 2,
               "toSpawn": 1
             },
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 5
             }
           ]
@@ -56,13 +63,16 @@
           "spawnX": 31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
+          "totalEnemies": 6,
           "enemies": [
             {
               "enemyName": "TestEnemyGiant",
+              "toWait": 2,
               "toSpawn": 1
             },
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 5
             }
           ]
@@ -79,13 +89,16 @@
           "spawnX": -31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
+          "totalEnemies": 12,
           "enemies": [
             {
               "enemyName": "TestEnemyGiant",
+              "toWait": 2,
               "toSpawn": 2
             },
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 10
             }
           ]
@@ -95,37 +108,44 @@
           "spawnX": 31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
+          "totalEnemies": 12,
           "enemies": [
             {
               "enemyName": "TestEnemyGiant",
+              "toWait": 2,
               "toSpawn": 2
             },
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 10
             }
           ]
         },
-		{
+        {
           "groupNum": 3,
           "spawnX": -103.0,
           "spawnY": 3.0,
           "spawnZ": 24.0,
+          "totalEnemies": 5,
           "enemies": [
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 5
             }
           ]
         },
-		{
+        {
           "groupNum": 4,
           "spawnX": 103.0,
           "spawnY": 3.0,
           "spawnZ": 24.0,
+          "totalEnemies": 5,
           "enemies": [
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 5
             }
           ]
@@ -142,13 +162,16 @@
           "spawnX": -31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
+          "totalEnemies": 19,
           "enemies": [
             {
               "enemyName": "TestEnemyGiant",
+              "toWait": 2,
               "toSpawn": 4
             },
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 15
             }
           ]
@@ -158,37 +181,44 @@
           "spawnX": 31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
+          "totalEnemies": 19,
           "enemies": [
             {
               "enemyName": "TestEnemyGiant",
+              "toWait": 2,
               "toSpawn": 4
             },
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 15
             }
           ]
         },
-		{
+        {
           "groupNum": 3,
           "spawnX": -103.0,
           "spawnY": 3.0,
           "spawnZ": 24.0,
+          "totalEnemies": 10,
           "enemies": [
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 10
             }
           ]
         },
-		{
+        {
           "groupNum": 4,
           "spawnX": 103.0,
           "spawnY": 3.0,
           "spawnZ": 24.0,
+          "totalEnemies": 10,
           "enemies": [
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 10
             }
           ]
@@ -205,13 +235,16 @@
           "spawnX": -31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
+          "totalEnemies": 28,
           "enemies": [
             {
               "enemyName": "TestEnemyGiant",
+              "toWait": 2,
               "toSpawn": 8
             },
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 20
             }
           ]
@@ -221,45 +254,54 @@
           "spawnX": 31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
+          "totalEnemies": 28,
           "enemies": [
             {
               "enemyName": "TestEnemyGiant",
+              "toWait": 2,
               "toSpawn": 8
             },
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 20
             }
           ]
         },
-		{
+        {
           "groupNum": 3,
           "spawnX": -103.0,
           "spawnY": 3.0,
           "spawnZ": 24.0,
+          "totalEnemies": 9,
           "enemies": [
-		    {
+            {
               "enemyName": "TestEnemyGiant",
+              "toWait": 2,
               "toSpawn": 4
             },
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 5
             }
           ]
         },
-		{
+        {
           "groupNum": 4,
           "spawnX": 103.0,
           "spawnY": 3.0,
           "spawnZ": 24.0,
+          "totalEnemies": 9,
           "enemies": [
-		    {
+            {
               "enemyName": "TestEnemyGiant",
+              "toWait": 2,
               "toSpawn": 4
             },
             {
               "enemyName": "TestEnemy",
+              "toWait": 0,
               "toSpawn": 5
             }
           ]
