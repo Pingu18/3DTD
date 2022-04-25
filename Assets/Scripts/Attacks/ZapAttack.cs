@@ -33,7 +33,7 @@ public class ZapAttack : MonoBehaviour
                 {
                     currentBounces++;
                     nearbyTargets.Remove(target);
-                    target.GetComponent<IDamageable>().takeDamage(parentTower.GetComponent<TowerController>().damage, parentTower);
+                    target.GetComponent<IDamageable>().queueDamage(parentTower.GetComponent<TowerController>().damage, parentTower);
                     if (miniStunUpgrade)
                     {
                         target.gameObject.GetComponent<EnemyNavMesh>().applyStun(0.25f);
