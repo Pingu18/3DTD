@@ -199,8 +199,8 @@ public class EnemyController : MonoBehaviour
                 // Set spawnPoint of the enemy before spawning
                 setSpawnPoint(groups.spawnX, groups.spawnY, groups.spawnZ);
                 spawnEnemy(enemyDict.getEnemyPrefab(enemy.enemyName));
-                yield return new WaitForSeconds(enemy.toWait);
             }
+            yield return new WaitForSeconds(enemy.toWait);
         }
 
         yield return 0;
