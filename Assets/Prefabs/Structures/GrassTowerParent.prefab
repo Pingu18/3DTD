@@ -274,9 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3127a989afc3934c8f7e6aa136aac46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackFX: {fileID: 0}
-  healAmount: 0
-  healRate: 0
+  healFX: {fileID: 4640862887346425283, guid: a3bcf64ed0e14e04ea809c75aedbd318, type: 3}
 --- !u!114 &227642843
 MonoBehaviour:
   m_ObjectHideFlags: 0

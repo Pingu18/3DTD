@@ -9,6 +9,12 @@ public class CurrencyController : MonoBehaviour
 
     private int currentMoney;
 
+    private void Start()
+    {
+        currentMoney = 200;
+        updateDisplay();
+    }
+
     public void addMoney(int toAdd)
     {
         currentMoney += toAdd;
@@ -32,11 +38,15 @@ public class CurrencyController : MonoBehaviour
         displayMoney.text = "$ " + currentMoney.ToString();
     }
 
-    public bool checkSufficientMoney(int cost)
+    public bool checkSufficientMoney(GameObject structure)
     {
+        int cost = structure.GetComponentInChildren<TowerObject>().getCost();
+
         if (currentMoney >= cost)
+        {
+            removeMoney(cost);
             return true;
-        else
+        } else
             return false;
     }
 

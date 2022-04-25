@@ -60,6 +60,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         damage = towerStats.damage;
         fireRate = towerStats.attackSpeed;
         range = towerStats.range;
+
         cost = towerStats.cost;
 
         buildCon = FindObjectOfType<BuildController>();
@@ -78,6 +79,16 @@ public class TowerObject : MonoBehaviour, IDamageable
     {
         AttackCycle();
 
+        if (damageQueue.Count != 0)
+        {
+            DamageInfo dInfo = damageQueue.Dequeue();
+
+            if ((currentHP - dInfo.damageTaken) <= 0)
+                damageQueue.Clear();
+
+            takeDamage(dInfo.damageTaken, dInfo.enemy);
+        }
+
         if (buildCon.getInBuild() && drawRadius)
         {
             detectionRadius.GetComponent<MeshRenderer>().enabled = true;
@@ -88,22 +99,18 @@ public class TowerObject : MonoBehaviour, IDamageable
 
     }
 
-    // Enemy attacks not implemented yet
     public void queueDamage(float dmgTaken, GameObject enemy)
     {
-        //DamageInfo dInfo = new DamageInfo(dmgTaken, enemy);
-        //damageQueue.Enqueue(dInfo);
+        DamageInfo dInfo = new DamageInfo(dmgTaken, enemy);
+        damageQueue.Enqueue(dInfo);
     }
 
-    // Enemy attacks not implemented yet
-    /*
     private void takeDamage(float dmgTaken, GameObject enemy)
     {
         currentHP -= dmgTaken;
         updateHealthBar();
-        checkDeath();
+        checkDeath(enemy);
     }
-    */
 
     private void updateHealthBar()
     {
@@ -118,18 +125,14 @@ public class TowerObject : MonoBehaviour, IDamageable
         return (currentHP / maxHP) * 100;
     }
 
-    // Enemy attacks not implemented yet
-    /*
-    private void checkDeath()
+    private void checkDeath(GameObject enemy)
     {
         if (currentHP <= 0)
         {
-            // Need to change this line to enemy
-            //tower.GetComponent<TowerObject>().RemoveTarget(this.gameObject);
+            enemy.GetComponent<EnemyObject>().removeTarget(this.gameObject);
             Destroy(gameObject);
         }
     }
-    */
 
     private void AttackCycle()
     {
@@ -202,8 +205,6 @@ public class TowerObject : MonoBehaviour, IDamageable
         return closestTarget;
     }
 
-    
-
     public void SetSelected(bool isSelected)
     {
         if (isSelected)
@@ -226,6 +227,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         {
             currentHP += amount;
         }
+        updateHealthBar();
     }
 
     public float getMaxHP()
@@ -248,9 +250,23 @@ public class TowerObject : MonoBehaviour, IDamageable
         return fireRate;
     }
 
-
     public float getRange()
     {
         return range;
+    }
+
+    public int getCost()
+    {
+        return towerStats.cost;
+    }
+
+    public float getHeal()
+    {
+        return towerStats.heal;
+    }
+
+    public float getHealRate()
+    {
+        return towerStats.healRate;
     }
 }

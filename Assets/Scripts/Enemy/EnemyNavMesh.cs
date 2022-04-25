@@ -8,7 +8,7 @@ public class EnemyNavMesh : MonoBehaviour
     [SerializeField] private Transform destination;
     private NavMeshAgent navMeshAgent;
 
-    private float baseSpeed = 7.0f;
+    private float speed;
 
     [SerializeField] private bool isSlowed = false;
     [SerializeField] private bool isStunned = false;
@@ -16,13 +16,17 @@ public class EnemyNavMesh : MonoBehaviour
     private float slowTime = 0.0f;
     private float stunTime = 0.0f;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
+    private void Start()
+    {
+        speed = GetComponent<EnemyObject>().getMoveSpeed();
+
+    }
+
     void Update()
     {
         navMeshAgent.destination = destination.position;
@@ -39,7 +43,7 @@ public class EnemyNavMesh : MonoBehaviour
 
         if (!isSlowed && !isStunned)
         {
-            navMeshAgent.speed = baseSpeed;
+            navMeshAgent.speed = speed;
         } else if (isStunned)
         {
             navMeshAgent.speed = 0.0f;
@@ -54,7 +58,7 @@ public class EnemyNavMesh : MonoBehaviour
 
     public void applySlow(float slowPercent)
     {
-        float newSpeed = baseSpeed * slowPercent;
+        float newSpeed = speed * slowPercent;
         if (newSpeed < navMeshAgent.speed)
         {
             navMeshAgent.speed = newSpeed;

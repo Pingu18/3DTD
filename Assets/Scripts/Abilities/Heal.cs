@@ -5,20 +5,22 @@ using UnityEngine.VFX;
 
 public class Heal : MonoBehaviour
 {
-    private TowerStats towerStats;
+    private TowerObject towerObj;
 
     private List<GameObject> structures = new List<GameObject>(); // list of structures in radius
 
-    public GameObject attackFX;
+    public GameObject healFX;
 
-    public float healAmount;
-    public float healRate;
+    private float healAmount;
+    private float healRate;
     private float nextHeal;
 
     void Start()
     {
-        healAmount = towerStats.heal;
-        healRate = towerStats.healRate;
+        towerObj = GetComponent<TowerObject>();
+
+        healAmount = towerObj.getHeal();
+        healRate = towerObj.getHealRate();
 
         nextHeal = 0.0f;
     }
@@ -52,7 +54,7 @@ public class Heal : MonoBehaviour
 
                     if (selectedTower.getCurrentHP() < selectedTower.getMaxHP())
                     {
-                        GameObject heal = Instantiate(attackFX, structures[i].transform.position, Quaternion.identity);
+                        GameObject heal = Instantiate(healFX, structures[i].transform.position, Quaternion.identity);
                         heal.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                         Destroy(heal, 1.0f);
                         selectedTower.AddHP(healAmount);
