@@ -94,7 +94,6 @@ public class EnemyController : MonoBehaviour
     private IEnumerator startGame()
     {
         yield return new WaitUntil(() => levelStarted == true);
-        currencyContainer.GetComponent<CurrencyController>().setMoney(200);
         StartCoroutine(startWaves(enemyWavesJSON));
     }
 
