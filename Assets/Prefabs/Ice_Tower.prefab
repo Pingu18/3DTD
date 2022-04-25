@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1056202791}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.39999998, y: 0.3999999, z: 0.3999999}
+  m_LocalScale: {x: 0.40000004, y: 0.40000004, z: 0.40000004}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1192153556394882788}
@@ -124,9 +124,9 @@ GameObject:
   - component: {fileID: 4807899482230975674}
   - component: {fileID: 4807899482230975675}
   - component: {fileID: 4807899482230975676}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ice_Tower
-  m_TagString: Untagged
+  m_TagString: Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,7 +176,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 01b07bd99e836674b8c540f294d36438, type: 3}
+  - {fileID: 2100000, guid: 64f3682db67412e4b9b7311bca00047f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -224,10 +224,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59149794251bee74da7c0f20dd9f1b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canAttack: 1
   damage: 20
-  range: 20
+  range: 40
   fireRate: 1
+  maxHP: 100
+  canHeal: 0
+  healAmount: 0
+  healRate: 0
   targets: []
+  structures: []
   attackFX: {fileID: 8219809704458080237, guid: 3646ff0f34cfcc1448380f673c85d3c0,
     type: 3}
 --- !u!114 &4807899482230975676
@@ -237,7 +243,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999793927289498718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -255,6 +261,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1192153556394882788}
     m_Modifications:
+    - target: {fileID: 2678104214260335828, guid: 9ff1986f61a92884aaf7b50bc824df2a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f42459b7811cefb4295c4deff40ff00d, type: 2}
     - target: {fileID: 3846537299741982651, guid: 9ff1986f61a92884aaf7b50bc824df2a,
         type: 3}
       propertyPath: m_RootOrder
@@ -317,6 +328,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ff1986f61a92884aaf7b50bc824df2a, type: 3}
+--- !u!1 &1371055444300535370 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4479522417808073985, guid: 9ff1986f61a92884aaf7b50bc824df2a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3255119903681639243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &850192750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371055444300535370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95759a1e375f459478254a42002b8751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 30
 --- !u!4 &1751098732785847536 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3846537299741982651, guid: 9ff1986f61a92884aaf7b50bc824df2a,

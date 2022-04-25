@@ -60,28 +60,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4807899482857503139}
     m_Modifications:
-    - target: {fileID: 1056202792, guid: bc9d029c9543bd34486111009f1b12b9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.40000004
-      objectReference: {fileID: 0}
-    - target: {fileID: 1056202792, guid: bc9d029c9543bd34486111009f1b12b9, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.40000004
-      objectReference: {fileID: 0}
-    - target: {fileID: 1056202792, guid: bc9d029c9543bd34486111009f1b12b9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.40000004
-      objectReference: {fileID: 0}
-    - target: {fileID: 54128456849247627, guid: bc9d029c9543bd34486111009f1b12b9,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 64f3682db67412e4b9b7311bca00047f, type: 2}
-    - target: {fileID: 578162631522236319, guid: bc9d029c9543bd34486111009f1b12b9,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f42459b7811cefb4295c4deff40ff00d, type: 2}
     - target: {fileID: 1192153556394882788, guid: bc9d029c9543bd34486111009f1b12b9,
         type: 3}
       propertyPath: m_RootOrder
@@ -142,57 +120,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ice Tower
       objectReference: {fileID: 0}
-    - target: {fileID: 1999793927289498718, guid: bc9d029c9543bd34486111009f1b12b9,
-        type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1999793927289498718, guid: bc9d029c9543bd34486111009f1b12b9,
-        type: 3}
-      propertyPath: m_TagString
-      value: Structure
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807899482230975675, guid: bc9d029c9543bd34486111009f1b12b9,
-        type: 3}
-      propertyPath: maxHP
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807899482230975675, guid: bc9d029c9543bd34486111009f1b12b9,
-        type: 3}
-      propertyPath: range
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807899482230975675, guid: bc9d029c9543bd34486111009f1b12b9,
-        type: 3}
-      propertyPath: canAttack
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807899482230975676, guid: bc9d029c9543bd34486111009f1b12b9,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc9d029c9543bd34486111009f1b12b9, type: 3}
---- !u!1 &5890673895883242181 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1371055444300535370, guid: bc9d029c9543bd34486111009f1b12b9,
-    type: 3}
-  m_PrefabInstance: {fileID: 4807899482717908111}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &850192750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5890673895883242181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95759a1e375f459478254a42002b8751, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateSpeed: 30
 --- !u!4 &5922926532787821163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1192153556394882788, guid: bc9d029c9543bd34486111009f1b12b9,
