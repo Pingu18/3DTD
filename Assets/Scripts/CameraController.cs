@@ -4,28 +4,20 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [Header("BuildController GameObject Ref")]
+    [Header("GameObject References")]
     [SerializeField] private GameObject buildControllerObj; // reference to GameObject buildController
+    [SerializeField] private GameObject uiContainer;        // reference to UI container 
 
-    [Header("Player Cam Ref")]
-    [SerializeField] private GameObject pCamRef;    // reference to GameObject player camera
+    [Header("Camera References")]
+    [SerializeField] private GameObject playerCamRef;   // reference to GameObject player camera
+    [SerializeField] private GameObject buildCamRef;    // reference to GameObject build camera
 
-    [Header("Build Cam Ref")]
-    [SerializeField] private GameObject bCamRef;    // reference to GameObject build camera
+    [Header("Transform References")]
+    [SerializeField] private Transform playerCamTransform;  // reference to player camera container transform
+    [SerializeField] private Transform orientation;         // reference to player orientation
 
-    [Header("Player Camera Container Transform")]
-    [SerializeField] private Transform pCamTransform;   // reference to player camera container transform
-
-    [Header("Player Orientation")]
-    [SerializeField] private Transform orientation;     // reference to player orientation
-
-    [Header("UIContainer Ref")]
-    [SerializeField] private GameObject uiContainer;    // reference to UI container 
-
-    [Header("Sensitivity X")]
+    [Header("Sensitivity")]
     [SerializeField] private float sensX = 50f;     // x sensitivity
-
-    [Header("Sensitivity Y")]
     [SerializeField] private float sensY = 50f;     // y sensitivity
 
     private BuildController buildController;    // reference to BuildController script
@@ -47,10 +39,10 @@ public class CameraController : MonoBehaviour
         buildController = buildControllerObj.GetComponent<BuildController>();
 
         Debug.Log("Getting cameras... (CameraController)");
-        pCam = pCamRef.GetComponent<Camera>();
+        pCam = playerCamRef.GetComponent<Camera>();
         pCam.enabled = !buildController.getInBuild();
 
-        bCam = bCamRef.GetComponent<Camera>();
+        bCam = buildCamRef.GetComponent<Camera>();
         bCam.enabled = buildController.getInBuild();
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -88,6 +80,14 @@ public class CameraController : MonoBehaviour
         bCam.enabled = buildController.getInBuild();
     }
 
+    public Camera getActiveCamera()
+    {
+        if (pCam.enabled)
+            return pCam;
+        else
+            return bCam;
+    }
+
     private void rotateCamera()
     {
         float mouseX = Input.GetAxisRaw("Mouse X");
@@ -98,7 +98,7 @@ public class CameraController : MonoBehaviour
 
         xRotation = Mathf.Clamp(xRotation, minAngle, maxAngle);
 
-        pCamTransform.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+        playerCamTransform.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 

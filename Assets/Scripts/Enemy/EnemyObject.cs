@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyObject : MonoBehaviour, IDamageable
 {
     [SerializeField] private EnemyStats enemyStats;
     private EnemyController enemyController;
     private CurrencyController currencyController;
+
+    private Slider healthBar;
+    [SerializeField] private Image healthBarImage;
+    private Color maxHPColor;
+    private Color minHPColor;
 
     private Queue<DamageInfo> damageQueue = new Queue<DamageInfo>();
 
@@ -52,6 +58,11 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
         enemyController = transform.parent.GetComponent<EnemyController>();
         currencyController = GameObject.Find("CurrencyContainer").GetComponent<CurrencyController>();
+
+        healthBar = GetComponentInChildren<Slider>();
+        maxHPColor = new Color(42f / 255f, 255f / 255f, 46f / 255f);
+        minHPColor = new Color(255f / 255f, 87f / 255f, 61f / 255f);
+        updateHealthBar();
     }
 
     private void Update()
@@ -69,16 +80,28 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
     public void queueDamage(float dmgTaken, GameObject tower)
     {
-        Debug.Log("Queuing damage...");
         DamageInfo dInfo = new DamageInfo(dmgTaken, tower);
         damageQueue.Enqueue(dInfo);
     }
 
     private void takeDamage(float dmgTaken, GameObject tower)
     {
-        Debug.Log("Taking damage...");
         currHP -= dmgTaken;
+        updateHealthBar();
         checkDeath(tower);
+    }
+    
+    private void updateHealthBar()
+    {
+        float hpPercent = getHealthPercent();
+
+        healthBar.value = hpPercent;
+        healthBarImage.color = Color.Lerp(minHPColor, maxHPColor, hpPercent / 100);
+    }
+
+    private float getHealthPercent()
+    {
+        return (currHP / maxHP) * 100;
     }
 
     private void checkDeath(GameObject tower)
@@ -86,7 +109,6 @@ public class EnemyObject : MonoBehaviour, IDamageable
         if (currHP <= 0)
         {
             tower.GetComponent<TowerController>().RemoveTarget(this.gameObject);
-            Debug.Log(name + " died...");
             enemyController.decrementEnemiesAlive();
             currencyController.addMoney(worth);
             Destroy(gameObject);
