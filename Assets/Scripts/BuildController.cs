@@ -174,6 +174,7 @@ public class BuildController : MonoBehaviour
             } else if (buildMode == BuildMode.DELETE)
             {
                 buildMode = BuildMode.PLACE;
+                mouseCon.UpdateCollisions();
                 modeText.text = "PLACING";
             }
         }

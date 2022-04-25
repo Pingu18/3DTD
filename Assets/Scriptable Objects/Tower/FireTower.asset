@@ -19,5 +19,6 @@ MonoBehaviour:
   damage: 50
   heal: 0
   attackSpeed: 1
-  range: 20
+  healRate: 0
+  range: 30
   cost: 200
