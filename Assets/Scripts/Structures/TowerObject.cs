@@ -255,12 +255,6 @@ public class TowerObject : MonoBehaviour, IDamageable
         return range;
     }
 
-    private void SetGlobalScale(Transform transform, Vector3 globalScale)
-    {
-        transform.localScale = Vector3.one;
-        transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
-    }
-
     public int getCost()
     {
         return towerStats.cost;
@@ -274,5 +268,11 @@ public class TowerObject : MonoBehaviour, IDamageable
     public float getHealRate()
     {
         return towerStats.healRate;
+    }
+    
+    private void SetGlobalScale(Transform transform, Vector3 globalScale)
+    {
+        transform.localScale = Vector3.one;
+        transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
     }
 }
