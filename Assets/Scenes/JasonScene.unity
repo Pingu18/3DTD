@@ -3482,6 +3482,7 @@ MonoBehaviour:
   skipText: {fileID: 561095466}
   spawnPoint: {fileID: 711421938}
   destination: {fileID: 426109662}
+  towerContainer: {fileID: 707568629}
 --- !u!4 &1387095987
 Transform:
   m_ObjectHideFlags: 0

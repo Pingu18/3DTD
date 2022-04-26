@@ -236,6 +236,12 @@ public class TowerObject : MonoBehaviour, IDamageable
         updateHealthBar();
     }
 
+    public void healToFull()
+    {
+        currentHP = maxHP;
+        updateHealthBar();
+    }
+
     public int getResaleValue()
     {
         return resaleValue;
