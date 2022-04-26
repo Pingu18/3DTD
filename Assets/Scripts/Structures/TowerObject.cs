@@ -19,6 +19,8 @@ public class TowerObject : MonoBehaviour, IDamageable
     private float damage;
     private float fireRate;
     private float range;
+
+    private int resaleValue;
     private int cost;
 
     private float nextFire;
@@ -64,6 +66,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         range = towerStats.range;
 
         cost = towerStats.cost;
+        resaleValue = (int)Mathf.Ceil(cost * 0.75f);
 
         buildCon = FindObjectOfType<BuildController>();
         nextFire = 0.0f;
@@ -231,6 +234,11 @@ public class TowerObject : MonoBehaviour, IDamageable
             currentHP += amount;
         }
         updateHealthBar();
+    }
+
+    public int getResaleValue()
+    {
+        return resaleValue;
     }
 
     public float getMaxHP()

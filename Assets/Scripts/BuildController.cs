@@ -269,14 +269,16 @@ public class BuildController : MonoBehaviour
             Ray ray = buildCamera.ScreenPointToRay(Input.mousePosition); // shoot ray from camera to mouse position
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, structureLayerMask))
             {
-                mouseCon.RemoveStructureFromCollisions(raycastHit.collider.gameObject);
+                GameObject obj = raycastHit.collider.gameObject;
+                mouseCon.RemoveStructureFromCollisions(obj);
                 if (raycastHit.collider.gameObject == towerObj)
                 {
                     towerObj = null;
                     towerStats.SetBool("isSelected", false);
                     towerStats.SetTrigger("deselect");
                 }
-                Destroy(raycastHit.collider.gameObject);   
+                currencyController.addMoney(obj.GetComponent<TowerObject>().getResaleValue());
+                Destroy(obj);   
             }
         }
     }
