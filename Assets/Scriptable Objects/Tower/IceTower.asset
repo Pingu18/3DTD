@@ -16,8 +16,9 @@ MonoBehaviour:
   element: Water
   damageMultiplier: 1
   maxHealth: 100
-  damage: 20
+  damage: 15
   heal: 0
   attackSpeed: 1
+  healRate: 0
   range: 40
   cost: 200

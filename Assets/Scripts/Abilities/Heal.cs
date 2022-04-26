@@ -15,6 +15,8 @@ public class Heal : MonoBehaviour
     private float healRate;
     private float nextHeal;
 
+    private bool keepHealing = true;
+
     void Start()
     {
         towerObj = GetComponent<TowerObject>();
@@ -23,11 +25,8 @@ public class Heal : MonoBehaviour
         healRate = towerObj.getHealRate();
 
         nextHeal = 0.0f;
-    }
 
-    void Update()
-    {
-        HealCycle();
+        StartCoroutine(startHealCycle());
     }
 
     public void AddStructure(GameObject structure)
@@ -40,28 +39,40 @@ public class Heal : MonoBehaviour
         structures.Remove(structure);
     }
 
-    private void HealCycle()
+    private IEnumerator startHealCycle()
     {
-        if (Time.time > nextHeal)
+        while (keepHealing)
         {
-            for (int i = 0; i < structures.Count; i++)
+            yield return StartCoroutine(readyToHeal());
+            healStructures();
+
+        }
+    }
+
+    private IEnumerator readyToHeal()
+    {
+        yield return new WaitUntil(() => structures.Count > 0 && Time.time > nextHeal);
+    }
+
+    private void healStructures()
+    {
+        for (int i = 0; i < structures.Count; i++)
+        {
+            TowerObject selectedTower;
+
+            if (structures[i] != null)
             {
-                TowerObject selectedTower;
+                selectedTower = structures[i].GetComponent<TowerObject>();
 
-                if (structures[i] != null)
+                if (selectedTower.getCurrentHP() < selectedTower.getMaxHP())
                 {
-                    selectedTower = structures[i].GetComponent<TowerObject>();
-
-                    if (selectedTower.getCurrentHP() < selectedTower.getMaxHP())
-                    {
-                        GameObject heal = Instantiate(healFX, structures[i].transform.position, Quaternion.identity);
-                        heal.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                        Destroy(heal, 1.0f);
-                        selectedTower.AddHP(healAmount);
-                    }
+                    GameObject heal = Instantiate(healFX, structures[i].transform.position, Quaternion.identity);
+                    heal.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                    Destroy(heal, 1.0f);
+                    selectedTower.AddHP(healAmount);
                 }
             }
-            nextHeal = Time.time + (1 / healRate);
         }
+        nextHeal = Time.time + (1 / healRate);
     }
 }

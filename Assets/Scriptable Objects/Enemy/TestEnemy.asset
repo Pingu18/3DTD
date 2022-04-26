@@ -20,4 +20,4 @@ MonoBehaviour:
   attackSpeed: 1
   range: 0
   speed: 7
-  worth: 5
+  worth: 10

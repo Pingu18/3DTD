@@ -14,6 +14,8 @@ public class BuildController : MonoBehaviour
     [SerializeField] private LayerMask placeableLayerMask; // set to Ground layer so can only place structures on ground
     [SerializeField] private LayerMask structureLayerMask;
 
+    [SerializeField] private GameObject towerContainer;
+
     [SerializeField] private GameObject cameraControllerObj;    // reference to GameObject that holds CameraController script
     private CameraController cameraController;  // reference to CameraController script
     private MouseIndicatorController mouseCon;
@@ -251,7 +253,7 @@ public class BuildController : MonoBehaviour
         {
             if (currencyController.checkSufficientMoney(activeStructure))
             {
-                Instantiate(activeStructure, transform.position, Quaternion.identity); // place tower at mouse location
+                Instantiate(activeStructure, transform.position, Quaternion.identity).transform.parent = towerContainer.transform; // place tower at mouse location
                 poorText.enabled = false;
             } else {
                 poorText.enabled = true;

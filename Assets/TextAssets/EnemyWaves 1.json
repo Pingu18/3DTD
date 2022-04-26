@@ -469,7 +469,7 @@
           "spawnX": -103.0,
           "spawnY": 3.0,
           "spawnZ": 24.0,
-          "totalEnemies": 60,
+          "totalEnemies": 70,
           "enemies": [
             {
               "enemyName": "TestEnemyGiant",
@@ -494,7 +494,7 @@
             {
               "enemyName": "TestEnemy",
               "toWait": 0,
-              "toSpawn": 10
+              "toSpawn": 20
             }
           ]
         },
@@ -503,7 +503,7 @@
           "spawnX": 103.0,
           "spawnY": 3.0,
           "spawnZ": 24.0,
-          "totalEnemies": 60,
+          "totalEnemies": 70,
           "enemies": [
             {
               "enemyName": "TestEnemyGiant",

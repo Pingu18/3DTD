@@ -29,12 +29,14 @@ public class TowerObject : MonoBehaviour, IDamageable
     private bool drawRadius = false;
     public GameObject attackFX;
 
+    private Queue<DamageInfo> damageQueue = new Queue<DamageInfo>();
+
+    private bool keepAttacking = true;
+
     private Slider healthBar;
     [SerializeField] private Image healthBarImage;
     private Color maxHPColor;
     private Color minHPColor;
-
-    private Queue<DamageInfo> damageQueue = new Queue<DamageInfo>();
 
     struct DamageInfo
     {
@@ -73,12 +75,12 @@ public class TowerObject : MonoBehaviour, IDamageable
         maxHPColor = new Color(42f / 255f, 255f / 255f, 46f / 255f);
         minHPColor = new Color(255f / 255f, 87f / 255f, 61f / 255f);
         updateHealthBar();
+
+        StartCoroutine(startAttackCycle());
     }
 
     private void Update()
     {
-        AttackCycle();
-
         if (damageQueue.Count != 0)
         {
             DamageInfo dInfo = damageQueue.Dequeue();
@@ -96,7 +98,6 @@ public class TowerObject : MonoBehaviour, IDamageable
         {
             detectionRadius.GetComponent<MeshRenderer>().enabled = false;
         }
-
     }
 
     public void queueDamage(float dmgTaken, GameObject enemy)
@@ -134,13 +135,20 @@ public class TowerObject : MonoBehaviour, IDamageable
         }
     }
 
-    private void AttackCycle()
+    private IEnumerator startAttackCycle()
     {
-        if (targets.Count > 0) // enemies in range
+        while (keepAttacking)
         {
-            currentTarget = SelectBestTarget();
-            AttackTarget(currentTarget);
+            // Wait until there are targets in range and tower is ready to attack
+            yield return StartCoroutine(readyToAttack());
+            currentTarget = selectBestTarget();
+            attackTarget(currentTarget);
         }
+    }
+
+    private IEnumerator readyToAttack()
+    {
+        yield return new WaitUntil(() => targets.Count > 0 && Time.time > nextFire);
     }
 
     public void AddTarget(GameObject target)
@@ -153,40 +161,35 @@ public class TowerObject : MonoBehaviour, IDamageable
         targets.Remove(target);
     }
 
-    private void AttackTarget(GameObject target)
+    private void attackTarget(GameObject target)
     {
-        if (Time.time > nextFire)
+        if (target != null)
         {
-            if (currentTarget != null)
+            if (attackFX.name == "Blast")
             {
-                //print("Attacking: " + target.name);
-                if (attackFX.name == "Blast")
-                {
-                    GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
-                    atk.GetComponent<BlastAttack>().target = target;
-                    atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                    target.GetComponent<IDamageable>().queueDamage(damage, this.gameObject);
-                    //target.GetComponent<EnemyTest>().TakeDamage(damage, this.gameObject);
-                    Destroy(atk, 1.0f);
-                } else if (attackFX.name == "Chill")
-                {
-                    GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
-                    atk.GetComponent<ChillAttack>().parentTower = this.gameObject;
-                    atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                    Destroy(atk, 1.2f);
-                } else if (attackFX.name == "Zap")
-                {
-                    GameObject atk = Instantiate(attackFX, this.transform.position, Quaternion.identity);
-                    atk.GetComponent<ZapAttack>().parentTower = this.gameObject;
-                    atk.GetComponent<ZapAttack>().BeginAttack(this.gameObject, target, 3);
-                }
-
-                nextFire = Time.time + (1 / fireRate);
+                GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
+                atk.GetComponent<BlastAttack>().target = target;
+                atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                target.GetComponent<IDamageable>().queueDamage(damage, this.gameObject);
+                Destroy(atk, 1.0f);
+            } else if (attackFX.name == "Chill")
+            {
+                GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
+                atk.GetComponent<ChillAttack>().parentTower = this.gameObject;
+                atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                Destroy(atk, 1.2f);
+            } else if (attackFX.name == "Zap")
+            {
+                GameObject atk = Instantiate(attackFX, this.transform.position, Quaternion.identity);
+                atk.GetComponent<ZapAttack>().parentTower = this.gameObject;
+                atk.GetComponent<ZapAttack>().BeginAttack(this.gameObject, target, 3);
             }
+
+            nextFire = Time.time + (1 / fireRate);
         }
     }
 
-    private GameObject SelectBestTarget()
+    private GameObject selectBestTarget()
     {
         float closestDist = 999;
         GameObject closestTarget = targets[0];

@@ -16,8 +16,9 @@ MonoBehaviour:
   element: Lightning
   damageMultiplier: 1
   maxHealth: 100
-  damage: 15
+  damage: 25
   heal: 0
   attackSpeed: 1.5
+  healRate: 0
   range: 30
   cost: 200

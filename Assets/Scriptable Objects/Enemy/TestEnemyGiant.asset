@@ -19,5 +19,5 @@ MonoBehaviour:
   damage: 5
   attackSpeed: 1
   range: 0
-  speed: 7
-  worth: 50
+  speed: 5
+  worth: 100
