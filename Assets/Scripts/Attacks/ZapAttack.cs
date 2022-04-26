@@ -16,6 +16,7 @@ public class ZapAttack : MonoBehaviour
     private float elapsedTime;
     private float percentageComplete;
     private float duration = 0.05f;
+    private float damage;
 
     private bool miniStunUpgrade = false;
 
@@ -33,7 +34,12 @@ public class ZapAttack : MonoBehaviour
                 {
                     currentBounces++;
                     nearbyTargets.Remove(target);
-                    target.GetComponent<IDamageable>().queueDamage(parentTower.GetComponent<TowerObject>().getDamage(), parentTower);
+                    GameObject parent = null;
+                    if (parentTower != null)
+                    {
+                        parent = parentTower;
+                    }
+                    target.GetComponent<IDamageable>().queueDamage(damage, parent);
                     if (miniStunUpgrade)
                     {
                         target.gameObject.GetComponent<EnemyNavMesh>().applyStun(0.25f);
@@ -66,6 +72,7 @@ public class ZapAttack : MonoBehaviour
         this.radius = radius;
         this.maxBounces = 3;
         this.currentBounces = 0;
+        this.damage = parentTower.GetComponent<TowerObject>().getDamage();
         isStarted = true;
         isFinished = false;
     }
