@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 8705840490227072263}
   - component: {fileID: 6860579294752704973}
   - component: {fileID: 6355040653122746623}
+  - component: {fileID: 4231928444974262008}
   m_Layer: 0
   m_Name: FireTowerOrb
   m_TagString: Untagged
@@ -300,7 +301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4914923582608189464}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5844173, z: 0}
+  m_LocalPosition: {x: 0, y: 2.58, z: 0}
   m_LocalScale: {x: 0.25899017, y: 0.25899017, z: 0.25899017}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -371,6 +372,20 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 289301614986012343, guid: b568e18f6c663b5438f0b4a103ae52f8, type: 3}
+--- !u!114 &4231928444974262008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4914923582608189464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81ae6cf567880454b9bf7cd5e0081ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 0.18
+  floatSpeed: 0.001
 --- !u!1 &5968427632749837380
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,9 +400,9 @@ GameObject:
   - component: {fileID: 2121893288188666669}
   - component: {fileID: 5004236167075603827}
   - component: {fileID: 7700342143981371230}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireTower
-  m_TagString: Untagged
+  m_TagString: Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -518,6 +533,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4368062812255219530}
     m_Modifications:
+    - target: {fileID: 2732277412151432259, guid: 603da36c1c90d064dbf40f0e0f02417f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3414236320810361831, guid: 603da36c1c90d064dbf40f0e0f02417f,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -532,6 +552,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401690681586451012, guid: 603da36c1c90d064dbf40f0e0f02417f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4954808320862133081, guid: 603da36c1c90d064dbf40f0e0f02417f,
         type: 3}
@@ -552,6 +577,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365841067479328569, guid: 603da36c1c90d064dbf40f0e0f02417f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7099578995980181420, guid: 603da36c1c90d064dbf40f0e0f02417f,
         type: 3}
@@ -667,6 +697,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413733914525495484, guid: 603da36c1c90d064dbf40f0e0f02417f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410936912197836815, guid: 603da36c1c90d064dbf40f0e0f02417f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9045875509012636247, guid: 603da36c1c90d064dbf40f0e0f02417f,
         type: 3}
