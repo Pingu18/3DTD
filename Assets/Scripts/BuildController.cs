@@ -388,7 +388,7 @@ public class BuildController : MonoBehaviour
                 fireTowerIndicator.SetActive(true);
                 grassTowerIndicator.SetActive(false);
                 lightTowerIndicator.SetActive(false);
-                mouseIndicatorHighlight.SetActive(true);
+                mouseIndicatorHighlight.SetActive(false);
                 Slot1.color = defaultColor;
                 Slot2.color = activeColor;
                 Slot3.color = defaultColor;

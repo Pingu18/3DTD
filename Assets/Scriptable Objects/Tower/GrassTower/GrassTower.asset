@@ -21,4 +21,12 @@ MonoBehaviour:
   attackSpeed: 1
   healRate: 0.25
   range: 40
+  special: 0
+  specialDesc: Grant allied towers lifesteal
+  specialUpgradeDesc: Increase lifesteal by X%
   cost: 150
+  upgrades:
+  - healAmount
+  - healRate
+  - range
+  - special
