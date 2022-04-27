@@ -19,6 +19,9 @@ public class EnemyController : MonoBehaviour
     // Destination that the enemies are trying to reach
     [SerializeField] private Transform destination;
 
+    [Header("References")]
+    [SerializeField] private GameObject towerContainer;
+
     // EnemyDict that contains a reference to each different type of enemy
     private EnemyDict enemyDict;
 
@@ -121,6 +124,9 @@ public class EnemyController : MonoBehaviour
                 yield return StartCoroutine(checkGroupsSpawned(wave.groupsToSpawn));
             }
 
+            // When wave ends, heal all towers to full
+            healAllTowers();
+
             // Add yield return for set amount of time or check for player skip
             Debug.Log("Break between waves...");
             yield return StartCoroutine(downtime());
@@ -166,6 +172,18 @@ public class EnemyController : MonoBehaviour
     private void resetCheckSkip()
     {
         checkSkipOn = false;
+    }
+
+    private void healAllTowers()
+    {
+        Transform tfm = towerContainer.transform;
+        Debug.Log("Healing all towers...");
+
+        for (int i = 0; i < tfm.childCount; i++)
+        {
+            TowerObject towerObj = tfm.GetChild(i).gameObject.GetComponentInChildren<TowerObject>();
+            towerObj.healToFull();
+        }
     }
 
     private IEnumerator downtime()

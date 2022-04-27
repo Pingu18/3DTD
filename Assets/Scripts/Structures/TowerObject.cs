@@ -21,6 +21,14 @@ public class TowerObject : MonoBehaviour, IDamageable
     [SerializeField] private float damage;
     private float fireRate;
     private float range;
+    private float special;
+
+    private int hpLvl;
+    private int maxHpLvl;
+    private int dmgLvl;
+    private int fireRateLvl;
+    private int rangeLvl;
+    private int specialLvl;
 
     private int resaleValue;
     private int cost;
@@ -68,6 +76,13 @@ public class TowerObject : MonoBehaviour, IDamageable
         damage = towerStats.damage;
         fireRate = towerStats.attackSpeed;
         range = towerStats.range;
+        special = towerStats.special;
+
+        hpLvl = 0;
+        dmgLvl = 0;
+        fireRateLvl = 0;
+        rangeLvl = 0;
+        specialLvl = 0;
 
         cost = towerStats.cost;
         resaleValue = (int)Mathf.Ceil(cost * 0.75f);
@@ -215,17 +230,9 @@ public class TowerObject : MonoBehaviour, IDamageable
         return closestTarget;
     }
 
-    public void SetSelected(bool isSelected)
+    public void setOutline(bool isSelected)
     {
-        if (isSelected)
-        {
-            this.gameObject.GetComponent<Outline>().enabled = true;
-            //drawRadius = true;
-        } else
-        {
-            this.gameObject.GetComponent<Outline>().enabled = false;
-            //drawRadius = false;
-        }
+        this.gameObject.GetComponent<Outline>().enabled = isSelected;
     }
 
     public void AddHP(float amount)
@@ -240,9 +247,90 @@ public class TowerObject : MonoBehaviour, IDamageable
         updateHealthBar();
     }
 
+    public void healToFull()
+    {
+        currentHP = maxHP;
+        updateHealthBar();
+    }
+
+    public string[] getUpgrades()
+    {
+        return towerStats.upgrades;
+    }
+
+    public void setHPLevel(int newLvl)
+    {
+        hpLvl = newLvl;
+    }
+
+    public void setDMGLevel(int newLvl)
+    {
+        dmgLvl = newLvl;
+    }
+
+    public void setFireRateLevel(int newLvl)
+    {
+        fireRateLvl = newLvl;
+    }
+
+    public void setRangeLevel(int newLvl)
+    {
+        rangeLvl = newLvl;
+    }
+
+    public void setSpecialLevel(int newLvl)
+    {
+        specialLvl = newLvl;
+    }
+
+    public string getSpecialDesc()
+    {
+        return towerStats.specialDesc;
+    }
+
+    public string getSpecialUpgradeDesc()
+    {
+        return towerStats.specialUpgradeDesc;
+    }
+
+    public int getHPLevel()
+    {
+        return hpLvl;
+    }
+
+    public int getDMGLevel()
+    {
+        return dmgLvl;
+    }
+
+    public int getFireRateLevel()
+    {
+        return fireRateLvl;
+    }
+
+    public int getRangeLevel()
+    {
+        return rangeLvl;
+    }
+
+    public int getSpecialLevel()
+    {
+        return specialLvl;
+    }
+
     public int getResaleValue()
     {
         return resaleValue;
+    }
+
+    public string getElement()
+    {
+        return element;
+    }
+
+    public string getName()
+    {
+        return name;
     }
 
     public float getMaxHP()
@@ -279,6 +367,11 @@ public class TowerObject : MonoBehaviour, IDamageable
     public float getRange()
     {
         return range;
+    }
+
+    public float getSpecial()
+    {
+        return special;
     }
 
     public int getCost()

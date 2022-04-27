@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 118d01f52ac01cc4081835732fe76e24, type: 3}
-  m_Name: LightningTower
+  m_Name: GrassTower
   m_EditorClassIdentifier: 
-  towerName: LightningTower
-  element: Lightning
+  towerName: Grass Tower
+  element: Grass
   damageMultiplier: 1
-  maxHealth: 100
-  damage: 25
-  heal: 0
-  attackSpeed: 1.5
-  healRate: 0
-  range: 30
-  cost: 200
+  maxHealth: 150
+  damage: 10
+  heal: 20
+  attackSpeed: 1
+  healRate: 0.25
+  range: 40
+  cost: 150

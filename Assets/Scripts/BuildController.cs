@@ -8,7 +8,7 @@ using TMPro;
 public class BuildController : MonoBehaviour
 {
     [SerializeField] private Camera buildCamera;
-    private GameObject activeIndicator;
+    [SerializeField] private GameObject activeIndicator;
     [SerializeField] private GameObject mouseIndicatorHighlight;
     [SerializeField] private GameObject iceTowerIndicator;
     [SerializeField] private GameObject fireTowerIndicator;
@@ -28,7 +28,17 @@ public class BuildController : MonoBehaviour
 
     [SerializeField] private GameObject currencyContainer;
     private CurrencyController currencyController;
-    
+
+    [SerializeField] private MeshRenderer meshRenderer;
+
+    private Color32 defaultColor = new Color32(255, 255, 255, 255);
+    private Color32 activeColor = new Color32(115, 255, 128, 255);
+
+    [Header("Debugging")]
+    [SerializeField] private TowerController towerController;
+    [SerializeField] private GameObject towerObj;
+    [SerializeField] private TowerObject selectedTower;
+
     [Header("Structures")]
     public GameObject iceTower;
     public GameObject fireTower;
@@ -49,16 +59,6 @@ public class BuildController : MonoBehaviour
     public Image Slot6;
     public TMP_Text modeText;
     public TMP_Text poorText;
-    public TMP_Text towerNameText;
-    public TMP_Text towerADText;
-    public TMP_Text towerASText;
-    public TMP_Text towerRangeText;
-    public GameObject towerObj;
-    private TowerObject selectedTower;
-    private MeshRenderer meshRenderer;
-
-    private Color32 defaultColor = new Color32(255, 255, 255, 255);
-    private Color32 activeColor = new Color32(115, 255, 128, 255);
 
     [Header("Camera Controls")]
     public float camSpeed = 20f;
@@ -76,7 +76,8 @@ public class BuildController : MonoBehaviour
     enum BuildMode
     {
         PLACE,
-        DELETE
+        DELETE,
+        UPGRADE
     }
 
     private bool inBuild = false;
@@ -86,10 +87,20 @@ public class BuildController : MonoBehaviour
     {
         activeStructure = iceTower; // default tower selected
         activeSlot = 1; // default tower highlighted on HUD
+
+        iceTowerIndicator.SetActive(true);
+        mouseIndicatorHighlight.SetActive(false);
+
+        buildCanvas.gameObject.SetActive(false);
+        modeText.gameObject.SetActive(false);
+
         UpdateSlotsUI();
         buildCanvas.gameObject.SetActive(true);
+        initializeIndicator();
+
         cameraController = cameraControllerObj.GetComponent<CameraController>();
         currencyController = currencyContainer.GetComponent<CurrencyController>();
+        towerController = towerContainer.GetComponent<TowerController>();
         meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
     }
 
@@ -107,21 +118,13 @@ public class BuildController : MonoBehaviour
 
             if (buildMode == BuildMode.PLACE)
             {
-                activeIndicator.SetActive(true);
                 MouseIndicator(); // handle structure placement previews
                 StructurePlacement(); // handle placement of structures
             }
             if (buildMode == BuildMode.DELETE)
             {
                 StructureDeletion(); // handle deletion of structures
-                meshRenderer.enabled = false;
             }
-        } else
-        {
-            activeIndicator.SetActive(false);
-            //buildCanvas.gameObject.SetActive(false);
-            modeText.gameObject.SetActive(false);
-            mouseCon.ClearCollisions();
         }
     }
 
@@ -173,6 +176,10 @@ public class BuildController : MonoBehaviour
             {
                 buildModeAnim.SetBool("inBuild", false);
             }
+            activeIndicator.SetActive(!activeIndicator.activeSelf);
+            mouseCon.ClearCollisions();
+            buildCanvas.gameObject.SetActive(!buildCanvas.gameObject.activeSelf);
+            modeText.gameObject.SetActive(!modeText.gameObject.activeSelf);
             cameraController.toggleCamera();
             cameraController.toggleMouseLock();
             cameraController.toggleCanvas();
@@ -192,6 +199,7 @@ public class BuildController : MonoBehaviour
             {
                 buildMode = BuildMode.DELETE;
                 modeText.text = "REMOVING";
+                meshRenderer.enabled = false;
             } else if (buildMode == BuildMode.DELETE)
             {
                 buildMode = BuildMode.PLACE;
@@ -203,44 +211,6 @@ public class BuildController : MonoBehaviour
 
     private void MouseIndicator()
     {
-        switch (activeSlot) // update indicator models
-        {
-            case 1:
-                mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
-                fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                lightTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                break;
-            case 2:
-                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                lightTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                break;
-            case 3:
-                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                lightTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                break;
-            case 4:
-                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                lightTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                break;
-            case 5:
-                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                break;
-            case 6:
-                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-                break;
-            default:
-                break;
-        }
-
         meshRenderer.enabled = true;
         Ray ray = buildCamera.ScreenPointToRay(Input.mousePosition); // shoot ray from camera to mouse position
         if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, placeableLayerMask))
@@ -305,7 +275,9 @@ public class BuildController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && mouseCon.canPlace)
         {
-            if (currencyController.checkSufficientMoney(activeStructure))
+            int cost = activeStructure.GetComponentInChildren<TowerObject>().getCost();
+
+            if (currencyController.checkSufficientMoney(cost))
             {
                 Instantiate(activeStructure, transform.position, Quaternion.identity).transform.parent = towerContainer.transform; // place tower at mouse location
                 poorText.enabled = false;
@@ -328,8 +300,9 @@ public class BuildController : MonoBehaviour
                 if (raycastHit.collider.gameObject == towerObj)
                 {
                     towerObj = null;
-                    towerStatsAnim.SetBool("isSelected", false);
-                    towerStatsAnim.SetTrigger("deselect");
+                    selectedTower = null;
+                    towerController.setIsSelected(false);
+                    towerController.startTrigger("deselect");
                 }
                 currencyController.addMoney(obj.GetComponent<TowerObject>().getResaleValue());
                 Destroy(obj);   
@@ -350,38 +323,43 @@ public class BuildController : MonoBehaviour
                     towerObj = raycastHit.transform.gameObject;
 
                     if (selectedTower != towerObj.GetComponent<TowerObject>() && selectedTower != null)
-                        selectedTower.SetSelected(false);
+                        selectedTower.setOutline(false);
 
                     selectedTower = towerObj.GetComponent<TowerObject>();
-                    selectedTower.SetSelected(true);
-                    towerStatsAnim.SetBool("isSelected", true);
+                    selectedTower.setOutline(true);
+
+                    towerController.setSelectedTower(towerObj);
+                    towerController.setIsSelected(true);
+
+                    buildMode = BuildMode.UPGRADE;
+                    modeText.text = "UPGRADING";
+                    activeIndicator.SetActive(false);
                 }
             } else
             {
                 if (selectedTower != null)
                 {
-                    selectedTower.SetSelected(false);
+                    selectedTower.setOutline(false);
                     towerObj = null;
-                    towerStatsAnim.SetBool("isSelected", false);
-                    towerStatsAnim.SetTrigger("deselect");
+
+                    towerController.emptySelectedTower();
+                    towerController.setIsSelected(false);
+                    towerController.startTrigger("deselect");
+
+                    buildMode = BuildMode.PLACE;
+                    modeText.text = "PLACING";
+                    activeIndicator.SetActive(true);
+
+                    mouseCon.ClearCollisions();
+                    mouseCon.UpdateCollisions();
                 }
             }
         }
+    }
 
-        // update UI tower stats
-        if (towerObj != null)
-        {
-            towerNameText.text = towerObj.name;
-            towerADText.text = "AD: " + selectedTower.getDamage().ToString();
-            towerASText.text = "AS: " + selectedTower.getFireRate().ToString();
-            towerRangeText.text = "Range: " + selectedTower.getRange().ToString();
-        } else
-        {
-            towerNameText.text = "";
-            towerADText.text = "";
-            towerASText.text = "";
-            towerRangeText.text = "";
-        }
+    private void initializeIndicator()
+    {
+        activeIndicator.SetActive(false);
     }
 
     private void UpdateSlotsUI()
@@ -391,6 +369,8 @@ public class BuildController : MonoBehaviour
             case 1:
                 activeIndicator = iceTowerIndicator;
                 mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                iceTowerIndicator.SetActive(true);
+                mouseIndicatorHighlight.SetActive(false);
                 Slot1.color = activeColor;
                 Slot2.color = defaultColor;
                 Slot3.color = defaultColor;
@@ -401,6 +381,8 @@ public class BuildController : MonoBehaviour
             case 2:
                 activeIndicator = fireTowerIndicator;
                 mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                iceTowerIndicator.SetActive(false);
+                mouseIndicatorHighlight.SetActive(true);
                 Slot1.color = defaultColor;
                 Slot2.color = activeColor;
                 Slot3.color = defaultColor;
@@ -411,6 +393,8 @@ public class BuildController : MonoBehaviour
             case 3:
                 activeIndicator = grassTowerIndicator;
                 mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                iceTowerIndicator.SetActive(false);
+                mouseIndicatorHighlight.SetActive(true);
                 Slot1.color = defaultColor;
                 Slot2.color = defaultColor;
                 Slot3.color = activeColor;
@@ -421,6 +405,8 @@ public class BuildController : MonoBehaviour
             case 4:
                 activeIndicator = mouseIndicatorHighlight;
                 mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                iceTowerIndicator.SetActive(false);
+                mouseIndicatorHighlight.SetActive(true);
                 Slot1.color = defaultColor;
                 Slot2.color = defaultColor;
                 Slot3.color = defaultColor;
