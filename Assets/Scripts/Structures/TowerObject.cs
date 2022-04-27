@@ -16,7 +16,9 @@ public class TowerObject : MonoBehaviour, IDamageable
 
     private float maxHP;
     private float currentHP;
-    private float damage;
+    private float baseDamage;
+    [SerializeField] private float damageMultiplier;
+    [SerializeField] private float damage;
     private float fireRate;
     private float range;
     private float special;
@@ -69,6 +71,8 @@ public class TowerObject : MonoBehaviour, IDamageable
 
         maxHP = towerStats.maxHealth;
         currentHP = towerStats.maxHealth;
+        baseDamage = towerStats.damage;
+        damageMultiplier = towerStats.damageMultiplier;
         damage = towerStats.damage;
         fireRate = towerStats.attackSpeed;
         range = towerStats.range;
@@ -188,7 +192,7 @@ public class TowerObject : MonoBehaviour, IDamageable
                 GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
                 atk.GetComponent<BlastAttack>().target = target;
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                target.GetComponent<IDamageable>().queueDamage(damage, this.gameObject);
+                target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
                 Destroy(atk, 1.0f);
             } else if (attackFX.name == "Chill")
             {
@@ -339,9 +343,20 @@ public class TowerObject : MonoBehaviour, IDamageable
         return currentHP;
     }
 
+    public void increaseDamage(float percent)
+    {
+        // increase damage by percent
+        damageMultiplier += percent;
+    }
+
+    public void reduceDamage(float percent)
+    {
+        damageMultiplier -= percent;
+    }
+
     public float getDamage()
     {
-        return damage;
+        return damage*damageMultiplier;
     }
 
     public float getFireRate()

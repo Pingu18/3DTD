@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MouseIndicatorController : MonoBehaviour
 {
-    [SerializeField] private Material canPlaceMat;
-    [SerializeField] private Material cannotPlaceMat;
     [SerializeField] private List<GameObject> collisions = new List<GameObject>();
     [SerializeField] public bool canPlace = true;
     MeshRenderer meshRenderer;

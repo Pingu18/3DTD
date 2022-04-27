@@ -21,7 +21,8 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
     private float maxHP;
     private float currHP;
-    private float damage;
+    private float baseDamage;
+    [SerializeField] private float damage;
     private float attackSpeed;
     private float range;
     private float moveSpeed;
@@ -53,6 +54,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
         maxHP = enemyStats.maxHealth;
         currHP = enemyStats.maxHealth;
+        baseDamage = enemyStats.damage;
         damage = enemyStats.damage;
         attackSpeed = enemyStats.attackSpeed;
         range = enemyStats.range;
@@ -194,6 +196,17 @@ public class EnemyObject : MonoBehaviour, IDamageable
     public void setDamage(float dmg)
     {
         damage = dmg;
+    }
+
+    public void reduceDamage(float percent)
+    {
+        // reduce damage by percent
+        damage = (damage * (1 - percent));
+    }
+
+    public void resetDamage()
+    {
+        damage = baseDamage;
     }
 
     public string getName()

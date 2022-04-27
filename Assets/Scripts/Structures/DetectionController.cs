@@ -8,6 +8,8 @@ public class DetectionController : MonoBehaviour
     private TowerObject towerObj;
     private EnemyObject enemyObj;
     private Heal healScript;
+    private DamageBuff damageBuff;
+    private DamageDebuff damageDebuff;
 
     private void Start()
     {
@@ -17,6 +19,8 @@ public class DetectionController : MonoBehaviour
         towerObj = parentObj.GetComponent<TowerObject>();
         enemyObj = parentObj.GetComponent<EnemyObject>();
         healScript = parentObj.GetComponent<Heal>();
+        damageDebuff = parentObj.GetComponent<DamageDebuff>();
+        damageBuff = parentObj.GetComponent<DamageBuff>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,6 +42,18 @@ public class DetectionController : MonoBehaviour
             if (other.gameObject.CompareTag("Structure"))
                 healScript.AddStructure(other.gameObject);
         }
+
+        if (damageBuff)
+        {
+            if (other.gameObject.CompareTag("Structure"))
+                damageBuff.AddStructure(other.gameObject);
+        }
+
+        if (damageDebuff)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+                damageDebuff.AddTarget(other.gameObject);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -58,6 +74,18 @@ public class DetectionController : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Structure"))
                 healScript.RemoveStructure(other.gameObject);
+        }
+
+        if (damageBuff)
+        {
+            if (other.gameObject.CompareTag("Structure"))
+                damageBuff.RemoveStructure(other.gameObject);
+        }
+
+        if (damageDebuff)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+                damageDebuff.RemoveTarget(other.gameObject);
         }
     }
 }
