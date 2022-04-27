@@ -113,8 +113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ed1b3442829804186f793a715838db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canPlaceMat: {fileID: 2100000, guid: 019b0cc77a867ed41a3de8cf9286011d, type: 2}
-  cannotPlaceMat: {fileID: 2100000, guid: 707ebe83ab0f4ad428e3979e54fac2d0, type: 2}
   collisions: []
   canPlace: 0
   canPlaceColor:

@@ -17,13 +17,13 @@ public class DamageBuff : MonoBehaviour
     {
         structures.Add(structure);
         // apply buff
-        structure.GetComponent<TowerObject>().increaseDamage(0.2f);
+        structure.GetComponent<TowerObject>().increaseDamage(0.1f);
     }
 
     public void RemoveStructure(GameObject structure)
     {
         structures.Remove(structure);
         // remove buff
-        structure.GetComponent<TowerObject>().resetDamage();
+        structure.GetComponent<TowerObject>().reduceDamage(0.1f);
     }
 }

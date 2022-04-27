@@ -11,6 +11,12 @@ public class BuildController : MonoBehaviour
     private GameObject activeIndicator;
     [SerializeField] private GameObject mouseIndicatorHighlight;
     [SerializeField] private GameObject iceTowerIndicator;
+    [SerializeField] private GameObject fireTowerIndicator;
+    [SerializeField] private GameObject grassTowerIndicator;
+    [SerializeField] private GameObject lightningTowerIndicator;
+    [SerializeField] private GameObject lightTowerIndicator;
+    [SerializeField] private GameObject darkTowerIndicator;
+
     [SerializeField] private LayerMask placeableLayerMask; // set to Ground layer so can only place structures on ground
     [SerializeField] private LayerMask structureLayerMask;
 
@@ -77,6 +83,8 @@ public class BuildController : MonoBehaviour
 
     private void Start()
     {
+
+
         activeStructure = iceTower; // default tower selected
         activeSlot = 1; // default tower highlighted on HUD
         UpdateSlotsUI();
@@ -192,21 +200,35 @@ public class BuildController : MonoBehaviour
         {
             case 1:
                 mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
+                fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                lightTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
                 break;
             case 2:
                 iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                lightTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
                 break;
             case 3:
                 iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                lightTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
                 break;
             case 4:
                 iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                lightTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
                 break;
             case 5:
                 iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
                 break;
             case 6:
                 iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
                 break;
             default:
                 break;
@@ -370,7 +392,7 @@ public class BuildController : MonoBehaviour
                 Slot6.color = defaultColor;
                 break;
             case 2:
-                activeIndicator = mouseIndicatorHighlight;
+                activeIndicator = fireTowerIndicator;
                 mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
                 Slot1.color = defaultColor;
                 Slot2.color = activeColor;
@@ -380,7 +402,7 @@ public class BuildController : MonoBehaviour
                 Slot6.color = defaultColor;
                 break;
             case 3:
-                activeIndicator = mouseIndicatorHighlight;
+                activeIndicator = grassTowerIndicator;
                 mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
                 Slot1.color = defaultColor;
                 Slot2.color = defaultColor;
@@ -400,7 +422,7 @@ public class BuildController : MonoBehaviour
                 Slot6.color = defaultColor;
                 break;
             case 5:
-                activeIndicator = mouseIndicatorHighlight;
+                activeIndicator = lightTowerIndicator;
                 mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
                 Slot1.color = defaultColor;
                 Slot2.color = defaultColor;
@@ -410,7 +432,7 @@ public class BuildController : MonoBehaviour
                 Slot6.color = defaultColor;
                 break;
             case 6:
-                activeIndicator = mouseIndicatorHighlight;
+                activeIndicator = lightTowerIndicator;
                 mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
                 Slot1.color = defaultColor;
                 Slot2.color = defaultColor;
