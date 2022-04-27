@@ -70,7 +70,8 @@ public class BuildController : MonoBehaviour
     public float maxY = 80f;
 
     [Header("Animations")]
-    public Animator towerStats;
+    public Animator towerStatsAnim;
+    public Animator buildModeAnim;
 
     enum BuildMode
     {
@@ -83,11 +84,10 @@ public class BuildController : MonoBehaviour
 
     private void Start()
     {
-
-
         activeStructure = iceTower; // default tower selected
         activeSlot = 1; // default tower highlighted on HUD
         UpdateSlotsUI();
+        buildCanvas.gameObject.SetActive(true);
         cameraController = cameraControllerObj.GetComponent<CameraController>();
         currencyController = currencyContainer.GetComponent<CurrencyController>();
         meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
@@ -102,7 +102,7 @@ public class BuildController : MonoBehaviour
             ToggleMode(); // toggle between placing and deleting structures
             MoveCam(); // pan camera with WASD or mouse + zooming
             BuildUIControl(); // selecting towers + UI elements
-            buildCanvas.gameObject.SetActive(true);
+            //buildCanvas.gameObject.SetActive(true);
             modeText.gameObject.SetActive(true);
 
             if (buildMode == BuildMode.PLACE)
@@ -119,7 +119,7 @@ public class BuildController : MonoBehaviour
         } else
         {
             activeIndicator.SetActive(false);
-            buildCanvas.gameObject.SetActive(false);
+            //buildCanvas.gameObject.SetActive(false);
             modeText.gameObject.SetActive(false);
             mouseCon.ClearCollisions();
         }
@@ -166,6 +166,13 @@ public class BuildController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             inBuild = !inBuild;
+            if (inBuild)
+            {
+                buildModeAnim.SetBool("inBuild", true);
+            } else
+            {
+                buildModeAnim.SetBool("inBuild", false);
+            }
             cameraController.toggleCamera();
             cameraController.toggleMouseLock();
             cameraController.toggleCanvas();
@@ -321,8 +328,8 @@ public class BuildController : MonoBehaviour
                 if (raycastHit.collider.gameObject == towerObj)
                 {
                     towerObj = null;
-                    towerStats.SetBool("isSelected", false);
-                    towerStats.SetTrigger("deselect");
+                    towerStatsAnim.SetBool("isSelected", false);
+                    towerStatsAnim.SetTrigger("deselect");
                 }
                 currencyController.addMoney(obj.GetComponent<TowerObject>().getResaleValue());
                 Destroy(obj);   
@@ -347,7 +354,7 @@ public class BuildController : MonoBehaviour
 
                     selectedTower = towerObj.GetComponent<TowerObject>();
                     selectedTower.SetSelected(true);
-                    towerStats.SetBool("isSelected", true);
+                    towerStatsAnim.SetBool("isSelected", true);
                 }
             } else
             {
@@ -355,8 +362,8 @@ public class BuildController : MonoBehaviour
                 {
                     selectedTower.SetSelected(false);
                     towerObj = null;
-                    towerStats.SetBool("isSelected", false);
-                    towerStats.SetTrigger("deselect");
+                    towerStatsAnim.SetBool("isSelected", false);
+                    towerStatsAnim.SetTrigger("deselect");
                 }
             }
         }
