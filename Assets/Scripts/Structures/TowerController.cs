@@ -1,18 +1,187 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class TowerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private TowerUpgrades towerUpgrades;
+    [SerializeField] private GameObject currencyContainer;
+
+    private CurrencyController currencyController;
+
+    [SerializeField] private GameObject selectedTower;
+    private TowerObject towerObj;
+
+    private TMP_Text text;
+    private Image bar;
+    private Button button;
+
+    private Color upgradedColor;
+
+    [Header("Menu Stats")]
+    [SerializeField] private TMP_Text towerNameText;
+    [SerializeField] private TMP_Text towerElementText;
+
+    [Header("Row Containers")]
+    [SerializeField] private Transform rowTexts;
+    [SerializeField] private Transform rowDescs;
+
+    [Header("Bar Containers")]
+    [SerializeField] private Transform upgradeBars1;
+    [SerializeField] private Transform upgradeBars2;
+    [SerializeField] private Transform upgradeBars3;
+    [SerializeField] private Transform upgradeBars4;
+
+    [Header("Button Containers")]
+    [SerializeField] private Transform buttonContainer;
+
+    [Header("Animations")]
+    [SerializeField] private Animator upgradeMenuAnimation;
+
+    private void Start()
     {
-        
+        towerUpgrades = GetComponent<TowerUpgrades>();
+        currencyController = currencyContainer.GetComponent<CurrencyController>();
+
+        upgradedColor       = new Color(  0f / 255f, 255f / 255f,  15f / 255f);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void upgradeDamage()
     {
-        
+        int cost = towerUpgrades.getCost("level_" + (towerObj.getDMGLevel() + 1) + "_dmgCost");
+        Debug.Log(cost);
+    }
+
+    public void setIsSelected(bool c)
+    {
+        upgradeMenuAnimation.SetBool("isSelected", c);
+    }
+
+    public void startTrigger(string triggerName)
+    {
+        upgradeMenuAnimation.SetTrigger(triggerName);
+    }
+
+    public void setMenu()
+    {
+        Debug.Log("Setting menu...");
+
+        towerNameText.text      = towerObj != null ? towerObj.getName() : "";
+        towerElementText.text   = towerObj != null ? "Element: " + towerObj.getElement() : "";
+
+        string[] upgrades = towerObj.getUpgrades();
+        int numUpgrades = upgrades.Length;
+        string costName;
+
+        for (int i = 0; i < numUpgrades; i++)
+        {
+            TMP_Text rowText = rowTexts.GetChild(i).GetComponent<TMP_Text>();
+            TMP_Text rowDesc = rowDescs.GetChild(i).GetComponent<TMP_Text>();
+
+            switch (upgrades[i])
+            {
+                case "damage":
+                    costName = "level_" + (towerObj.getDMGLevel() + 1).ToString() + "_dmgCost";
+                    rowText.text = "Damage: " + towerObj.getDamage().ToString();
+                    rowDesc.text = "How much damage the tower deals";
+                    setBars((i + 1), towerObj.getDMGLevel());
+                    setButtons(i, towerUpgrades.getCost(costName));
+                    break;
+                case "firerate":
+                    costName = "level_" + (towerObj.getFireRateLevel() + 1).ToString() + "_frCost";
+                    rowText.text = "Fire Rate: " + towerObj.getFireRate().ToString();
+                    rowDesc.text = "How fast the tower attacks";
+                    setBars((i + 1), towerObj.getFireRateLevel());
+                    setButtons(i, towerUpgrades.getCost(costName));
+                    break;
+                case "range":
+                    costName = "level_" + (towerObj.getRangeLevel() + 1).ToString() + "_rangeCost";
+                    rowText.text = "Range: " + towerObj.getRange().ToString();
+                    rowDesc.text = "How far the tower can attack";
+                    setBars((i + 1), towerObj.getRangeLevel());
+                    setButtons(i, towerUpgrades.getCost(costName));
+                    break;
+                case "special":
+                    if (towerObj.getSpecialLevel() == 0)
+                    {
+                        rowText.text = "Unlock Special";
+                        rowDesc.text = towerObj.getSpecialDesc();
+                    } else
+                    {
+                        rowText.text = "Special: " + towerObj.getSpecial().ToString();
+                        rowDesc.text = towerObj.getSpecialUpgradeDesc();
+                        setBars((i + 1), towerObj.getSpecialLevel());
+                    }
+                    break;
+                default:
+                    rowText.text = "";
+                    rowDesc.text = "";
+                    break;
+            }
+        }
+    }
+
+    public void setBars(int row, int currentLevel)
+    {
+        switch (row)
+        {
+            case 1:
+                for (int i = 0; i < currentLevel; i++)
+                {
+                    bar = upgradeBars1.GetChild(i).GetComponent<Image>();
+                    bar.color = upgradedColor;
+                }
+                break;
+            case 2:
+                for (int i = 0; i < currentLevel; i++)
+                {
+                    bar = upgradeBars2.GetChild(i).GetComponent<Image>();
+                    bar.color = upgradedColor;
+                }
+                break;
+            case 3:
+                for (int i = 0; i < currentLevel; i++)
+                {
+                    bar = upgradeBars3.GetChild(i).GetComponent<Image>();
+                    bar.color = upgradedColor;
+                }
+                break;
+            case 4:
+                for (int i = 0; i < currentLevel; i++)
+                {
+                    bar = upgradeBars4.GetChild(i).GetComponent<Image>();
+                    bar.color = upgradedColor;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setButtons(int row, int cost)
+    {
+        TMP_Text text = buttonContainer.GetChild(row).GetComponentInChildren<TMP_Text>();
+        text.text = cost.ToString();
+    }
+
+    public void hideBars()
+    {
+
+    }
+
+    public void emptySelectedTower()
+    {
+        selectedTower = null;
+    }
+
+    public void setSelectedTower(GameObject obj)
+    {
+        selectedTower = obj;
+        towerObj = selectedTower.GetComponent<TowerObject>();
+
+        hideBars();
+        setMenu();
     }
 }

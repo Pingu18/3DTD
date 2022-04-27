@@ -15,6 +15,11 @@ public class TowerStats : ScriptableObject
     public float attackSpeed;
     public float healRate;
     public float range;
+    public float special;
+    public string specialDesc;
+    public string specialUpgradeDesc;
 
     public int cost;
+
+    public string[] upgrades;
 }

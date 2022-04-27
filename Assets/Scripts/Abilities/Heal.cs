@@ -13,6 +13,10 @@ public class Heal : MonoBehaviour
 
     private float healAmount;
     private float healRate;
+
+    private int healLvl;
+    private int healRateLvl;
+
     private float nextHeal;
 
     private bool keepHealing = true;
@@ -23,6 +27,9 @@ public class Heal : MonoBehaviour
 
         healAmount = towerObj.getHeal();
         healRate = towerObj.getHealRate();
+
+        healLvl = 0;
+        healRateLvl = 0;
 
         nextHeal = 0.0f;
 
@@ -45,7 +52,6 @@ public class Heal : MonoBehaviour
         {
             yield return StartCoroutine(readyToHeal());
             healStructures();
-
         }
     }
 

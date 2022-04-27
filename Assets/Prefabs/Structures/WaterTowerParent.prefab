@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4807899482857503139}
   - component: {fileID: 631772444}
   m_Layer: 7
-  m_Name: IceTowerParent
+  m_Name: WaterTowerParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,13 +143,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1371055444300535370, guid: bc9d029c9543bd34486111009f1b12b9,
         type: 3}
+      propertyPath: m_Name
+      value: Water_Shard
+      objectReference: {fileID: 0}
+    - target: {fileID: 1371055444300535370, guid: bc9d029c9543bd34486111009f1b12b9,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1999793927289498718, guid: bc9d029c9543bd34486111009f1b12b9,
         type: 3}
       propertyPath: m_Name
-      value: Ice Tower
+      value: Water Tower
       objectReference: {fileID: 0}
     - target: {fileID: 1999793927289498718, guid: bc9d029c9543bd34486111009f1b12b9,
         type: 3}

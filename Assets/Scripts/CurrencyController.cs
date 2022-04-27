@@ -7,6 +7,8 @@ public class CurrencyController : MonoBehaviour
 {
     [SerializeField] TMP_Text displayMoney;
 
+    private GameObject structure;
+
     private int currentMoney;
 
     private void Start()
@@ -33,15 +35,18 @@ public class CurrencyController : MonoBehaviour
         updateDisplay();
     }
 
+    public void setStructure(GameObject obj)
+    {
+        structure = obj;
+    }
+
     private void updateDisplay()
     {
         displayMoney.text = "$ " + currentMoney.ToString();
     }
 
-    public bool checkSufficientMoney(GameObject structure)
+    public bool checkSufficientMoney(int cost)
     {
-        int cost = structure.GetComponentInChildren<TowerObject>().getCost();
-
         if (currentMoney >= cost)
         {
             removeMoney(cost);
