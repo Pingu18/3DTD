@@ -28,6 +28,8 @@ public class BuildController : MonoBehaviour
     public GameObject fireTower;
     public GameObject grassTower;
     public GameObject lightningTower;
+    public GameObject lightTower;
+    public GameObject darkTower;
     private GameObject activeStructure;
 
     [Header("UI")]
@@ -37,6 +39,8 @@ public class BuildController : MonoBehaviour
     public Image Slot2;
     public Image Slot3;
     public Image Slot4;
+    public Image Slot5;
+    public Image Slot6;
     public TMP_Text modeText;
     public TMP_Text poorText;
     public TMP_Text towerNameText;
@@ -198,6 +202,12 @@ public class BuildController : MonoBehaviour
             case 4:
                 iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
                 break;
+            case 5:
+                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                break;
+            case 6:
+                iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+                break;
             default:
                 break;
         }
@@ -245,6 +255,21 @@ public class BuildController : MonoBehaviour
         {
             activeStructure = lightningTower;
             activeSlot = 4;
+            UpdateSlotsUI();
+            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            activeStructure = lightTower;
+            activeSlot = 5;
+            UpdateSlotsUI();
+            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            activeStructure = darkTower;
+            activeSlot = 6;
             UpdateSlotsUI();
             meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
@@ -341,6 +366,8 @@ public class BuildController : MonoBehaviour
                 Slot2.color = defaultColor;
                 Slot3.color = defaultColor;
                 Slot4.color = defaultColor;
+                Slot5.color = defaultColor;
+                Slot6.color = defaultColor;
                 break;
             case 2:
                 activeIndicator = mouseIndicatorHighlight;
@@ -349,6 +376,8 @@ public class BuildController : MonoBehaviour
                 Slot2.color = activeColor;
                 Slot3.color = defaultColor;
                 Slot4.color = defaultColor;
+                Slot5.color = defaultColor;
+                Slot6.color = defaultColor;
                 break;
             case 3:
                 activeIndicator = mouseIndicatorHighlight;
@@ -357,6 +386,8 @@ public class BuildController : MonoBehaviour
                 Slot2.color = defaultColor;
                 Slot3.color = activeColor;
                 Slot4.color = defaultColor;
+                Slot5.color = defaultColor;
+                Slot6.color = defaultColor;
                 break;
             case 4:
                 activeIndicator = mouseIndicatorHighlight;
@@ -365,6 +396,28 @@ public class BuildController : MonoBehaviour
                 Slot2.color = defaultColor;
                 Slot3.color = defaultColor;
                 Slot4.color = activeColor;
+                Slot5.color = defaultColor;
+                Slot6.color = defaultColor;
+                break;
+            case 5:
+                activeIndicator = mouseIndicatorHighlight;
+                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                Slot1.color = defaultColor;
+                Slot2.color = defaultColor;
+                Slot3.color = defaultColor;
+                Slot4.color = defaultColor;
+                Slot5.color = activeColor;
+                Slot6.color = defaultColor;
+                break;
+            case 6:
+                activeIndicator = mouseIndicatorHighlight;
+                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+                Slot1.color = defaultColor;
+                Slot2.color = defaultColor;
+                Slot3.color = defaultColor;
+                Slot4.color = defaultColor;
+                Slot5.color = defaultColor;
+                Slot6.color = activeColor;
                 break;
             default:
                 break;

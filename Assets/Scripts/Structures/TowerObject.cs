@@ -16,7 +16,8 @@ public class TowerObject : MonoBehaviour, IDamageable
 
     private float maxHP;
     private float currentHP;
-    private float damage;
+    private float baseDamage;
+    [SerializeField] private float damage;
     private float fireRate;
     private float range;
 
@@ -61,6 +62,7 @@ public class TowerObject : MonoBehaviour, IDamageable
 
         maxHP = towerStats.maxHealth;
         currentHP = towerStats.maxHealth;
+        baseDamage = towerStats.damage;
         damage = towerStats.damage;
         fireRate = towerStats.attackSpeed;
         range = towerStats.range;
@@ -249,6 +251,17 @@ public class TowerObject : MonoBehaviour, IDamageable
     public float getCurrentHP()
     {
         return currentHP;
+    }
+
+    public void increaseDamage(float percent)
+    {
+        // increase damage by percent
+        damage += (damage * percent);
+    }
+
+    public void resetDamage()
+    {
+        damage = baseDamage;
     }
 
     public float getDamage()
