@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 536152845977631452}
   m_Layer: 7
   m_Name: LightningTowerParent
-  m_TagString: Untagged
+  m_TagString: Structure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -257,6 +257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerStats: {fileID: 11400000, guid: 4906f37d4dc1cf446b510a7a630b467e, type: 2}
+  damageMultiplier: 0
+  damage: 0
   targets: []
   attackFX: {fileID: 918730519828076777, guid: 026a14c7426bc694fbace9e4680aa8a5, type: 3}
   healthBarImage: {fileID: 3644921626682141638}

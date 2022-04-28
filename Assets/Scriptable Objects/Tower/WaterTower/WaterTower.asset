@@ -21,4 +21,12 @@ MonoBehaviour:
   attackSpeed: 1
   healRate: 0
   range: 40
+  special: 0
+  specialDesc: Attacks apply stack of Chill. Every third stack freezes for X seconds.
+  specialUpgradeDesc: Increase freeze duration by X seconds.
   cost: 200
+  upgrades:
+  - slowPercent
+  - slowDuration
+  - range
+  - special

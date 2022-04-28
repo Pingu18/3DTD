@@ -21,4 +21,12 @@ MonoBehaviour:
   attackSpeed: 1.5
   healRate: 0
   range: 30
+  special: 0
+  specialDesc: Every X attack applies a mini-stun
+  specialUpgradeDesc: Lower amount of attacks for mini-stun by 1
   cost: 200
+  upgrades:
+  - damage
+  - firerate
+  - maxBounces
+  - special

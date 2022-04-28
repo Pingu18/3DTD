@@ -171,6 +171,12 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4807899482230975674, guid: bc9d029c9543bd34486111009f1b12b9,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 890fc09c3428ac041b149a93a088a097,
+        type: 2}
     - target: {fileID: 4807899482230975675, guid: bc9d029c9543bd34486111009f1b12b9,
         type: 3}
       propertyPath: maxHP
