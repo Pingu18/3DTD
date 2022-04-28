@@ -6,14 +6,20 @@ public class ChillAttack : MonoBehaviour
 {
     public GameObject parentTower;
 
+    private Slow slow;
+
+    public void setParentTower(GameObject parent)
+    {
+        parentTower = parent;
+        slow = parentTower.GetComponent<Slow>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy") && parentTower != null)
         {
-            //print(parentTower.name);
             other.gameObject.GetComponent<IDamageable>().queueDamage(parentTower.GetComponent<TowerObject>().getDamage(), parentTower);
-            other.gameObject.GetComponent<EnemyNavMesh>().applySlow(0.6f);
-            //other.gameObject.GetComponent<EnemyTest>().TakeDamage(parentTower.GetComponent<TowerController>().damage, parentTower);
+            slow.applySlow(other.gameObject);
         }
     }
 }

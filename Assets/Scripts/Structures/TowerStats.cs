@@ -11,11 +11,16 @@ public class TowerStats : ScriptableObject
 
     public int maxHealth;
     public float damage;
-    public float heal;
     public float attackSpeed;
-    public float healRate;
     public float range;
     public float special;
+
+    public float heal;
+    public float healRate;
+
+    public float slowPercent;
+    public float slowDuration;
+
     public string specialDesc;
     public string specialUpgradeDesc;
 

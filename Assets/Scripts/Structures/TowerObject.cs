@@ -8,7 +8,8 @@ public class TowerObject : MonoBehaviour, IDamageable
 {
     [SerializeField] private TowerStats towerStats;
 
-    BuildController buildCon;
+    private BuildController buildCon;
+    private AttackDict attackDict;
 
     private string name;
     private string element;
@@ -24,7 +25,6 @@ public class TowerObject : MonoBehaviour, IDamageable
     private float special;
 
     private int hpLvl;
-    private int maxHpLvl;
     private int dmgLvl;
     private int fireRateLvl;
     private int rangeLvl;
@@ -86,6 +86,8 @@ public class TowerObject : MonoBehaviour, IDamageable
 
         cost = towerStats.cost;
         resaleValue = (int)Mathf.Ceil(cost * 0.75f);
+
+        attackDict = transform.parent.parent.gameObject.GetComponent<AttackDict>();
 
         buildCon = FindObjectOfType<BuildController>();
         nextFire = 0.0f;
@@ -187,24 +189,25 @@ public class TowerObject : MonoBehaviour, IDamageable
     {
         if (target != null)
         {
-            if (attackFX.name == "Blast")
+            GameObject atk = Instantiate(attackDict.getAttackFX(name), target.transform.position, Quaternion.identity);
+            
+            switch (attackDict.getAttackName(name))
             {
-                GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
-                atk.GetComponent<BlastAttack>().target = target;
-                atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
-                Destroy(atk, 1.0f);
-            } else if (attackFX.name == "Chill")
-            {
-                GameObject atk = Instantiate(attackFX, target.transform.position, Quaternion.identity);
-                atk.GetComponent<ChillAttack>().parentTower = this.gameObject;
-                atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                Destroy(atk, 1.2f);
-            } else if (attackFX.name == "Zap")
-            {
-                GameObject atk = Instantiate(attackFX, this.transform.position, Quaternion.identity);
-                atk.GetComponent<ZapAttack>().parentTower = this.gameObject;
-                atk.GetComponent<ZapAttack>().BeginAttack(this.gameObject, target, 3);
+                case "Blast":
+                    atk.GetComponent<BlastAttack>().target = target;
+                    atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                    target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
+                    Destroy(atk, 1.0f);
+                    break;
+                case "Chill":
+                    atk.GetComponent<ChillAttack>().setParentTower(this.gameObject);
+                    atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                    Destroy(atk, 1.2f);
+                    break;
+                case "Zap":
+                    atk.GetComponent<ZapAttack>().parentTower = this.gameObject;
+                    atk.GetComponent<ZapAttack>().BeginAttack(this.gameObject, target, 3);
+                    break;
             }
 
             nextFire = Time.time + (1 / fireRate);
@@ -387,6 +390,16 @@ public class TowerObject : MonoBehaviour, IDamageable
     public float getHealRate()
     {
         return towerStats.healRate;
+    }
+
+    public float getSlowPercent()
+    {
+        return towerStats.slowPercent;
+    }
+
+    public float getSlowDuration()
+    {
+        return towerStats.slowDuration;
     }
     
     private void SetGlobalScale(Transform transform, Vector3 globalScale)

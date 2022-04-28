@@ -13,6 +13,7 @@ public class TowerController : MonoBehaviour
 
     [SerializeField] private GameObject selectedTower;
     private TowerObject towerObj;
+    private Slow slow;
 
     private TMP_Text text;
     private Image bar;
@@ -110,9 +111,9 @@ public class TowerController : MonoBehaviour
         upgradeMenuAnimation.SetTrigger(triggerName);
     }
 
-    public void setMenu()
+    public void setUpgradeMenu()
     {
-        Debug.Log("Setting menu...");
+        Debug.Log("Setting upgrade menu...");
 
         towerNameText.text      = towerObj != null ? towerObj.getName() : "";
         towerElementText.text   = towerObj != null ? "Element: " + towerObj.getElement() : "";
@@ -147,6 +148,22 @@ public class TowerController : MonoBehaviour
                     rowText.text = "Range: " + towerObj.getRange().ToString();
                     rowDesc.text = "How far the tower can attack";
                     setBars((i + 1), towerObj.getRangeLevel());
+                    setButtons(i, towerUpgrades.getCost(costName));
+                    break;
+                case "slowPercent":
+                    slow = selectedTower.GetComponent<Slow>();
+                    costName = "level_" + (slow.getSlowPercentLevel() + 1).ToString() + "_slowPercentCost";
+                    rowText.text = "Slow Percent: " + slow.getSlowPercent().ToString();
+                    rowDesc.text = "How much the tower slows enemies on attack";
+                    setBars((i + 1), slow.getSlowPercentLevel());
+                    setButtons(i, towerUpgrades.getCost(costName));
+                    break;
+                case "slowDuration":
+                    slow = selectedTower.GetComponent<Slow>();
+                    costName = "level_" + (slow.getSlowDurationLevel() + 1).ToString() + "_slowDurCost";
+                    rowText.text = "Slow Duration: " + slow.getSlowDuration().ToString();
+                    rowDesc.text = "How long the enemies get slowed for";
+                    setBars((i + 1), slow.getSlowDurationLevel());
                     setButtons(i, towerUpgrades.getCost(costName));
                     break;
                 case "special":
@@ -228,6 +245,6 @@ public class TowerController : MonoBehaviour
         towerObj = selectedTower.GetComponent<TowerObject>();
 
         hideBars();
-        setMenu();
+        setUpgradeMenu();
     }
 }
