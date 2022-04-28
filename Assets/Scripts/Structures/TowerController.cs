@@ -20,6 +20,20 @@ public class TowerController : MonoBehaviour
 
     private Color upgradedColor;
 
+    private RectTransform statTransform;
+    private RectTransform upgradeTransform;
+
+    private float bookmarkMaxHeight;
+    private float bookmarkMinHeight;
+
+    [Header("Screens")]
+    [SerializeField] private GameObject statScreen;
+    [SerializeField] private GameObject upgradeScreen;
+
+    [Header("Screen Buttons")]
+    [SerializeField] private Button statButton;
+    [SerializeField] private Button upgradeButton;
+
     [Header("Menu Stats")]
     [SerializeField] private TMP_Text towerNameText;
     [SerializeField] private TMP_Text towerElementText;
@@ -45,10 +59,42 @@ public class TowerController : MonoBehaviour
         towerUpgrades = GetComponent<TowerUpgrades>();
         currencyController = currencyContainer.GetComponent<CurrencyController>();
 
-        upgradedColor       = new Color(  0f / 255f, 255f / 255f,  15f / 255f);
+        statTransform = statButton.GetComponent<RectTransform>();
+        upgradeTransform = upgradeButton.GetComponent<RectTransform>();
+
+        bookmarkMaxHeight = statTransform.transform.localPosition.y + 5;
+        bookmarkMinHeight = statTransform.transform.localPosition.y;
+
+        upgradedColor = new Color(  0f / 255f, 255f / 255f,  15f / 255f);
+
+        toggleStatsScreen();
     }
 
-    private void upgradeDamage()
+    public void toggleStatsScreen()
+    {
+        statScreen.SetActive(true);
+        upgradeScreen.SetActive(false);
+
+        statTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 60);
+        statTransform.transform.localPosition = new Vector3(statTransform.transform.localPosition.x, bookmarkMaxHeight, statTransform.transform.localPosition.z);
+
+        upgradeTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 50);
+        upgradeTransform.transform.localPosition = new Vector3(upgradeTransform.transform.localPosition.x, bookmarkMinHeight, upgradeTransform.transform.localPosition.z);
+    }
+
+    public void toggleUpgradesScreen()
+    {
+        statScreen.SetActive(false);
+        upgradeScreen.SetActive(true);
+
+        statTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 50);
+        statTransform.transform.localPosition = new Vector3(statTransform.transform.localPosition.x, bookmarkMinHeight, statTransform.transform.localPosition.z);
+
+        upgradeTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 60);
+        upgradeTransform.transform.localPosition = new Vector3(upgradeTransform.transform.localPosition.x, bookmarkMaxHeight, upgradeTransform.transform.localPosition.z);
+    }
+
+    public void upgradeDamage()
     {
         int cost = towerUpgrades.getCost("level_" + (towerObj.getDMGLevel() + 1) + "_dmgCost");
         Debug.Log(cost);

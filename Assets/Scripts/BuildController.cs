@@ -70,7 +70,6 @@ public class BuildController : MonoBehaviour
     public float maxY = 80f;
 
     [Header("Animations")]
-    public Animator towerStatsAnim;
     public Animator buildModeAnim;
 
     enum BuildMode
@@ -113,8 +112,6 @@ public class BuildController : MonoBehaviour
             ToggleMode(); // toggle between placing and deleting structures
             MoveCam(); // pan camera with WASD or mouse + zooming
             BuildUIControl(); // selecting towers + UI elements
-            //buildCanvas.gameObject.SetActive(true);
-            modeText.gameObject.SetActive(true);
 
             if (buildMode == BuildMode.PLACE)
             {
@@ -169,17 +166,21 @@ public class BuildController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             inBuild = !inBuild;
+
             if (inBuild)
             {
                 buildModeAnim.SetBool("inBuild", true);
-            } else
+            }
+            else
             {
                 buildModeAnim.SetBool("inBuild", false);
+                unselectTower();
             }
+
             activeIndicator.SetActive(!activeIndicator.activeSelf);
             mouseCon.ClearCollisions();
-            //buildCanvas.gameObject.SetActive(!buildCanvas.gameObject.activeSelf);
-            //modeText.gameObject.SetActive(!modeText.gameObject.activeSelf);
+            modeText.gameObject.SetActive(!modeText.gameObject.activeSelf);
+
             cameraController.toggleCamera();
             cameraController.toggleMouseLock();
             cameraController.toggleCanvas();
@@ -338,23 +339,28 @@ public class BuildController : MonoBehaviour
             } else
             {
                 if (selectedTower != null)
-                {
-                    selectedTower.setOutline(false);
-                    towerObj = null;
-
-                    towerController.emptySelectedTower();
-                    towerController.setIsSelected(false);
-                    towerController.startTrigger("deselect");
-
-                    buildMode = BuildMode.PLACE;
-                    modeText.text = "PLACING";
-                    activeIndicator.SetActive(true);
-
-                    mouseCon.ClearCollisions();
-                    mouseCon.UpdateCollisions();
-                }
+                    unselectTower();
             }
         }
+    }
+
+    private void unselectTower()
+    {
+        if (selectedTower != null)
+            selectedTower.setOutline(false);
+
+        towerObj = null;
+
+        towerController.emptySelectedTower();
+        towerController.setIsSelected(false);
+        towerController.startTrigger("deselect");
+
+        buildMode = BuildMode.PLACE;
+        modeText.text = "PLACING";
+        activeIndicator.SetActive(true);
+
+        mouseCon.ClearCollisions();
+        mouseCon.UpdateCollisions();
     }
 
     private void initializeIndicator()
