@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Fire Tower
   element: Fire
-  damageMultiplier: 1
   maxHealth: 100
   damage: 50
-  heal: 0
   attackSpeed: 1
+  range: 40
+  heal: 0
   healRate: 0
-  range: 30
+  slowPercent: 0
+  slowDuration: 0
   special: 0
   specialDesc: Add an AOE to every attack
   specialUpgradeDesc: Increase the radius per upgrade
+  damageMultiplier: 1
+  takeDamageMultiplier: 0
   cost: 200
   upgrades:
   - damage

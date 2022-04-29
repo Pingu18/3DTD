@@ -109,9 +109,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         sphereCollider = GetComponentInChildren<SphereCollider>();
         nextFire = 0.0f;
         detectionRadius = this.gameObject.transform.GetChild(0).gameObject;
-        detectionScale = new Vector3(range, range, range);
-        SetGlobalScale(detectionRadius.transform, detectionScale);
-        updateRangeCollider();
+        updateRangeCollider(range);
 
         healthBar = GetComponentInChildren<Slider>();
         maxHPColor = new Color(42f / 255f, 255f / 255f, 46f / 255f);
@@ -286,9 +284,11 @@ public class TowerObject : MonoBehaviour, IDamageable
         damageMultiplier -= percent;
     }
 
-    public void updateRangeCollider()
+    public void updateRangeCollider(float range)
     {
-        sphereCollider.radius = range;
+        detectionScale = new Vector3(range, range, range);
+        SetGlobalScale(detectionRadius.transform, detectionScale);
+        //sphereCollider.radius = range;
     }
 
     private void SetGlobalScale(Transform transform, Vector3 globalScale)
@@ -330,14 +330,14 @@ public class TowerObject : MonoBehaviour, IDamageable
         baseRange = newRange;
         range = newRange;
 
-        updateRangeCollider();
+        updateRangeCollider(newRange);
     }
 
     public void setRange(float newRange)
     {
         range = newRange;
 
-        updateRangeCollider();
+        updateRangeCollider(newRange);
     }
 
     public void setSpecial(float newSpecial)
