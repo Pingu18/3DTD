@@ -36,6 +36,11 @@ public class EnemyNavMesh : MonoBehaviour
 
     public IEnumerator applySlow(float newSpeed, float duration)
     {
+        // Get rid of the yield return
+        // Add timer that ticks down from for example 5 -> 0 (update timer value in update function)
+        // if the timer hits 0, then set speed back to base
+        // this way, the timer can be refreshed on each hit
+
         navMeshAgent.speed = newSpeed;
         yield return new WaitForSeconds(duration);
 

@@ -15,7 +15,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
     private Queue<DamageInfo> damageQueue = new Queue<DamageInfo>();
 
-    private string name;
+    private string enemyName;
     private string element;
     private float takeDamageMultiplier;
 
@@ -48,7 +48,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        name = enemyStats.name;
+        enemyName = enemyStats.name;
         element = enemyStats.element;
         takeDamageMultiplier = enemyStats.damageMultiplier;
 
@@ -211,7 +211,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
     public string getName()
     {
-        return name;
+        return enemyName;
     }
 
     public float getMaxHP()

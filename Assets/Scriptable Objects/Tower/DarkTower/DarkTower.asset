@@ -14,15 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Dark Tower
   element: Dark
-  damageMultiplier: 1
   maxHealth: 150
   damage: 20
-  heal: 0
   attackSpeed: 1
-  healRate: 0
   range: 40
+  heal: 0
+  healRate: 0
+  slowPercent: 0
+  slowDuration: 0
   special: 0
-  specialDesc: 
-  specialUpgradeDesc: 
+  specialDesc: Applies a dark mark to enemies hit. If enemy has dark and light mark,
+    consume to deal damage.
+  specialUpgradeDesc: Increases damage dealt from mark consumption.
+  damageMultiplier: 1
   cost: 150
-  upgrades: []
+  upgrades:
+  - damage
+  - firerate
+  - range
+  - special

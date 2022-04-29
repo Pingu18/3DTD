@@ -136,8 +136,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerStats: {fileID: 11400000, guid: e3fa49fb8a4f7274197fa842339dac35, type: 2}
-  damageMultiplier: 0
-  damage: 0
   targets: []
   attackFX: {fileID: 1621167109009017354, guid: 6902b30e7c7c312408804d445e3dc594,
     type: 3}
