@@ -281,10 +281,9 @@ public class BuildController : MonoBehaviour
             if (currencyController.checkSufficientMoney(cost))
             {
                 Instantiate(activeStructure, transform.position, Quaternion.identity).transform.parent = towerContainer.transform; // place tower at mouse location
-                poorText.enabled = false;
+                disablePoorText();
             } else {
-                poorText.enabled = true;
-                StartCoroutine(wait(3));
+                showPoorText();
             }
         }
     }
@@ -465,6 +464,20 @@ public class BuildController : MonoBehaviour
             default:
                 break;
         }
+
+        mouseCon.ClearCollisions();
+    }
+
+    public void disablePoorText()
+    {
+        poorText.enabled = false;
+    }
+
+    public void showPoorText()
+    {
+        poorText.enabled = true;
+        StartCoroutine(wait(3));
+        poorText.enabled = false;
     }
 
     private IEnumerator wait(int seconds)

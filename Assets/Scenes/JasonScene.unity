@@ -1890,7 +1890,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 183726894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.72, y: -2, z: -22}
+  m_LocalPosition: {x: 2.72, y: 0, z: -22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18922,8 +18922,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Not Enough Money
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 67291fe45ad0b0b44abc454728b9c1f8, type: 2}
+  m_sharedMaterial: {fileID: 6684892232697998151, guid: 67291fe45ad0b0b44abc454728b9c1f8,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -21121,9 +21122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d629eb484c48874b88f72bcf54fcef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerUpgrades: {fileID: 0}
   currencyContainer: {fileID: 2107624121}
-  selectedTower: {fileID: 0}
+  buildContainer: {fileID: 1511876334}
   statScreen: {fileID: 2002673552}
   upgradeScreen: {fileID: 1377523051}
   statButton: {fileID: 690752735}
@@ -26179,7 +26179,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133793053}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

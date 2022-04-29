@@ -20,6 +20,36 @@ public class Slow : MonoBehaviour
         slowDuration = towerObj.getSlowDuration();
     }
 
+    // Methods
+    public void applySlow(GameObject enemy)
+    {
+        float newSpeed = enemy.GetComponent<EnemyObject>().getMoveSpeed() * (1 - (slowPercent / 100));
+
+        StartCoroutine(enemy.GetComponent<EnemyNavMesh>().applySlow(newSpeed, slowDuration));
+    }
+
+    // Setter methods
+    public void setSlowPercent(float newPercent)
+    {
+        slowPercent = newPercent;
+    }
+
+    public void setSlowDuration(float newDuration)
+    {
+        slowDuration = newDuration;
+    }
+
+    public void setSlowPercentLevel(int newLevel)
+    {
+        slowPercentLevel = newLevel;
+    }
+
+    public void setSlowDurationLevel(int newLevel)
+    {
+        slowDurationLevel = newLevel;
+    }
+
+    // Getter methods
     public float getSlowPercent()
     {
         return slowPercent;
@@ -38,22 +68,5 @@ public class Slow : MonoBehaviour
     public int getSlowDurationLevel()
     {
         return slowDurationLevel;
-    }
-
-    private void setSlowPercent(float newPercent)
-    {
-        slowPercent = newPercent;
-    }
-
-    private void setSlowDuration(float newDuration)
-    {
-        slowDuration = newDuration;
-    }
-
-    public void applySlow(GameObject enemy)
-    {
-        float newSpeed = enemy.GetComponent<EnemyObject>().getMoveSpeed() * (1 - (slowPercent / 100));
-
-        StartCoroutine(enemy.GetComponent<EnemyNavMesh>().applySlow(newSpeed, slowDuration));
     }
 }

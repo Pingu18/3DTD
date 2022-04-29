@@ -8,31 +8,43 @@ public class TowerObject : MonoBehaviour, IDamageable
 {
     [SerializeField] private TowerStats towerStats;
 
+    // Script references
     private BuildController buildCon;
     private AttackDict attackDict;
 
-    private string name;
+    // Static stats
+    private string towerName;
     private string element;
-    private float takeDamageMultiplier;
 
+    // Base stats
+    private float baseHP;
+    private float baseDamage;
+    private float baseFireRate;
+    private float baseRange;
+
+    // Current stats
     private float maxHP;
     private float currentHP;
-    private float baseDamage;
-    [SerializeField] private float damageMultiplier;
-    [SerializeField] private float damage;
+    private float damage;
     private float fireRate;
     private float range;
     private float special;
 
+    // Stat levels
     private int hpLvl;
     private int dmgLvl;
     private int fireRateLvl;
     private int rangeLvl;
     private int specialLvl;
 
+    // Misc stats
+    private float takeDamageMultiplier;
+    private float damageMultiplier;
     private int resaleValue;
     private int cost;
 
+    // Variables
+    private SphereCollider sphereCollider;
     private float nextFire;
     GameObject currentTarget;
     [SerializeField] private List<GameObject> targets = new List<GameObject>(); // list of enemies in radius
@@ -65,14 +77,16 @@ public class TowerObject : MonoBehaviour, IDamageable
     private void Start()
     {
         Debug.Log("Creating TowerObject... (TowerObject)");
-        name = towerStats.towerName;
+        towerName = towerStats.towerName;
         element = towerStats.element;
-        takeDamageMultiplier = towerStats.damageMultiplier;
+
+        baseHP = towerStats.maxHealth;
+        baseDamage = towerStats.damage;
+        baseFireRate = towerStats.attackSpeed;
+        baseRange = towerStats.range;
 
         maxHP = towerStats.maxHealth;
         currentHP = towerStats.maxHealth;
-        baseDamage = towerStats.damage;
-        damageMultiplier = towerStats.damageMultiplier;
         damage = towerStats.damage;
         fireRate = towerStats.attackSpeed;
         range = towerStats.range;
@@ -84,16 +98,20 @@ public class TowerObject : MonoBehaviour, IDamageable
         rangeLvl = 0;
         specialLvl = 0;
 
+        takeDamageMultiplier = towerStats.takeDamageMultiplier;
+        damageMultiplier = towerStats.damageMultiplier;
         cost = towerStats.cost;
         resaleValue = (int)Mathf.Ceil(cost * 0.75f);
 
         attackDict = transform.parent.parent.gameObject.GetComponent<AttackDict>();
 
         buildCon = FindObjectOfType<BuildController>();
+        sphereCollider = GetComponentInChildren<SphereCollider>();
         nextFire = 0.0f;
         detectionRadius = this.gameObject.transform.GetChild(0).gameObject;
         detectionScale = new Vector3(range, range, range);
         SetGlobalScale(detectionRadius.transform, detectionScale);
+        updateRangeCollider();
 
         healthBar = GetComponentInChildren<Slider>();
         maxHPColor = new Color(42f / 255f, 255f / 255f, 46f / 255f);
@@ -124,6 +142,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         }
     }
 
+    // Damage functions
     public void queueDamage(float dmgTaken, GameObject enemy)
     {
         DamageInfo dInfo = new DamageInfo(dmgTaken, enemy);
@@ -137,6 +156,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         checkDeath(enemy);
     }
 
+    // Health functions
     private void updateHealthBar()
     {
         float hpPercent = getHealthPercent();
@@ -150,6 +170,26 @@ public class TowerObject : MonoBehaviour, IDamageable
         return (currentHP / maxHP) * 100;
     }
 
+    public void AddHP(float amount)
+    {
+        if (currentHP + amount > maxHP)
+        {
+            currentHP = maxHP;
+        }
+        else
+        {
+            currentHP += amount;
+        }
+        updateHealthBar();
+    }
+
+    public void healToFull()
+    {
+        currentHP = maxHP;
+        updateHealthBar();
+    }
+
+    // Logic functions
     private void checkDeath(GameObject enemy)
     {
         if (currentHP <= 0)
@@ -159,6 +199,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         }
     }
 
+    // Attack functions
     private IEnumerator startAttackCycle()
     {
         while (keepAttacking)
@@ -189,9 +230,9 @@ public class TowerObject : MonoBehaviour, IDamageable
     {
         if (target != null)
         {
-            GameObject atk = Instantiate(attackDict.getAttackFX(name), target.transform.position, Quaternion.identity);
+            GameObject atk = Instantiate(attackDict.getAttackFX(towerName), target.transform.position, Quaternion.identity);
             
-            switch (attackDict.getAttackName(name))
+            switch (attackDict.getAttackName(towerName))
             {
                 case "Blast":
                     atk.GetComponent<BlastAttack>().target = target;
@@ -233,32 +274,75 @@ public class TowerObject : MonoBehaviour, IDamageable
         return closestTarget;
     }
 
+    // Methods
+    public void increaseDamage(float percent)
+    {
+        // increase damage by percent
+        damageMultiplier += percent;
+    }
+
+    public void reduceDamage(float percent)
+    {
+        damageMultiplier -= percent;
+    }
+
+    public void updateRangeCollider()
+    {
+        sphereCollider.radius = range;
+    }
+
+    private void SetGlobalScale(Transform transform, Vector3 globalScale)
+    {
+        transform.localScale = Vector3.one;
+        transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
+    }
+
+    // Setter methods
     public void setOutline(bool isSelected)
     {
         this.gameObject.GetComponent<Outline>().enabled = isSelected;
     }
 
-    public void AddHP(float amount)
+    public void setBaseDamage(int newDamage)
     {
-        if (currentHP + amount > maxHP)
-        {
-            currentHP = maxHP;
-        } else
-        {
-            currentHP += amount;
-        }
-        updateHealthBar();
+        baseDamage = newDamage;
+        damage = newDamage * damageMultiplier;
     }
 
-    public void healToFull()
+    public void setDamage(int newDamage)
     {
-        currentHP = maxHP;
-        updateHealthBar();
+        damage = newDamage * damageMultiplier;
     }
 
-    public string[] getUpgrades()
+    public void setBaseFireRate(float newFireRate)
     {
-        return towerStats.upgrades;
+        baseFireRate = newFireRate;
+        fireRate = newFireRate;
+    }
+
+    public void setFireRate(float newFireRate)
+    {
+        fireRate = newFireRate;
+    }
+
+    public void setBaseRange(float newRange)
+    {
+        baseRange = newRange;
+        range = newRange;
+
+        updateRangeCollider();
+    }
+
+    public void setRange(float newRange)
+    {
+        range = newRange;
+
+        updateRangeCollider();
+    }
+
+    public void setSpecial(float newSpecial)
+    {
+        special = newSpecial;
     }
 
     public void setHPLevel(int newLvl)
@@ -286,6 +370,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         specialLvl = newLvl;
     }
 
+    // Getter methods
     public string getSpecialDesc()
     {
         return towerStats.specialDesc;
@@ -333,7 +418,7 @@ public class TowerObject : MonoBehaviour, IDamageable
 
     public string getName()
     {
-        return name;
+        return towerName;
     }
 
     public float getMaxHP()
@@ -346,20 +431,14 @@ public class TowerObject : MonoBehaviour, IDamageable
         return currentHP;
     }
 
-    public void increaseDamage(float percent)
-    {
-        // increase damage by percent
-        damageMultiplier += percent;
-    }
-
-    public void reduceDamage(float percent)
-    {
-        damageMultiplier -= percent;
-    }
-
     public float getDamage()
     {
-        return damage*damageMultiplier;
+        return damage * damageMultiplier;
+    }
+
+    public float getBaseDamage()
+    {
+        return baseDamage;
     }
 
     public float getFireRate()
@@ -401,10 +480,9 @@ public class TowerObject : MonoBehaviour, IDamageable
     {
         return towerStats.slowDuration;
     }
-    
-    private void SetGlobalScale(Transform transform, Vector3 globalScale)
+
+    public string[] getUpgrades()
     {
-        transform.localScale = Vector3.one;
-        transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
+        return towerStats.upgrades;
     }
 }

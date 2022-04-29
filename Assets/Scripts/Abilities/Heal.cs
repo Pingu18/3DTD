@@ -11,6 +11,9 @@ public class Heal : MonoBehaviour
 
     public GameObject healFX;
 
+    private float baseHealAmount;
+    private float baseHealRate;
+
     private float healAmount;
     private float healRate;
 
@@ -25,8 +28,11 @@ public class Heal : MonoBehaviour
     {
         towerObj = GetComponent<TowerObject>();
 
-        healAmount = towerObj.getHeal();
-        healRate = towerObj.getHealRate();
+        baseHealAmount = towerObj.getHeal();
+        baseHealRate = towerObj.getHealRate();
+
+        healAmount = baseHealAmount;
+        healRate = baseHealRate;
 
         healLvl = 0;
         healRateLvl = 0;
@@ -80,5 +86,57 @@ public class Heal : MonoBehaviour
             }
         }
         nextHeal = Time.time + (1 / healRate);
+    }
+
+    public void setHealLevel(int newLevel)
+    {
+        healLvl = newLevel;
+    }
+
+    public void setHealRateLevel(int newLevel)
+    {
+        healRateLvl = newLevel;
+    }
+
+    public void setBaseHealAmount(float newHeal)
+    {
+        baseHealAmount = newHeal;
+        healAmount = newHeal;
+    }
+
+    public void setHealAmount(float newHeal)
+    {
+        healAmount = newHeal;
+    }
+
+    public void setBaseHealRate(float newRate)
+    {
+        baseHealRate = newRate;
+        healRate = newRate;
+    }
+
+    public void setHealRate(float newRate)
+    {
+        healRate = newRate;
+    }
+
+    public int getHealAmountLevel()
+    {
+        return healLvl;
+    }
+
+    public int getHealRateLevel()
+    {
+        return healRateLvl;
+    }
+
+    public float getHealAmount()
+    {
+        return healAmount;
+    }
+
+    public float getHealRate()
+    {
+        return healRate;
     }
 }
