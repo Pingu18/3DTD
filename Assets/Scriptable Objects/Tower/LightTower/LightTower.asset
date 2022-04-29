@@ -17,7 +17,7 @@ MonoBehaviour:
   maxHealth: 150
   damage: 20
   attackSpeed: 1
-  range: 40
+  range: 50
   heal: 0
   healRate: 0
   slowPercent: 0
@@ -27,6 +27,7 @@ MonoBehaviour:
     consume to deal damage.
   specialUpgradeDesc: Increases damage dealt from mark consumption.
   damageMultiplier: 1
+  takeDamageMultiplier: 0
   cost: 150
   upgrades:
   - damage

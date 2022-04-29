@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Grass Tower
   element: Grass
-  damageMultiplier: 1
   maxHealth: 150
   damage: 10
-  heal: 20
   attackSpeed: 1
-  healRate: 0.25
   range: 40
+  heal: 20
+  healRate: 0.25
+  slowPercent: 0
+  slowDuration: 0
   special: 0
   specialDesc: Grant allied towers lifesteal
   specialUpgradeDesc: Increase lifesteal by X%
+  damageMultiplier: 1
+  takeDamageMultiplier: 0
   cost: 150
   upgrades:
   - healAmount

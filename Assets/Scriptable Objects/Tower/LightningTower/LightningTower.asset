@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Lightning Tower
   element: Lightning
-  damageMultiplier: 1
   maxHealth: 100
   damage: 25
-  heal: 0
   attackSpeed: 1.5
-  healRate: 0
   range: 30
+  heal: 0
+  healRate: 0
+  slowPercent: 0
+  slowDuration: 0
   special: 0
   specialDesc: Every X attack applies a mini-stun
   specialUpgradeDesc: Lower amount of attacks for mini-stun by 1
+  damageMultiplier: 1
+  takeDamageMultiplier: 0
   cost: 200
   upgrades:
   - damage
