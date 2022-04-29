@@ -44,7 +44,6 @@ public class TowerObject : MonoBehaviour, IDamageable
     private int cost;
 
     // Variables
-    private SphereCollider sphereCollider;
     private float nextFire;
     GameObject currentTarget;
     [SerializeField] private List<GameObject> targets = new List<GameObject>(); // list of enemies in radius
@@ -106,7 +105,6 @@ public class TowerObject : MonoBehaviour, IDamageable
         attackDict = transform.parent.parent.gameObject.GetComponent<AttackDict>();
 
         buildCon = FindObjectOfType<BuildController>();
-        sphereCollider = GetComponentInChildren<SphereCollider>();
         nextFire = 0.0f;
         detectionRadius = this.gameObject.transform.GetChild(0).gameObject;
         detectionScale = new Vector3(range, range, range);
@@ -288,7 +286,8 @@ public class TowerObject : MonoBehaviour, IDamageable
 
     public void updateRangeCollider()
     {
-        sphereCollider.radius = range;
+        detectionScale = new Vector3(range, range, range);
+        SetGlobalScale(detectionRadius.transform, detectionScale);
     }
 
     private void SetGlobalScale(Transform transform, Vector3 globalScale)
