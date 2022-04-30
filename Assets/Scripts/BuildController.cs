@@ -377,6 +377,7 @@ public class BuildController : MonoBehaviour
                 iceTowerIndicator.SetActive(true);
                 fireTowerIndicator.SetActive(false);
                 grassTowerIndicator.SetActive(false);
+                lightningTowerIndicator.SetActive(false);
                 lightTowerIndicator.SetActive(false);
                 mouseIndicatorHighlight.SetActive(false);
                 Slot1.color = activeColor;
@@ -392,6 +393,7 @@ public class BuildController : MonoBehaviour
                 iceTowerIndicator.SetActive(false);
                 fireTowerIndicator.SetActive(true);
                 grassTowerIndicator.SetActive(false);
+                lightningTowerIndicator.SetActive(false);
                 lightTowerIndicator.SetActive(false);
                 mouseIndicatorHighlight.SetActive(false);
                 Slot1.color = defaultColor;
@@ -408,6 +410,7 @@ public class BuildController : MonoBehaviour
                 mouseIndicatorHighlight.SetActive(false);
                 fireTowerIndicator.SetActive(false);
                 grassTowerIndicator.SetActive(true);
+                lightningTowerIndicator.SetActive(false);
                 lightTowerIndicator.SetActive(false);
                 Slot1.color = defaultColor;
                 Slot2.color = defaultColor;
@@ -417,13 +420,14 @@ public class BuildController : MonoBehaviour
                 Slot6.color = defaultColor;
                 break;
             case 4:
-                activeIndicator = mouseIndicatorHighlight;
+                activeIndicator = lightningTowerIndicator;
                 mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
                 iceTowerIndicator.SetActive(false);
                 fireTowerIndicator.SetActive(false);
                 grassTowerIndicator.SetActive(false);
+                lightningTowerIndicator.SetActive(true);
                 lightTowerIndicator.SetActive(false);
-                mouseIndicatorHighlight.SetActive(true);
+                mouseIndicatorHighlight.SetActive(false);
                 Slot1.color = defaultColor;
                 Slot2.color = defaultColor;
                 Slot3.color = defaultColor;
@@ -437,6 +441,7 @@ public class BuildController : MonoBehaviour
                 iceTowerIndicator.SetActive(false);
                 fireTowerIndicator.SetActive(false);
                 grassTowerIndicator.SetActive(false);
+                lightningTowerIndicator.SetActive(false);
                 lightTowerIndicator.SetActive(true);
                 mouseIndicatorHighlight.SetActive(false);
                 Slot1.color = defaultColor;
@@ -452,6 +457,7 @@ public class BuildController : MonoBehaviour
                 iceTowerIndicator.SetActive(false);
                 fireTowerIndicator.SetActive(false);
                 grassTowerIndicator.SetActive(false);
+                lightningTowerIndicator.SetActive(false);
                 lightTowerIndicator.SetActive(true);
                 mouseIndicatorHighlight.SetActive(false);
                 Slot1.color = defaultColor;
