@@ -14,18 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Water Tower
   element: Water
-  damageMultiplier: 1
   maxHealth: 100
   damage: 15
   attackSpeed: 1
   range: 40
-  special: 0
   heal: 0
   healRate: 0
   slowPercent: 20
   slowDuration: 0.5
+  special: 0
   specialDesc: Attacks apply stack of Chill. Every third stack freezes for X seconds.
   specialUpgradeDesc: Increase freeze duration by X seconds.
+  damageMultiplier: 1
+  takeDamageMultiplier: 0
   cost: 200
   upgrades:
   - slowPercent

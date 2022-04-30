@@ -508,35 +508,43 @@ public class TowerController : MonoBehaviour
         switch (upgradeName)
         {
             case "damage":
-                button.onClick.AddListener(() => upgradeDamage(row, cost, upgradeName));
+                if (towerObj.getDMGLevel() < 5)
+                    button.onClick.AddListener(() => upgradeDamage(row, cost, upgradeName));
                 break;
 
             case "firerate":
-                button.onClick.AddListener(() => upgradeFireRate(row, cost, upgradeName));
+                if (towerObj.getFireRateLevel() < 5)
+                    button.onClick.AddListener(() => upgradeFireRate(row, cost, upgradeName));
                 break;
 
             case "range":
-                button.onClick.AddListener(() => upgradeRange(row, cost, upgradeName));
+                if (towerObj.getRangeLevel() < 5)
+                    button.onClick.AddListener(() => upgradeRange(row, cost, upgradeName));
                 break;
 
             case "healAmount":
-                button.onClick.AddListener(() => upgradeHealAmount(row, cost, upgradeName));
+                if (heal.getHealAmountLevel() < 5)
+                    button.onClick.AddListener(() => upgradeHealAmount(row, cost, upgradeName));
                 break;
 
             case "healRate":
-                button.onClick.AddListener(() => upgradeHealRate(row, cost, upgradeName));
+                if (heal.getHealRateLevel() < 5)
+                    button.onClick.AddListener(() => upgradeHealRate(row, cost, upgradeName));
                 break;
 
             case "slowPercent":
-                button.onClick.AddListener(() => upgradeSlowPercent(row, cost, upgradeName));
+                if (slow.getSlowPercentLevel() < 3)
+                    button.onClick.AddListener(() => upgradeSlowPercent(row, cost, upgradeName));
                 break;
 
             case "slowDuration":
-                button.onClick.AddListener(() => upgradeSlowDuration(row, cost, upgradeName));
+                if (slow.getSlowDurationLevel() < 3)
+                    button.onClick.AddListener(() => upgradeSlowDuration(row, cost, upgradeName));
                 break;
 
             case "special":
-                button.onClick.AddListener(() => upgradeSpecial(row, cost, upgradeName));
+                if (towerObj.getSpecialLevel() < 3)
+                    button.onClick.AddListener(() => upgradeSpecial(row, cost, upgradeName));
                 break;
 
             default:

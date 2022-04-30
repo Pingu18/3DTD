@@ -22,8 +22,7 @@ public class MouseIndicatorController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         collisions.Add(other.gameObject);
-        canPlace = false;
-        meshRenderer.material.color = cannotPlaceColor;
+        UpdateCollisions();
     }
 
     private void OnTriggerExit(Collider other)
@@ -46,6 +45,7 @@ public class MouseIndicatorController : MonoBehaviour
     public void UpdateCollisions()
     {
         collisions.RemoveAll(x => x == null);
+
         if (collisions.Count > 0)
         {
             canPlace = false;

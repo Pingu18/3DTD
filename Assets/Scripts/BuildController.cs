@@ -86,21 +86,18 @@ public class BuildController : MonoBehaviour
     {
         activeStructure = iceTower; // default tower selected
         activeSlot = 1; // default tower highlighted on HUD
-
-        iceTowerIndicator.SetActive(true);
-        mouseIndicatorHighlight.SetActive(false);
+        activeIndicator = iceTowerIndicator;
 
         //buildCanvas.gameObject.SetActive(false);
         modeText.gameObject.SetActive(false);
-
-        UpdateSlotsUI();
         buildCanvas.gameObject.SetActive(true);
-        initializeIndicator();
 
         cameraController = cameraControllerObj.GetComponent<CameraController>();
         currencyController = currencyContainer.GetComponent<CurrencyController>();
         towerController = towerContainer.GetComponent<TowerController>();
-        meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
+
+        UpdateSlotsUI();
+        activeIndicator.SetActive(false);
     }
 
     private void Update()
@@ -188,7 +185,7 @@ public class BuildController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -232,7 +229,6 @@ public class BuildController : MonoBehaviour
             activeStructure = iceTower;
             activeSlot = 1;
             UpdateSlotsUI();
-            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -240,7 +236,6 @@ public class BuildController : MonoBehaviour
             activeStructure = fireTower;
             activeSlot = 2;
             UpdateSlotsUI();
-            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -248,7 +243,6 @@ public class BuildController : MonoBehaviour
             activeStructure = grassTower;
             activeSlot = 3;
             UpdateSlotsUI();
-            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -256,7 +250,6 @@ public class BuildController : MonoBehaviour
             activeStructure = lightningTower;
             activeSlot = 4;
             UpdateSlotsUI();
-            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
@@ -264,14 +257,12 @@ public class BuildController : MonoBehaviour
             activeStructure = lightTower;
             activeSlot = 5;
             UpdateSlotsUI();
-            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             activeStructure = darkTower;
             activeSlot = 6;
             UpdateSlotsUI();
-            meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && mouseCon.canPlace)
@@ -362,109 +353,80 @@ public class BuildController : MonoBehaviour
         mouseCon.UpdateCollisions();
     }
 
-    private void initializeIndicator()
-    {
-        activeIndicator.SetActive(false);
-    }
-
     private void UpdateSlotsUI()
     {
+        if (activeSlot != 1)
+        {
+            iceTowerIndicator.SetActive(false);
+            iceTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+            Slot1.color = defaultColor;
+        }
+
+        if (activeSlot != 2)
+        {
+            fireTowerIndicator.SetActive(false);
+            fireTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+            Slot2.color = defaultColor;
+        }
+
+        if (activeSlot != 3)
+        {
+            grassTowerIndicator.SetActive(false);
+            grassTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+            Slot3.color = defaultColor;
+        }
+        
+        if (activeSlot != 4)
+        {
+            mouseIndicatorHighlight.SetActive(false);
+            mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
+            Slot4.color = defaultColor;
+        }
+        
+        if (activeSlot != 5 && activeSlot != 6)
+        {
+            lightTowerIndicator.SetActive(false);
+            lightTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+            Slot5.color = defaultColor;
+            Slot6.color = defaultColor;
+        }
+
+
         switch (activeSlot)
         {
             case 1:
                 activeIndicator = iceTowerIndicator;
-                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
-                iceTowerIndicator.SetActive(true);
-                fireTowerIndicator.SetActive(false);
-                grassTowerIndicator.SetActive(false);
-                lightTowerIndicator.SetActive(false);
-                mouseIndicatorHighlight.SetActive(false);
                 Slot1.color = activeColor;
-                Slot2.color = defaultColor;
-                Slot3.color = defaultColor;
-                Slot4.color = defaultColor;
-                Slot5.color = defaultColor;
-                Slot6.color = defaultColor;
                 break;
             case 2:
                 activeIndicator = fireTowerIndicator;
-                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
-                iceTowerIndicator.SetActive(false);
-                fireTowerIndicator.SetActive(true);
-                grassTowerIndicator.SetActive(false);
-                lightTowerIndicator.SetActive(false);
-                mouseIndicatorHighlight.SetActive(false);
-                Slot1.color = defaultColor;
                 Slot2.color = activeColor;
-                Slot3.color = defaultColor;
-                Slot4.color = defaultColor;
-                Slot5.color = defaultColor;
-                Slot6.color = defaultColor;
                 break;
             case 3:
                 activeIndicator = grassTowerIndicator;
-                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
-                iceTowerIndicator.SetActive(false);
-                mouseIndicatorHighlight.SetActive(false);
-                fireTowerIndicator.SetActive(false);
-                grassTowerIndicator.SetActive(true);
-                lightTowerIndicator.SetActive(false);
-                Slot1.color = defaultColor;
-                Slot2.color = defaultColor;
                 Slot3.color = activeColor;
-                Slot4.color = defaultColor;
-                Slot5.color = defaultColor;
-                Slot6.color = defaultColor;
                 break;
             case 4:
                 activeIndicator = mouseIndicatorHighlight;
-                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
-                iceTowerIndicator.SetActive(false);
-                fireTowerIndicator.SetActive(false);
-                grassTowerIndicator.SetActive(false);
-                lightTowerIndicator.SetActive(false);
-                mouseIndicatorHighlight.SetActive(true);
-                Slot1.color = defaultColor;
-                Slot2.color = defaultColor;
-                Slot3.color = defaultColor;
                 Slot4.color = activeColor;
-                Slot5.color = defaultColor;
-                Slot6.color = defaultColor;
                 break;
             case 5:
                 activeIndicator = lightTowerIndicator;
-                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
-                iceTowerIndicator.SetActive(false);
-                fireTowerIndicator.SetActive(false);
-                grassTowerIndicator.SetActive(false);
-                lightTowerIndicator.SetActive(true);
-                mouseIndicatorHighlight.SetActive(false);
-                Slot1.color = defaultColor;
-                Slot2.color = defaultColor;
-                Slot3.color = defaultColor;
-                Slot4.color = defaultColor;
                 Slot5.color = activeColor;
-                Slot6.color = defaultColor;
                 break;
             case 6:
                 activeIndicator = lightTowerIndicator;
-                mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
-                iceTowerIndicator.SetActive(false);
-                fireTowerIndicator.SetActive(false);
-                grassTowerIndicator.SetActive(false);
-                lightTowerIndicator.SetActive(true);
-                mouseIndicatorHighlight.SetActive(false);
-                Slot1.color = defaultColor;
-                Slot2.color = defaultColor;
-                Slot3.color = defaultColor;
-                Slot4.color = defaultColor;
-                Slot5.color = defaultColor;
                 Slot6.color = activeColor;
                 break;
             default:
                 break;
         }
 
+        mouseCon = activeIndicator.GetComponent<MouseIndicatorController>();
+        meshRenderer = activeIndicator.GetComponent<MeshRenderer>();
+
+        activeIndicator.SetActive(true);
+        meshRenderer.enabled = true;
         mouseCon.ClearCollisions();
     }
 

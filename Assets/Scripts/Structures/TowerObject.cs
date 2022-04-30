@@ -10,7 +10,7 @@ public class TowerObject : MonoBehaviour, IDamageable
 
     // Script references
     private BuildController buildCon;
-    private AttackDict attackDict;
+    private ActionDict actionDict;
 
     // Static stats
     private string towerName;
@@ -102,7 +102,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         cost = towerStats.cost;
         resaleValue = (int)Mathf.Ceil(cost * 0.75f);
 
-        attackDict = transform.parent.parent.gameObject.GetComponent<AttackDict>();
+        actionDict = transform.parent.parent.gameObject.GetComponent<ActionDict>();
 
         buildCon = FindObjectOfType<BuildController>();
         nextFire = 0.0f;
@@ -191,7 +191,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         if (currentHP <= 0)
         {
             enemy.GetComponent<EnemyObject>().removeTarget(this.gameObject);
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
     }
 
@@ -226,25 +226,28 @@ public class TowerObject : MonoBehaviour, IDamageable
     {
         if (target != null)
         {
-            GameObject atk = Instantiate(attackDict.getAttackFX(towerName), target.transform.position, Quaternion.identity);
-            
-            switch (attackDict.getAttackName(towerName))
+            if (actionDict.getAttackFX(towerName) != null)
             {
-                case "Blast":
-                    atk.GetComponent<BlastAttack>().target = target;
-                    atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                    target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
-                    Destroy(atk, 1.0f);
-                    break;
-                case "Chill":
-                    atk.GetComponent<ChillAttack>().setParentTower(this.gameObject);
-                    atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                    Destroy(atk, 1.2f);
-                    break;
-                case "Zap":
-                    atk.GetComponent<ZapAttack>().parentTower = this.gameObject;
-                    atk.GetComponent<ZapAttack>().BeginAttack(this.gameObject, target, 3);
-                    break;
+                GameObject atk = Instantiate(actionDict.getAttackFX(towerName), target.transform.position, Quaternion.identity);
+
+                switch (actionDict.getAttackName(towerName))
+                {
+                    case "Blast":
+                        atk.GetComponent<BlastAttack>().target = target;
+                        atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                        target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
+                        Destroy(atk, 1.0f);
+                        break;
+                    case "Chill":
+                        atk.GetComponent<ChillAttack>().setParentTower(this.gameObject);
+                        atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                        Destroy(atk, 1.2f);
+                        break;
+                    case "Zap":
+                        atk.GetComponent<ZapAttack>().parentTower = this.gameObject;
+                        atk.GetComponent<ZapAttack>().BeginAttack(this.gameObject, target, 3);
+                        break;
+                }
             }
 
             nextFire = Time.time + (1 / fireRate);
