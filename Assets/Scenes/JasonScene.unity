@@ -21183,6 +21183,8 @@ MonoBehaviour:
     type: 3}
   zapAttackFX: {fileID: 918730519828076777, guid: 026a14c7426bc694fbace9e4680aa8a5,
     type: 3}
+  grassHealFX: {fileID: 4640862887346425283, guid: a3bcf64ed0e14e04ea809c75aedbd318,
+    type: 3}
 --- !u!1 &851503462
 GameObject:
   m_ObjectHideFlags: 0
@@ -27014,7 +27016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1182092687
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -27071,7 +27073,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182092686}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

@@ -40,6 +40,8 @@ public class MouseIndicatorController : MonoBehaviour
     public void ClearCollisions()
     {
         collisions.Clear();
+        canPlace = true;
+        meshRenderer.material.color = canPlaceColor;
     }
 
     public void UpdateCollisions()
