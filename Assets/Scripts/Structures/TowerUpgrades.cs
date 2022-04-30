@@ -63,17 +63,17 @@ public class TowerUpgrades : MonoBehaviour
         costDict.Add("level_4_frCost", 3000);
         costDict.Add("level_5_frCost", 5000);
 
-        valueDict.Add("level_1_newFr_Fire", 1.05f);
-        valueDict.Add("level_2_newFr_Fire", 1.1f);
-        valueDict.Add("level_3_newFr_Fire", 1.15f);
-        valueDict.Add("level_4_newFr_Fire", 1.2f);
-        valueDict.Add("level_5_newFr_Fire", 1.25f);
+        valueDict.Add("level_1_newFr_Fire", 1.1f);
+        valueDict.Add("level_2_newFr_Fire", 1.2f);
+        valueDict.Add("level_3_newFr_Fire", 1.3f);
+        valueDict.Add("level_4_newFr_Fire", 1.4f);
+        valueDict.Add("level_5_newFr_Fire", 1.5f);
 
-        valueDict.Add("level_1_newFr_Lightning", 1.6f);
-        valueDict.Add("level_2_newFr_Lightning", 1.7f);
-        valueDict.Add("level_3_newFr_Lightning", 1.8f);
-        valueDict.Add("level_4_newFr_Lightning", 1.9f);
-        valueDict.Add("level_5_newFr_Lightning", 2f);
+        valueDict.Add("level_1_newFr_Lightning", 1.65f);
+        valueDict.Add("level_2_newFr_Lightning", 1.8f);
+        valueDict.Add("level_3_newFr_Lightning", 1.95f);
+        valueDict.Add("level_4_newFr_Lightning", 2.10f);
+        valueDict.Add("level_5_newFr_Lightning", 2.25f);
 
         valueDict.Add("level_1_newFr_Dark", 1.1f);
         valueDict.Add("level_2_newFr_Dark", 1.2f);
@@ -95,35 +95,35 @@ public class TowerUpgrades : MonoBehaviour
         costDict.Add("level_4_rangeCost", 2100);
         costDict.Add("level_5_rangeCost", 3100);
 
-        valueDict.Add("level_1_newRange_Fire", 0.75f);
-        valueDict.Add("level_2_newRange_Fire", 0.8f);
-        valueDict.Add("level_3_newRange_Fire", 0.85f);
-        valueDict.Add("level_4_newRange_Fire", 0.9f);
-        valueDict.Add("level_5_newRange_Fire", 1f);
+        valueDict.Add("level_1_newRange_Fire", 45f);
+        valueDict.Add("level_2_newRange_Fire", 50f);
+        valueDict.Add("level_3_newRange_Fire", 55f);
+        valueDict.Add("level_4_newRange_Fire", 60f);
+        valueDict.Add("level_5_newRange_Fire", 65f);
 
-        valueDict.Add("level_1_newRange_Water", 0.75f);
-        valueDict.Add("level_2_newRange_Water", 0.8f);
-        valueDict.Add("level_3_newRange_Water", 0.85f);
-        valueDict.Add("level_4_newRange_Water", 0.9f);
-        valueDict.Add("level_5_newRange_Water", 1f);
+        valueDict.Add("level_1_newRange_Water", 45f);
+        valueDict.Add("level_2_newRange_Water", 50f);
+        valueDict.Add("level_3_newRange_Water", 55f);
+        valueDict.Add("level_4_newRange_Water", 60f);
+        valueDict.Add("level_5_newRange_Water", 65f);
 
-        valueDict.Add("level_1_newRange_Grass", 0.75f);
-        valueDict.Add("level_2_newRange_Grass", 0.8f);
-        valueDict.Add("level_3_newRange_Grass", 0.85f);
-        valueDict.Add("level_4_newRange_Grass", 0.9f);
-        valueDict.Add("level_5_newRange_Grass", 1f);
+        valueDict.Add("level_1_newRange_Grass", 45f);
+        valueDict.Add("level_2_newRange_Grass", 50f);
+        valueDict.Add("level_3_newRange_Grass", 55f);
+        valueDict.Add("level_4_newRange_Grass", 60f);
+        valueDict.Add("level_5_newRange_Grass", 65f);
 
-        valueDict.Add("level_1_newRange_Dark", 0.95f);
-        valueDict.Add("level_2_newRange_Dark", 1f);
-        valueDict.Add("level_3_newRange_Dark", 1.05f);
-        valueDict.Add("level_4_newRange_Dark", 1.15f);
-        valueDict.Add("level_5_newRange_Dark", 1.25f);
+        valueDict.Add("level_1_newRange_Dark", 55f);
+        valueDict.Add("level_2_newRange_Dark", 60f);
+        valueDict.Add("level_3_newRange_Dark", 65f);
+        valueDict.Add("level_4_newRange_Dark", 70f);
+        valueDict.Add("level_5_newRange_Dark", 75f);
 
-        valueDict.Add("level_1_newRange_Light", 0.95f);
-        valueDict.Add("level_2_newRange_Light", 1f);
-        valueDict.Add("level_3_newRange_Light", 1.05f);
-        valueDict.Add("level_4_newRange_Light", 1.15f);
-        valueDict.Add("level_5_newRange_Light", 1.25f);
+        valueDict.Add("level_1_newRange_Light", 55f);
+        valueDict.Add("level_2_newRange_Light", 60f);
+        valueDict.Add("level_3_newRange_Light", 65f);
+        valueDict.Add("level_4_newRange_Light", 70f);
+        valueDict.Add("level_5_newRange_Light", 75f);
 
         // HEAL AMOUNT
         // Grass
@@ -141,32 +141,32 @@ public class TowerUpgrades : MonoBehaviour
 
         // HEAL RATE
         // Grass
-        costDict.Add("level_1_healRateCost", 1000);
-        costDict.Add("level_2_healRateCost", 3000);
-        costDict.Add("level_3_healRateCost", 5000);
-        costDict.Add("level_4_healRateCost", 7000);
-        costDict.Add("level_5_healRateCost", 9000);
+        costDict.Add("level_1_healRateCost", 500);
+        costDict.Add("level_2_healRateCost", 1000);
+        costDict.Add("level_3_healRateCost", 2000);
+        costDict.Add("level_4_healRateCost", 3500);
+        costDict.Add("level_5_healRateCost", 5000);
 
-        valueDict.Add("level_1_newHealRate_Grass", 0.3f);
-        valueDict.Add("level_2_newHealRate_Grass", 0.35f);
-        valueDict.Add("level_3_newHealRate_Grass", 0.4f);
-        valueDict.Add("level_4_newHealRate_Grass", 0.45f);
-        valueDict.Add("level_5_newHealRate_Grass", 0.5f);
+        valueDict.Add("level_1_newHealRate_Grass", 0.35f);
+        valueDict.Add("level_2_newHealRate_Grass", 0.45f);
+        valueDict.Add("level_3_newHealRate_Grass", 0.55f);
+        valueDict.Add("level_4_newHealRate_Grass", 0.65f);
+        valueDict.Add("level_5_newHealRate_Grass", 0.75f);
 
         // SLOW PERCENT
-        costDict.Add("level_1_slowPercentCost", 2000);
-        costDict.Add("level_2_slowPercentCost", 6000);
-        costDict.Add("level_3_slowPercentCost", 12000);
+        costDict.Add("level_1_slowPercentCost", 1250);
+        costDict.Add("level_2_slowPercentCost", 3500);
+        costDict.Add("level_3_slowPercentCost", 7000);
 
         // Water
-        valueDict.Add("level_1_newSlowPercent_Water", 25);
-        valueDict.Add("level_2_newSlowPercent_Water", 35);
+        valueDict.Add("level_1_newSlowPercent_Water", 30);
+        valueDict.Add("level_2_newSlowPercent_Water", 40);
         valueDict.Add("level_3_newSlowPercent_Water", 50);
 
         // SLOW DURATION
         costDict.Add("level_1_slowDurCost", 1000);
-        costDict.Add("level_2_slowDurCost", 4000);
-        costDict.Add("level_3_slowDurCost", 8000);
+        costDict.Add("level_2_slowDurCost", 3000);
+        costDict.Add("level_3_slowDurCost", 6000);
 
         // Water
         valueDict.Add("level_1_newSlowDur_Water", 0.75f);

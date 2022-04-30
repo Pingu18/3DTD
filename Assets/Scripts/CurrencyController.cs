@@ -13,7 +13,7 @@ public class CurrencyController : MonoBehaviour
 
     private void Start()
     {
-        setMoney(800);
+        setMoney(100000);
         updateDisplay();
     }
 

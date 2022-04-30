@@ -26,6 +26,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private float attackSpeed;
     private float range;
     private float moveSpeed;
+    private Vector3 goal = new Vector3(0, -21, -205);
 
     private int worth;
 
@@ -232,5 +233,10 @@ public class EnemyObject : MonoBehaviour, IDamageable
     public float getDamage()
     {
         return damage;
+    }
+
+    public float getDistFromGoal()
+    {
+        return Vector3.Distance(this.transform.position, goal);
     }
 }
