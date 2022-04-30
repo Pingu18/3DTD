@@ -260,9 +260,10 @@ public class TowerObject : MonoBehaviour, IDamageable
         {
             if (targets[i] != null)
             {
-                if (Vector3.Distance(this.transform.position, targets[i].transform.position) < closestDist)
+                float targetDistFromGoal = targets[i].GetComponent<EnemyObject>().getDistFromGoal();
+                if (targetDistFromGoal < closestDist)
                 {
-                    closestDist = Vector3.Distance(this.transform.position, targets[i].transform.position);
+                    closestDist = targetDistFromGoal;
                     closestTarget = targets[i].gameObject;
                 }
             }
