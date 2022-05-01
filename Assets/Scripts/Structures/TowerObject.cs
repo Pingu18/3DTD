@@ -11,6 +11,7 @@ public class TowerObject : MonoBehaviour, IDamageable
     // Script references
     private BuildController buildCon;
     private ActionDict actionDict;
+    private ElementalSystem elementalSystem;
 
     // Static stats
     private string towerName;
@@ -50,7 +51,6 @@ public class TowerObject : MonoBehaviour, IDamageable
     private GameObject detectionRadius;
     private Vector3 detectionScale;
     private bool drawRadius = false;
-    public GameObject attackFX;
 
     private Queue<DamageInfo> damageQueue = new Queue<DamageInfo>();
 
@@ -103,6 +103,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         resaleValue = (int)Mathf.Ceil(cost * 0.75f);
 
         actionDict = transform.parent.parent.gameObject.GetComponent<ActionDict>();
+        elementalSystem = transform.parent.parent.gameObject.GetComponent<ElementalSystem>();
 
         buildCon = FindObjectOfType<BuildController>();
         nextFire = 0.0f;
@@ -147,7 +148,9 @@ public class TowerObject : MonoBehaviour, IDamageable
 
     private void takeDamage(float dmgTaken, GameObject enemy)
     {
-        currentHP -= dmgTaken;
+        float elementalDamageMultiplier = elementalSystem.getElementalMultiplier(enemy.GetComponent<EnemyObject>().getElement(), element);
+
+        currentHP -= dmgTaken * elementalDamageMultiplier;
         updateHealthBar();
         checkDeath(enemy);
     }

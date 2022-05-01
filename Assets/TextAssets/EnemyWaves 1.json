@@ -9,12 +9,17 @@
           "spawnX": -31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
-          "totalEnemies": 5,
+          "totalEnemies": 6,
           "enemies": [
             {
               "enemyName": "TestEnemy",
               "toWait": 0,
               "toSpawn": 5
+            },
+            {
+              "enemyName": "TestEnemyHealer",
+              "toWait": 0,
+              "toSpawn": 1
             }
           ]
         },
@@ -23,12 +28,17 @@
           "spawnX": 31.0,
           "spawnY": 10.0,
           "spawnZ": 108.0,
-          "totalEnemies": 5,
+          "totalEnemies": 6,
           "enemies": [
             {
               "enemyName": "TestEnemy",
               "toWait": 0,
               "toSpawn": 5
+            },
+            {
+              "enemyName": "TestEnemyHealer",
+              "toWait": 0,
+              "toSpawn": 1
             }
           ]
         }

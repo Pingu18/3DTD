@@ -5,10 +5,11 @@ using UnityEngine.VFX;
 
 public class Heal : MonoBehaviour
 {
+    private EnemyObject enemyObj;
     private TowerObject towerObj;
     private ActionDict actionDict;
 
-    private List<GameObject> structures = new List<GameObject>(); // list of structures in radius
+    private List<GameObject> targets = new List<GameObject>(); // list of targets in radius
 
     private float baseHealAmount;
     private float baseHealRate;
@@ -25,11 +26,20 @@ public class Heal : MonoBehaviour
 
     void Start()
     {
-        towerObj = GetComponent<TowerObject>();
-        actionDict = transform.parent.parent.gameObject.GetComponent<ActionDict>();
+        if (this.tag == "Structure")
+        {
+            actionDict = transform.parent.parent.gameObject.GetComponent<ActionDict>();
+            towerObj = GetComponent<TowerObject>();
 
-        baseHealAmount = towerObj.getHeal();
-        baseHealRate = towerObj.getHealRate();
+            baseHealAmount = towerObj.getHeal();
+            baseHealRate = towerObj.getHealRate();
+        } else if (this.tag == "Enemy")
+        {
+            enemyObj = GetComponent<EnemyObject>();
+
+            baseHealAmount = enemyObj.getHeal();
+            baseHealRate = enemyObj.getHealRate();
+        }
 
         healAmount = baseHealAmount;
         healRate = baseHealRate;
@@ -42,14 +52,14 @@ public class Heal : MonoBehaviour
         StartCoroutine(startHealCycle());
     }
 
-    public void AddStructure(GameObject structure)
+    public void addTarget(GameObject structure)
     {
-        structures.Add(structure);
+        targets.Add(structure);
     }
 
-    public void RemoveStructure(GameObject structure)
+    public void removeTarget(GameObject structure)
     {
-        structures.Remove(structure);
+        targets.Remove(structure);
     }
 
     private IEnumerator startHealCycle()
@@ -57,34 +67,59 @@ public class Heal : MonoBehaviour
         while (keepHealing)
         {
             yield return StartCoroutine(readyToHeal());
-            healStructures();
+
+            if (this.tag == "Structure")
+                healTargetStructure();
+            else if (this.tag == "Enemy")
+                healTargetEnemy();
         }
     }
 
     private IEnumerator readyToHeal()
     {
-        yield return new WaitUntil(() => structures.Count > 0 && Time.time > nextHeal);
+        yield return new WaitUntil(() => targets.Count > 0 && Time.time > nextHeal);
     }
 
-    private void healStructures()
+    private void healTargetStructure()
     {
-        for (int i = 0; i < structures.Count; i++)
+        for (int i = 0; i < targets.Count; i++)
         {
             TowerObject selectedTower;
 
-            if (structures[i] != null)
+            if (targets[i] != null)
             {
-                selectedTower = structures[i].GetComponent<TowerObject>();
+                selectedTower = targets[i].GetComponent<TowerObject>();
 
                 if (selectedTower.getCurrentHP() < selectedTower.getMaxHP())
                 {
-                    GameObject heal = Instantiate(actionDict.getHealFX(towerObj.getName()), structures[i].transform.position, Quaternion.identity);
+                    GameObject heal = Instantiate(actionDict.getHealFX(towerObj.getName()), targets[i].transform.position, Quaternion.identity);
                     heal.transform.GetComponentInChildren<VisualEffect>().Play();
                     Destroy(heal, 1.0f);
                     selectedTower.AddHP(healAmount);
                 }
             }
         }
+
+        nextHeal = Time.time + (1 / healRate);
+    }
+
+    private void healTargetEnemy()
+    {
+        for (int i = 0; i < targets.Count; i++)
+        {   
+            EnemyObject selectedEnemy;
+
+            if (targets[i] != null)
+            {
+                selectedEnemy = targets[i].GetComponent<EnemyObject>();
+
+                if (selectedEnemy.getCurrentHP() < selectedEnemy.getMaxHP())
+                {
+                    selectedEnemy.addHP(healAmount);
+                }
+            }
+        }
+
         nextHeal = Time.time + (1 / healRate);
     }
 

@@ -39,8 +39,17 @@ public class DetectionController : MonoBehaviour
 
         if (healScript)
         {
-            if (other.gameObject.CompareTag("Structure"))
-                healScript.AddStructure(other.gameObject);
+            if (transform.parent.gameObject.tag == "Structure")
+            {
+                // If tower has Heal, add other structures as targets to be healed
+                if (other.gameObject.CompareTag("Structure"))
+                    healScript.addTarget(other.gameObject);
+            } else if (transform.parent.gameObject.tag == "Enemy")
+            {
+                // If enemy has Heal, add other enemies as targets to be healed
+                if (other.gameObject.CompareTag("Enemy"))
+                    healScript.addTarget(other.gameObject);
+            }
         }
 
         if (damageBuff)
@@ -72,8 +81,18 @@ public class DetectionController : MonoBehaviour
 
         if (healScript)
         {
-            if (other.gameObject.CompareTag("Structure"))
-                healScript.RemoveStructure(other.gameObject);
+            if (transform.parent.gameObject.tag == "Structure")
+            {
+                // If tower has Heal, add other structures as targets to be healed
+                if (other.gameObject.CompareTag("Structure"))
+                    healScript.removeTarget(other.gameObject);
+            }
+            else if (transform.parent.gameObject.tag == "Enemy")
+            {
+                // If enemy has Heal, add other enemies as targets to be healed
+                if (other.gameObject.CompareTag("Enemy"))
+                    healScript.removeTarget(other.gameObject);
+            }
         }
 
         if (damageBuff)

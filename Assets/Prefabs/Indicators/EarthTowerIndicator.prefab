@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3469287836626990714}
   - component: {fileID: -5116729074481865515}
   m_Layer: 9
-  m_Name: Earth_Tower
+  m_Name: EarthTowerIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -8,6 +8,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
     [SerializeField] private EnemyStats enemyStats;
     private EnemyController enemyController;
     private CurrencyController currencyController;
+    private ElementalSystem elementalSystem;
 
     [SerializeField] private List<GameObject> targets = new List<GameObject>(); // list of enemies in radius
     private GameObject currentTarget;
@@ -22,11 +23,14 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private float maxHP;
     private float currHP;
     private float baseDamage;
-    [SerializeField] private float damage;
+    private float damage;
     private float attackSpeed;
     private float range;
     private float moveSpeed;
     private Vector3 goal = new Vector3(0, -21, -205);
+
+    private float healAmount;
+    private float healRate;
 
     private int worth;
 
@@ -61,11 +65,15 @@ public class EnemyObject : MonoBehaviour, IDamageable
         range = enemyStats.range;
         moveSpeed = enemyStats.speed;
 
+        healAmount = enemyStats.healAmount;
+        healRate = enemyStats.healRate;
+
         worth = enemyStats.worth;
 
         nextAttack = 0.0f;
 
         enemyController = transform.parent.GetComponent<EnemyController>();
+        elementalSystem = transform.parent.GetComponent<ElementalSystem>();
         currencyController = GameObject.Find("CurrencyContainer").GetComponent<CurrencyController>();
 
         healthBar = GetComponentInChildren<Slider>();
@@ -147,7 +155,9 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
     private void takeDamage(float dmgTaken, GameObject tower)
     {
-        currHP -= dmgTaken;
+        float elementalDamageMultiplier = elementalSystem.getElementalMultiplier(tower.GetComponent<TowerObject>().getElement(), element);
+
+        currHP -= dmgTaken * elementalDamageMultiplier;
         updateHealthBar();
         checkDeath(tower);
     }
@@ -177,6 +187,19 @@ public class EnemyObject : MonoBehaviour, IDamageable
             currencyController.addMoney(worth);
             Destroy(gameObject);
         }
+    }
+
+    public void addHP(float toAdd)
+    {
+        if (currHP + toAdd > maxHP)
+        {
+            currHP = maxHP;
+        }
+        else
+        {
+            currHP += toAdd;
+        }
+        updateHealthBar();
     }
 
     public void setMaxHP(int hp)
@@ -210,6 +233,25 @@ public class EnemyObject : MonoBehaviour, IDamageable
         damage = baseDamage;
     }
 
+    public string getElement()
+    {
+        return element;
+    }
+
+    public float getHeal()
+    {
+        return healAmount;
+    }
+
+    public float getHealRate()
+    {
+        return healRate;
+    }
+
+    public float getCurrentHP()
+    {
+        return currHP;
+    }
     public string getName()
     {
         return enemyName;
