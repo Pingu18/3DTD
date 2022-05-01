@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118d01f52ac01cc4081835732fe76e24, type: 3}
+  m_Name: EarthTower
+  m_EditorClassIdentifier: 
+  towerName: Earth Tower
+  element: Earth
+  maxHealth: 200
+  damage: 50
+  attackSpeed: 1
+  range: 40
+  heal: 0
+  healRate: 0
+  slowPercent: 0
+  slowDuration: 0
+  special: 0
+  specialDesc: 
+  specialUpgradeDesc: 
+  damageMultiplier: 1
+  takeDamageMultiplier: 1
+  cost: 200
+  upgrades: []

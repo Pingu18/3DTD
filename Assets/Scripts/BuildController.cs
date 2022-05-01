@@ -13,6 +13,7 @@ public class BuildController : MonoBehaviour
     [SerializeField] private GameObject iceTowerIndicator;
     [SerializeField] private GameObject fireTowerIndicator;
     [SerializeField] private GameObject grassTowerIndicator;
+    [SerializeField] private GameObject earthTowerIndicator;
     [SerializeField] private GameObject lightningTowerIndicator;
     [SerializeField] private GameObject lightTowerIndicator;
     [SerializeField] private GameObject darkTowerIndicator;
@@ -46,6 +47,7 @@ public class BuildController : MonoBehaviour
     public GameObject iceTower;
     public GameObject fireTower;
     public GameObject grassTower;
+    public GameObject earthTower;
     public GameObject lightningTower;
     public GameObject lightTower;
     public GameObject darkTower;
@@ -60,6 +62,7 @@ public class BuildController : MonoBehaviour
     public Image Slot4;
     public Image Slot5;
     public Image Slot6;
+    public Image Slot7;
     public TMP_Text modeText;
     public TMP_Text poorText;
 
@@ -257,21 +260,29 @@ public class BuildController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            activeStructure = lightningTower;
+            activeStructure = earthTower;
             activeSlot = 4;
             UpdateSlotsUI();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            activeStructure = lightTower;
+            activeStructure = lightningTower;
             activeSlot = 5;
             UpdateSlotsUI();
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            activeStructure = darkTower;
+            activeStructure = lightTower;
             activeSlot = 6;
+            UpdateSlotsUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            activeStructure = darkTower;
+            activeSlot = 7;
             UpdateSlotsUI();
         }
 
@@ -388,17 +399,32 @@ public class BuildController : MonoBehaviour
         
         if (activeSlot != 4)
         {
-            mouseIndicatorHighlight.SetActive(false);
-            mouseIndicatorHighlight.GetComponent<MeshRenderer>().enabled = false;
+            earthTowerIndicator.SetActive(false);
+            earthTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
             Slot4.color = defaultColor;
         }
+
+        if (activeSlot != 5)
+        {
+            lightningTowerIndicator.SetActive(false);
+            lightningTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
+            Slot5.color = defaultColor;
+        }
+
+        if (activeSlot != 6)
+        {
+            Slot5.color = defaultColor;
+        }
+
+        if (activeSlot != 7)
+        {
+            Slot6.color = defaultColor;
+        }
         
-        if (activeSlot != 5 && activeSlot != 6)
+        if (activeSlot != 6 && activeSlot != 7)
         {
             lightTowerIndicator.SetActive(false);
             lightTowerIndicator.GetComponent<MeshRenderer>().enabled = false;
-            Slot5.color = defaultColor;
-            Slot6.color = defaultColor;
         }
 
 
@@ -417,14 +443,18 @@ public class BuildController : MonoBehaviour
                 Slot3.color = activeColor;
                 break;
             case 4:
-                activeIndicator = mouseIndicatorHighlight;
+                activeIndicator = earthTowerIndicator;
                 Slot4.color = activeColor;
                 break;
             case 5:
-                activeIndicator = lightTowerIndicator;
+                activeIndicator = lightningTowerIndicator;
                 Slot5.color = activeColor;
                 break;
             case 6:
+                activeIndicator = lightTowerIndicator;
+                Slot5.color = activeColor;
+                break;
+            case 7:
                 activeIndicator = lightTowerIndicator;
                 Slot6.color = activeColor;
                 break;
