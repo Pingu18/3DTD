@@ -20,6 +20,7 @@ public class ActionDict : MonoBehaviour
         attackDict.Add("Water Tower", chillAttackFX);
         attackDict.Add("Fire Tower", blastAttackFX);
         attackDict.Add("Lightning Tower", zapAttackFX);
+        attackDict.Add("Earth Tower", blastAttackFX);
         attackDict.Add("Grass Tower", null);
 
         healDict.Add("Grass Tower", grassHealFX);
@@ -35,6 +36,8 @@ public class ActionDict : MonoBehaviour
                 return "Chill";
             case "Lightning Tower":
                 return "Zap";
+            case "Earth Tower":
+                return "Blast";
             default:
                 return null;
         }

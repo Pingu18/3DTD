@@ -6,6 +6,7 @@ public class MouseIndicatorController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> collisions = new List<GameObject>();
     [SerializeField] public bool canPlace = true;
+    [SerializeField] private Material placeMaterial;
     MeshRenderer meshRenderer;
     public Color32 canPlaceColor = new Color32(0, 255, 255, 100);
     public Color32 cannotPlaceColor = new Color32(255, 5, 0, 100);
@@ -41,7 +42,8 @@ public class MouseIndicatorController : MonoBehaviour
     {
         collisions.Clear();
         canPlace = true;
-        meshRenderer.material.color = canPlaceColor;
+        placeMaterial.color = canPlaceColor;
+        //meshRenderer.material.color = canPlaceColor;
     }
 
     public void UpdateCollisions()
@@ -51,12 +53,14 @@ public class MouseIndicatorController : MonoBehaviour
         if (collisions.Count > 0)
         {
             canPlace = false;
-            meshRenderer.material.color = cannotPlaceColor;
+            placeMaterial.color = cannotPlaceColor;
+            //meshRenderer.material.color = cannotPlaceColor;
         }
         else
         {
             canPlace = true;
-            meshRenderer.material.color = canPlaceColor;
+            placeMaterial.color = canPlaceColor;
+            //meshRenderer.material.color = canPlaceColor;
         }
     }
 }

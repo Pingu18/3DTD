@@ -15,9 +15,9 @@ MonoBehaviour:
   towerName: Earth Tower
   element: Earth
   maxHealth: 200
-  damage: 50
-  attackSpeed: 1
-  range: 40
+  damage: 150
+  attackSpeed: 0.5
+  range: 30
   heal: 0
   healRate: 0
   slowPercent: 0

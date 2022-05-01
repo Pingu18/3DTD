@@ -198,7 +198,7 @@ public class BuildController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -317,7 +317,7 @@ public class BuildController : MonoBehaviour
                     towerController.startTrigger("deselect");
                 }
                 currencyController.addMoney(obj.GetComponent<TowerObject>().getResaleValue());
-                Destroy(obj);   
+                Destroy(obj.transform.parent.gameObject);   
             }
         }
     }
@@ -413,12 +413,12 @@ public class BuildController : MonoBehaviour
 
         if (activeSlot != 6)
         {
-            Slot5.color = defaultColor;
+            Slot6.color = defaultColor;
         }
 
         if (activeSlot != 7)
         {
-            Slot6.color = defaultColor;
+            Slot7.color = defaultColor;
         }
         
         if (activeSlot != 6 && activeSlot != 7)
@@ -452,11 +452,11 @@ public class BuildController : MonoBehaviour
                 break;
             case 6:
                 activeIndicator = lightTowerIndicator;
-                Slot5.color = activeColor;
+                Slot6.color = activeColor;
                 break;
             case 7:
                 activeIndicator = lightTowerIndicator;
-                Slot6.color = activeColor;
+                Slot7.color = activeColor;
                 break;
             default:
                 break;
