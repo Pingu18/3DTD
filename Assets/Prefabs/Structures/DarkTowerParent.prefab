@@ -370,6 +370,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DarkDebuff
       objectReference: {fileID: 0}
+    - target: {fileID: 1621167109009017354, guid: 2fabf28e37ae4b34490733a0d5c975cf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1819270746227263469, guid: 2fabf28e37ae4b34490733a0d5c975cf,
         type: 3}
       propertyPath: m_Name
@@ -381,6 +386,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8926484042661614526, guid: 94ede2b5cf5c30e4c88c838654b97143,
         type: 3}
+    - target: {fileID: 4752023313346698260, guid: 2fabf28e37ae4b34490733a0d5c975cf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6372402974914121948, guid: 2fabf28e37ae4b34490733a0d5c975cf,
         type: 3}
       propertyPath: m_LocalPosition.y

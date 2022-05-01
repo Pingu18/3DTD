@@ -132,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisions: []
   canPlace: 1
+  placeMaterial: {fileID: 2100000, guid: 019b0cc77a867ed41a3de8cf9286011d, type: 2}
   canPlaceColor:
     serializedVersion: 2
     rgba: 1694498560

@@ -198,7 +198,7 @@ public class BuildController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
