@@ -29,7 +29,7 @@ MonoBehaviour:
   takeDamageMultiplier: 0
   cost: 200
   upgrades:
-  - slowPercent
-  - slowDuration
-  - range
-  - special
+  - Slow Percent
+  - Slow Duration
+  - Range
+  - Special

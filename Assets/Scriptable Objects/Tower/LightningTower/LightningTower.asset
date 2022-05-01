@@ -29,7 +29,7 @@ MonoBehaviour:
   takeDamageMultiplier: 0
   cost: 200
   upgrades:
-  - damage
-  - firerate
-  - maxBounces
-  - special
+  - Damage
+  - Fire Rate
+  - Bounces
+  - Special

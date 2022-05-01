@@ -29,7 +29,7 @@ MonoBehaviour:
   takeDamageMultiplier: 0
   cost: 150
   upgrades:
-  - healAmount
-  - healRate
-  - range
-  - special
+  - Heal Amount
+  - Heal Rate
+  - Range
+  - Special

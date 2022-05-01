@@ -437,9 +437,24 @@ public class TowerObject : MonoBehaviour, IDamageable
         return damage * damageMultiplier;
     }
 
+    public float getBaseHP()
+    {
+        return baseHP;
+    }
+
     public float getBaseDamage()
     {
         return baseDamage;
+    }
+
+    public float getBaseFireRate()
+    {
+        return baseFireRate;
+    }
+
+    public float getBaseRange()
+    {
+        return baseRange;
     }
 
     public float getFireRate()

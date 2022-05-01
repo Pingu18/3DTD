@@ -34,6 +34,9 @@ public class BuildController : MonoBehaviour
     private Color32 defaultColor = new Color32(255, 255, 255, 255);
     private Color32 activeColor = new Color32(115, 255, 128, 255);
 
+    private float timerValue;
+    private bool waitRunning;
+
     [Header("Debugging")]
     [SerializeField] private TowerController towerController;
     [SerializeField] private GameObject towerObj;
@@ -96,12 +99,19 @@ public class BuildController : MonoBehaviour
         currencyController = currencyContainer.GetComponent<CurrencyController>();
         towerController = towerContainer.GetComponent<TowerController>();
 
+        waitRunning = false;
+
         UpdateSlotsUI();
         activeIndicator.SetActive(false);
     }
 
     private void Update()
     {
+        if (timerValue > 0)
+        {
+            timerValue -= Time.deltaTime;
+        }
+
         ToggleBuild(); // press tab to toggle build mode
 
         if (inBuild)
@@ -438,14 +448,18 @@ public class BuildController : MonoBehaviour
     public void showPoorText()
     {
         poorText.enabled = true;
-        StartCoroutine(wait(3));
-        poorText.enabled = false;
+        timerValue = 3;
+
+        if (waitRunning == false)
+            StartCoroutine(wait());
     }
 
-    private IEnumerator wait(int seconds)
+    private IEnumerator wait()
     {
-        yield return new WaitForSeconds(seconds);
+        waitRunning = true;
+        yield return new WaitUntil(() => timerValue <= 0);
         poorText.enabled = false;
+        waitRunning = false;
     }
     public bool getInBuild()
     {

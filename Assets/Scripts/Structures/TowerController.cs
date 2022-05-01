@@ -35,6 +35,9 @@ public class TowerController : MonoBehaviour
     private Color notUpgradedColor;
     private float bookmarkMaxHeight;
     private float bookmarkMinHeight;
+    private int maxLevel;
+
+    //[SerializeField] private <Name of buff/debuff script here>;
 
     [Header("Screens")]
     [SerializeField] private GameObject statScreen;
@@ -47,6 +50,16 @@ public class TowerController : MonoBehaviour
     [Header("Menu Stats")]
     [SerializeField] private TMP_Text towerNameText;
     [SerializeField] private TMP_Text towerElementText;
+
+    [Header("Stat Menu References")]
+    [SerializeField] private TMP_Text baseHPStats;
+    [SerializeField] private TMP_Text hpStats;
+    [SerializeField] private TMP_Text baseDamageStats;
+    [SerializeField] private TMP_Text damageStats;
+    [SerializeField] private TMP_Text baseFireRateStats;
+    [SerializeField] private TMP_Text fireRateStats;
+    [SerializeField] private TMP_Text baseRangeStats;
+    [SerializeField] private TMP_Text rangeStats;
 
     [Header("Row Containers")]
     [SerializeField] private Transform rowTexts;
@@ -108,198 +121,62 @@ public class TowerController : MonoBehaviour
     }
 
     // Upgrade functions
-    public void upgradeDamage(int row, int cost, string upgradeName)
+    public void upgrade(int row, int level, int maxLevel, int cost, string upgradeName, string dictValueName, string dictCostName)
     {
-        string valueName = "level_" + (towerObj.getDMGLevel() + 1).ToString() + "_newDmg_" + towerObj.getElement();
-        float newDamage = towerUpgrades.getValue(valueName);
+        string valueName = "level_" + (level + 1).ToString() + dictValueName + towerObj.getElement();
+        float newValue = towerUpgrades.getValue(valueName);
         string costName;
 
         if (currencyController.checkSufficientMoney(cost))
         {
-            // Update tower stats
-            towerObj.setBaseDamage((int)newDamage);
-            towerObj.setDMGLevel(towerObj.getDMGLevel() + 1);
+            switch (upgradeName)
+            {
+                case "Damage":
+                    towerObj.setBaseDamage((int)newValue);
+                    towerObj.setDMGLevel(level + 1);
+                    break;
+                case "Fire Rate":
+                    towerObj.setBaseFireRate(newValue);
+                    towerObj.setFireRateLevel(level + 1);
+                    break;
+                case "Range":
+                    towerObj.setBaseRange(newValue);
+                    towerObj.setRangeLevel(level + 1);
+                    break;
+                case "Heal Amount":
+                    heal.setBaseHealAmount(newValue);
+                    heal.setHealLevel(level + 1);
+                    break;
+                case "Heal Rate":
+                    heal.setBaseHealRate(newValue);
+                    heal.setHealRateLevel(level + 1);
+                    break;
+                case "Slow Percent":
+                    slow.setSlowPercent(newValue);
+                    slow.setSlowPercentLevel(level + 1);
+                    break;
+                case "Slow Duration":
+                    slow.setSlowDuration(newValue);
+                    slow.setSlowDurationLevel(level + 1);
+                    break;
+                case "Special":
+                    towerObj.setSpecial(newValue);
+                    towerObj.setSpecialLevel(level + 1);
+                    break;
+            }
+
             buildController.disablePoorText();
 
-            // Update tower upgrade screen UI
-            costName = "level_" + (towerObj.getDMGLevel() + 1).ToString() + "_dmgCost";
-            rowTexts.GetChild(row).GetComponent<TMP_Text>().text = "Damage: " + towerObj.getDamage().ToString();
-            highlightBars(row, towerObj.getDMGLevel(), 5);
-            setButtons(row, towerUpgrades.getCost(costName), upgradeName);
-        } else
-        {
-            buildController.showPoorText();
-        }
-    }
+            costName = "level_" + (level + 2).ToString() + dictCostName;
+            rowTexts.GetChild(row).GetComponent<TMP_Text>().text = upgradeName + ": " + newValue.ToString();
+            highlightBars(row, (level + 1), maxLevel);
+            setStatMenu();
 
-    public void upgradeFireRate(int row, int cost, string upgradeName)
-    {
-        string valueName = "level_" + (towerObj.getFireRateLevel() + 1).ToString() + "_newFr_" + towerObj.getElement();
-        float newFireRate = towerUpgrades.getValue(valueName);
-        string costName;
+            if (level + 2 <= maxLevel)
+                setButtons(row, towerUpgrades.getCost(costName), upgradeName);
+            else
+                setMaxButtons(row);
 
-        if (currencyController.checkSufficientMoney(cost))
-        {
-            // Update tower stats
-            towerObj.setBaseFireRate(newFireRate);
-            towerObj.setFireRateLevel(towerObj.getFireRateLevel() + 1);
-            buildController.disablePoorText();
-
-            // Update tower upgrade screen UI
-            costName = "level_" + (towerObj.getFireRateLevel() + 1).ToString() + "_frCost";
-            rowTexts.GetChild(row).GetComponent<TMP_Text>().text = "Fire Rate: " + towerObj.getFireRate().ToString();
-            highlightBars(row, towerObj.getFireRateLevel(), 5);
-            setButtons(row, towerUpgrades.getCost(costName), upgradeName);
-        }
-        else
-        {
-            buildController.showPoorText();
-        }
-    }
-
-    public void upgradeRange(int row, int cost, string upgradeName)
-    {
-        string valueName = "level_" + (towerObj.getRangeLevel() + 1).ToString() + "_newRange_" + towerObj.getElement();
-        float newRange = towerUpgrades.getValue(valueName);
-        string costName;
-
-        if (currencyController.checkSufficientMoney(cost))
-        {
-            // Update tower stats
-            towerObj.setBaseRange(newRange);
-            towerObj.setRangeLevel(towerObj.getRangeLevel() + 1);
-            buildController.disablePoorText();
-
-            // Update tower upgrade screen UI
-            costName = "level_" + (towerObj.getRangeLevel() + 1).ToString() + "_rangeCost";
-            rowTexts.GetChild(row).GetComponent<TMP_Text>().text = "Range: " + towerObj.getRange().ToString();
-            highlightBars(row, towerObj.getRangeLevel(), 5);
-            setButtons(row, towerUpgrades.getCost(costName), upgradeName);
-        }
-        else
-        {
-            buildController.showPoorText();
-        }
-    }
-
-    public void upgradeHealAmount(int row, int cost, string upgradeName)
-    {
-        string valueName = "level_" + (heal.getHealAmountLevel() + 1).ToString() + "_newHeal_" + towerObj.getElement();
-        float newHeal = towerUpgrades.getValue(valueName);
-        string costName;
-
-        if (currencyController.checkSufficientMoney(cost))
-        {
-            // Update tower heal stats
-            heal.setBaseHealAmount(newHeal);
-            heal.setHealLevel(heal.getHealAmountLevel() + 1);
-            buildController.disablePoorText();
-
-            // Update tower upgrade screen UI
-            costName = "level_" + (heal.getHealAmountLevel() + 1).ToString() + "_healCost";
-            rowTexts.GetChild(row).GetComponent<TMP_Text>().text = "Heal Amount: " + heal.getHealAmount().ToString();
-            highlightBars(row, heal.getHealAmountLevel(), 5);
-            setButtons(row, towerUpgrades.getCost(costName), upgradeName);
-        }
-        else
-        {
-            buildController.showPoorText();
-        }
-    }
-
-    public void upgradeHealRate(int row, int cost, string upgradeName)
-    {
-        string valueName = "level_" + (heal.getHealRateLevel() + 1).ToString() + "_newHealRate_" + towerObj.getElement();
-        float newHealRate = towerUpgrades.getValue(valueName);
-        string costName;
-
-        if (currencyController.checkSufficientMoney(cost))
-        {
-            // Update tower heal stats
-            heal.setBaseHealRate(newHealRate);
-            heal.setHealRateLevel(heal.getHealRateLevel() + 1);
-            buildController.disablePoorText();
-
-            // Update tower upgrade screen UI
-            costName = "level_" + (heal.getHealRateLevel() + 1).ToString() + "_healRateCost";
-            rowTexts.GetChild(row).GetComponent<TMP_Text>().text = "Heal Rate: " + heal.getHealRate().ToString();
-            highlightBars(row, heal.getHealRateLevel(), 5);
-            setButtons(row, towerUpgrades.getCost(costName), upgradeName);
-        }
-        else
-        {
-            buildController.showPoorText();
-        }
-    }
-
-    public void upgradeSlowPercent(int row, int cost, string upgradeName)
-    {
-        string valueName = "level_" + (slow.getSlowPercentLevel() + 1).ToString() + "_newSlowPercent_" + towerObj.getElement();
-        float newSlowPercent = towerUpgrades.getValue(valueName);
-        string costName;
-
-        if (currencyController.checkSufficientMoney(cost))
-        {
-            // Update tower slow stats
-            slow.setSlowPercent(newSlowPercent);
-            slow.setSlowPercentLevel(slow.getSlowPercentLevel() + 1);
-            buildController.disablePoorText();
-
-            // Update tower upgrade screen UI
-            costName = "level_" + (slow.getSlowPercentLevel() + 1).ToString() + "_slowPercentCost";
-            rowTexts.GetChild(row).GetComponent<TMP_Text>().text = "Slow Percent: " + slow.getSlowPercent().ToString();
-            highlightBars(row, slow.getSlowPercentLevel(), 3);
-            setButtons(row, towerUpgrades.getCost(costName), upgradeName);
-        }
-        else
-        {
-            buildController.showPoorText();
-        }
-    }
-
-    public void upgradeSlowDuration(int row, int cost, string upgradeName)
-    {
-        string valueName = "level_" + (slow.getSlowDurationLevel() + 1).ToString() + "_newSlowDur_" + towerObj.getElement();
-        float newSlowDuration = towerUpgrades.getValue(valueName);
-        string costName;
-
-        if (currencyController.checkSufficientMoney(cost))
-        {
-            // Update tower slow stats
-            slow.setSlowDuration(newSlowDuration);
-            slow.setSlowDurationLevel(slow.getSlowDurationLevel() + 1);
-            buildController.disablePoorText();
-
-            // Update tower upgrade screen UI
-            costName = "level_" + (slow.getSlowDurationLevel() + 1).ToString() + "_slowDurCost";
-            rowTexts.GetChild(row).GetComponent<TMP_Text>().text = "Slow Duration: " + slow.getSlowDuration().ToString();
-            highlightBars(row, slow.getSlowDurationLevel(), 3);
-            setButtons(row, towerUpgrades.getCost(costName), upgradeName);
-        }
-        else
-        {
-            buildController.showPoorText();
-        }
-    }
-
-    public void upgradeSpecial(int row, int cost, string upgradeName)
-    {
-        string valueName = "level_" + (towerObj.getSpecialLevel() + 1).ToString() + "_newSpecial_" + towerObj.getElement();
-        float newSpecial = towerUpgrades.getValue(valueName);
-        string costName;
-
-        if (currencyController.checkSufficientMoney(cost))
-        {
-            // Update tower stats
-            towerObj.setSpecial(newSpecial);
-            towerObj.setSpecialLevel(towerObj.getSpecialLevel() + 1);
-            buildController.disablePoorText();
-
-            // Update tower upgrade screen UI
-            costName = "level_" + (towerObj.getSpecialLevel() + 1).ToString() + "_specialCost";
-            rowTexts.GetChild(row).GetComponent<TMP_Text>().text = "Special: " + towerObj.getSpecial().ToString();
-            highlightBars(row, towerObj.getSpecialLevel(), 3);
-            setButtons(row, towerUpgrades.getCost(costName), upgradeName);
         }
         else
         {
@@ -308,12 +185,32 @@ public class TowerController : MonoBehaviour
     }
 
     // Methods
+    public void setStatMenu()
+    {
+        Debug.Log("Setting stat menu...");
+
+        towerNameText.text = towerObj != null ? towerObj.getName() : "";
+        towerElementText.text = towerObj != null ? "Element: " + towerObj.getElement() : "";
+
+        baseHPStats.text = "Base HP: " + towerObj.getBaseHP();
+        hpStats.text = "HP: " + towerObj.getCurrentHP() + " / " + towerObj.getMaxHP();
+
+        baseDamageStats.text = "Base Damage: " + towerObj.getBaseDamage();
+        damageStats.text = "Damage: " + towerObj.getDamage();
+
+        baseFireRateStats.text = "Base Fire Rate: " + towerObj.getBaseFireRate();
+        fireRateStats.text = "Fire Rate: " + towerObj.getFireRate();
+
+        baseRangeStats.text = "Base Range: " + towerObj.getBaseRange();
+        rangeStats.text = "Range: " + towerObj.getRange();
+
+        // Create new script for each Tower to hold buff/debuffs?
+        // Code to display those buff/debuffs from that script here...
+    }
+
     public void setUpgradeMenu()
     {
         Debug.Log("Setting upgrade menu...");
-
-        towerNameText.text      = towerObj != null ? towerObj.getName() : "";
-        towerElementText.text   = towerObj != null ? "Element: " + towerObj.getElement() : "";
 
         string[] upgrades = towerObj.getUpgrades();
         int numUpgrades = upgrades.Length;
@@ -326,93 +223,129 @@ public class TowerController : MonoBehaviour
 
             switch (upgrades[i])
             {
-                case "damage":
+                case "Damage":
                     costName = "level_" + (towerObj.getDMGLevel() + 1).ToString() + "_dmgCost";
                     rowText.text = "Damage: " + towerObj.getDamage().ToString();
                     rowDesc.text = "How much damage the tower deals";
+                    maxLevel = 5;
 
                     setBars((i + 1), 5);
-                    highlightBars(i, towerObj.getDMGLevel(), 5);
-                    setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    highlightBars(i, towerObj.getDMGLevel(), maxLevel);
+
+                    if (towerObj.getDMGLevel() + 1 <= maxLevel)
+                        setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    else
+                        setMaxButtons(i);
 
                     break;
 
-                case "firerate":
+                case "Fire Rate":
                     costName = "level_" + (towerObj.getFireRateLevel() + 1).ToString() + "_frCost";
                     rowText.text = "Fire Rate: " + towerObj.getFireRate().ToString();
                     rowDesc.text = "How fast the tower attacks";
+                    maxLevel = 5;
 
                     setBars((i + 1), 5);
-                    highlightBars(i, towerObj.getFireRateLevel(), 5);
-                    setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    highlightBars(i, towerObj.getFireRateLevel(), maxLevel);
+
+                    if (towerObj.getFireRateLevel() + 1 <= maxLevel)
+                        setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    else
+                        setMaxButtons(i);
 
                     break;
 
-                case "range":
+                case "Range":
                     costName = "level_" + (towerObj.getRangeLevel() + 1).ToString() + "_rangeCost";
                     rowText.text = "Range: " + towerObj.getRange().ToString();
                     rowDesc.text = "How far the tower can attack";
+                    maxLevel = 5;
 
                     setBars((i + 1), 5);
-                    highlightBars(i, towerObj.getRangeLevel(), 5);
-                    setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    highlightBars(i, towerObj.getRangeLevel(), maxLevel);
+                    
+                    if (towerObj.getRangeLevel() + 1 <= maxLevel)
+                        setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    else
+                        setMaxButtons(i);
 
                     break;
 
-                case "slowPercent":
+                case "Slow Percent":
                     slow = selectedTower.GetComponent<Slow>();
 
                     costName = "level_" + (slow.getSlowPercentLevel() + 1).ToString() + "_slowPercentCost";
                     rowText.text = "Slow Percent: " + slow.getSlowPercent().ToString();
                     rowDesc.text = "How much the tower slows enemies on attack";
+                    maxLevel = 3;
 
                     setBars((i + 1), 3);
-                    highlightBars(i, slow.getSlowPercentLevel(), 3);
-                    setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    highlightBars(i, slow.getSlowPercentLevel(), maxLevel);
+                    
+                    if (slow.getSlowPercentLevel() + 1 <= maxLevel)
+                        setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    else
+                        setMaxButtons(i);
 
                     break;
 
-                case "slowDuration":
+                case "Slow Duration":
                     slow = selectedTower.GetComponent<Slow>();
 
                     costName = "level_" + (slow.getSlowDurationLevel() + 1).ToString() + "_slowDurCost";
                     rowText.text = "Slow Duration: " + slow.getSlowDuration().ToString();
                     rowDesc.text = "How long the enemies get slowed for";
+                    maxLevel = 3;
 
                     setBars((i + 1), 3);
-                    highlightBars(i, slow.getSlowDurationLevel(), 3);
-                    setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    highlightBars(i, slow.getSlowDurationLevel(), maxLevel);
+                    
+                    if (slow.getSlowDurationLevel() + 1 <= maxLevel)
+                        setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    else
+                        setMaxButtons(i);
 
                     break;
 
-                case "healAmount":
+                case "Heal Amount":
                     heal = selectedTower.GetComponent<Heal>();
 
                     costName = "level_" + (heal.getHealAmountLevel() + 1).ToString() + "_healCost";
                     rowText.text = "Heal Amount: " + heal.getHealAmount().ToString();
                     rowDesc.text = "How much the tower heals every pulse";
+                    maxLevel = 5;
 
                     setBars((i + 1), 5);
-                    highlightBars(i, heal.getHealAmountLevel(), 5);
-                    setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    highlightBars(i, heal.getHealAmountLevel(), maxLevel);
+                    
+                    if (heal.getHealAmountLevel() + 1 <= maxLevel)
+                        setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    else
+                        setMaxButtons(i);
 
                     break;
 
-                case "healRate":
+                case "Heal Rate":
                     heal = selectedTower.GetComponent<Heal>();
 
                     costName = "level_" + (heal.getHealRateLevel() + 1).ToString() + "_healRateCost";
                     rowText.text = "Heal Rate: " + heal.getHealRate().ToString();
                     rowDesc.text = "How many times the tower pulses per second";
+                    maxLevel = 5;
 
                     setBars((i + 1), 5);
-                    highlightBars(i, heal.getHealRateLevel(), 5);
-                    setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    highlightBars(i, heal.getHealRateLevel(), maxLevel);
+                    
+                    if (heal.getHealRateLevel() + 1 <= maxLevel)
+                        setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    else
+                        setMaxButtons(i);
 
                     break;
 
-                case "special":
+                case "Special":
                     costName = "level_" + (towerObj.getSpecialLevel() + 1).ToString() + "_specialCost";
+                    maxLevel = 3;
 
                     if (towerObj.getSpecialLevel() == 0)
                     {
@@ -422,12 +355,15 @@ public class TowerController : MonoBehaviour
                     {
                         rowText.text = "Special: " + towerObj.getSpecial().ToString();
                         rowDesc.text = towerObj.getSpecialUpgradeDesc();
-
-                        highlightBars(i, towerObj.getSpecialLevel(), 3);
                     }
 
                     setBars((i + 1), 3);
-                    setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    highlightBars(i, towerObj.getSpecialLevel(), maxLevel);
+
+                    if (towerObj.getSpecialLevel() + 1 <= maxLevel)
+                        setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    else
+                        setMaxButtons(i);
 
                     break;
 
@@ -493,6 +429,15 @@ public class TowerController : MonoBehaviour
         }
     }
 
+    public void setMaxButtons(int row)
+    {
+        button = buttonContainer.GetChild(row).GetComponent<Button>();
+        button.onClick.RemoveAllListeners();
+
+        text = buttonContainer.GetChild(row).GetComponentInChildren<TMP_Text>();
+        text.text = "MAX";
+    }
+
     public void setButtons(int row, int cost, string upgradeName)
     {
         button = buttonContainer.GetChild(row).GetComponent<Button>();
@@ -501,50 +446,38 @@ public class TowerController : MonoBehaviour
         text = buttonContainer.GetChild(row).GetComponentInChildren<TMP_Text>();
         text.text = cost.ToString();
 
-        // UnityEvent <= button.onClick // needs to be called on a Button component
-        // button.onClick.RemoveAllListeners();
-        // button.onClick.AddListener(<function to run>);
-
         switch (upgradeName)
         {
-            case "damage":
-                if (towerObj.getDMGLevel() < 5)
-                    button.onClick.AddListener(() => upgradeDamage(row, cost, upgradeName));
+            case "Damage":
+                button.onClick.AddListener(() => upgrade(row, towerObj.getDMGLevel(), 5, cost, upgradeName, "_newDmg_", "_dmgCost"));
                 break;
 
-            case "firerate":
-                if (towerObj.getFireRateLevel() < 5)
-                    button.onClick.AddListener(() => upgradeFireRate(row, cost, upgradeName));
+            case "Fire Rate":
+                button.onClick.AddListener(() => upgrade(row, towerObj.getFireRateLevel(), 5, cost, upgradeName, "_newFr_", "_frCost"));
                 break;
 
-            case "range":
-                if (towerObj.getRangeLevel() < 5)
-                    button.onClick.AddListener(() => upgradeRange(row, cost, upgradeName));
+            case "Range":
+                button.onClick.AddListener(() => upgrade(row, towerObj.getRangeLevel(), 5, cost, upgradeName, "_newRange_", "_rangeCost"));
                 break;
 
-            case "healAmount":
-                if (heal.getHealAmountLevel() < 5)
-                    button.onClick.AddListener(() => upgradeHealAmount(row, cost, upgradeName));
+            case "Heal Amount":
+                button.onClick.AddListener(() => upgrade(row, heal.getHealAmountLevel(), 5, cost, upgradeName, "_newHeal_", "_healCost"));
                 break;
 
-            case "healRate":
-                if (heal.getHealRateLevel() < 5)
-                    button.onClick.AddListener(() => upgradeHealRate(row, cost, upgradeName));
+            case "Heal Rate":
+                button.onClick.AddListener(() => upgrade(row, heal.getHealAmountLevel(), 5, cost, upgradeName, "_newHealRate_", "_healRateCost"));
                 break;
 
-            case "slowPercent":
-                if (slow.getSlowPercentLevel() < 3)
-                    button.onClick.AddListener(() => upgradeSlowPercent(row, cost, upgradeName));
+            case "Slow Percent":
+                button.onClick.AddListener(() => upgrade(row, slow.getSlowPercentLevel(), 3, cost, upgradeName, "_newSlowPercent_", "_slowPercentCost"));
                 break;
 
-            case "slowDuration":
-                if (slow.getSlowDurationLevel() < 3)
-                    button.onClick.AddListener(() => upgradeSlowDuration(row, cost, upgradeName));
+            case "Slow Duration":
+                button.onClick.AddListener(() => upgrade(row, slow.getSlowDurationLevel(), 3, cost, upgradeName, "_newSlowDur_", "_slowDurCost"));
                 break;
 
-            case "special":
-                if (towerObj.getSpecialLevel() < 3)
-                    button.onClick.AddListener(() => upgradeSpecial(row, cost, upgradeName));
+            case "Special":
+                button.onClick.AddListener(() => upgrade(row, towerObj.getSpecialLevel(), 3, cost, upgradeName, "_newSpecial_", "_specialCost"));
                 break;
 
             default:
@@ -594,6 +527,7 @@ public class TowerController : MonoBehaviour
         selectedTower = obj;
         towerObj = selectedTower.GetComponent<TowerObject>();
 
+        setStatMenu();
         setUpgradeMenu();
     }
 
