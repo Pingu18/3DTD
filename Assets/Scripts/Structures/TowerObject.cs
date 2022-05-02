@@ -240,6 +240,12 @@ public class TowerObject : MonoBehaviour, IDamageable
 
                 switch (actionDict.getAttackName(towerName))
                 {
+                    case "Flame Attack":
+                        atk.GetComponent<FlameAttack>().setParams(this.gameObject, target, getDamage());
+                        target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
+                        atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                        Destroy(atk, 1.2f);
+                        break;
                     case "Blast":
                         atk.GetComponent<BlastAttack>().target = target;
                         atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();

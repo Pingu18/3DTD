@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActionDict : MonoBehaviour
 {
     [Header("Attacks")]
+    [SerializeField] private GameObject flameAttackFX;
     [SerializeField] private GameObject chillAttackFX;
     [SerializeField] private GameObject blastAttackFX;
     [SerializeField] private GameObject zapAttackFX;
@@ -18,7 +19,7 @@ public class ActionDict : MonoBehaviour
     private void Start()
     {
         attackDict.Add("Water Tower", chillAttackFX);
-        attackDict.Add("Fire Tower", blastAttackFX);
+        attackDict.Add("Fire Tower", flameAttackFX);
         attackDict.Add("Lightning Tower", zapAttackFX);
         attackDict.Add("Earth Tower", blastAttackFX);
         attackDict.Add("Grass Tower", null);
@@ -31,7 +32,7 @@ public class ActionDict : MonoBehaviour
         switch (towerName)
         {
             case "Fire Tower":
-                return "Blast";
+                return "Flame Attack";
             case "Water Tower":
                 return "Chill";
             case "Lightning Tower":
