@@ -1,0 +1,701 @@
+{
+  "waves": [
+    {
+      "wave": 1,
+      "groupsToSpawn": 2,
+      "groups": [
+        {
+          "groupNum": 1,
+          "spawnX": -25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 5,
+          "enemies": [
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 5
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "spawnX": 25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 5,
+          "enemies": [
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 5
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 2,
+      "groupsToSpawn": 2,
+      "groups": [
+        {
+          "groupNum": 1,
+          "spawnX": -25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 6,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 1
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 5
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "spawnX": 25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 6,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 1
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 5
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 3,
+      "groupsToSpawn": 4,
+      "groups": [
+        {
+          "groupNum": 1,
+          "spawnX": -25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 12,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 2
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 10
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "spawnX": 25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 12,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 2
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 10
+            }
+          ]
+        },
+        {
+          "groupNum": 3,
+          "spawnX": -114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 5,
+          "enemies": [
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 5
+            }
+          ]
+        },
+        {
+          "groupNum": 4,
+          "spawnX": 114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 5,
+          "enemies": [
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 5
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 4,
+      "groupsToSpawn": 4,
+      "groups": [
+        {
+          "groupNum": 1,
+          "spawnX": -25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 19,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 4
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 15
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "spawnX": 25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 19,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 4
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 15
+            }
+          ]
+        },
+        {
+          "groupNum": 3,
+          "spawnX": -114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 10,
+          "enemies": [
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 10
+            }
+          ]
+        },
+        {
+          "groupNum": 4,
+          "spawnX": 114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 10,
+          "enemies": [
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 10
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 5,
+      "groupsToSpawn": 2,
+      "groups": [
+        {
+          "groupNum": 1,
+          "spawnX": -25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 28,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 8
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 20
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "spawnX": 25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 28,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 8
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 20
+            }
+          ]
+        },
+        {
+          "groupNum": 3,
+          "spawnX": -114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 9,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 4
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 5
+            }
+          ]
+        },
+        {
+          "groupNum": 4,
+          "spawnX": 114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 9,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 4
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 5
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 6,
+      "groupsToSpawn": 2,
+      "groups": [
+        {
+          "groupNum": 1,
+          "spawnX": -25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 35,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 15
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 20
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "spawnX": 25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 35,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 15
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 20
+            }
+          ]
+        },
+        {
+          "groupNum": 3,
+          "spawnX": -114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 20,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 10
+            }
+          ]
+        },
+        {
+          "groupNum": 4,
+          "spawnX": 114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 20,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 10
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 7,
+      "groupsToSpawn": 4,
+      "groups": [
+        {
+          "groupNum": 1,
+          "spawnX": -25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 64,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 8
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 8
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 2,
+              "toSpawn": 20
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 8
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 20
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "spawnX": 25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 64,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 8
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 8
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 2,
+              "toSpawn": 20
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 8
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 20
+            }
+          ]
+        },
+        {
+          "groupNum": 3,
+          "spawnX": -114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 70,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 2,
+              "toSpawn": 20
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 20
+            }
+          ]
+        },
+        {
+          "groupNum": 4,
+          "spawnX": 114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 70,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 2,
+              "toSpawn": 20
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 20
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "wave": 8,
+      "groupsToSpawn": 4,
+      "groups": [
+        {
+          "groupNum": 1,
+          "spawnX": -25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 116,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 12
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 12
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 2,
+              "toSpawn": 40
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 12
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 40
+            }
+          ]
+        },
+        {
+          "groupNum": 2,
+          "spawnX": 25.5,
+          "spawnY": -4.0,
+          "spawnZ": 31.0,
+          "totalEnemies": 116,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 12
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 12
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 2,
+              "toSpawn": 40
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 12
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 40
+            }
+          ]
+        },
+        {
+          "groupNum": 3,
+          "spawnX": -114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 110,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 2,
+              "toSpawn": 30
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 30
+            }
+          ]
+        },
+        {
+          "groupNum": 4,
+          "spawnX": 114.0,
+          "spawnY": -2.0,
+          "spawnZ": -84,
+          "totalEnemies": 110,
+          "enemies": [
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 2,
+              "toSpawn": 30
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemyGiant",
+              "toWait": 2,
+              "toSpawn": 10
+            },
+            {
+              "enemyName": "TestEnemy",
+              "toWait": 0,
+              "toSpawn": 30
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
