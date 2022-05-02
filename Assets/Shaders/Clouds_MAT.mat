@@ -34,10 +34,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 0
+    - _AlphaClip: 0.4
     - _CloudAlpha: 2.5
     - _CloudPower: 0.4
-    - _CloudScale: 300
+    - _CloudScale: 250
     - _DistortScale: 60
     - _QueueControl: 0
     - _QueueOffset: 0
