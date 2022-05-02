@@ -129,9 +129,9 @@ public class EnemyObject : MonoBehaviour, IDamageable
     {
         if (Time.time > nextAttack)
         {
-            if (currentTarget != null)
+            if (target != null)
             {
-                currentTarget.GetComponent<IDamageable>().queueDamage(damage, this.gameObject);
+                target.GetComponent<IDamageable>().queueDamage(damage, this.gameObject);
                 nextAttack = Time.time + (1 / attackSpeed);
             }
         }
@@ -155,11 +155,14 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
     private void takeDamage(float dmgTaken, GameObject tower)
     {
-        float elementalDamageMultiplier = elementalSystem.getElementalMultiplier(tower.GetComponent<TowerObject>().getElement(), element);
+        if (tower != null)
+        {
+            float elementalDamageMultiplier = elementalSystem.getElementalMultiplier(tower.GetComponent<TowerObject>().getElement(), element);
 
-        currHP -= dmgTaken * elementalDamageMultiplier;
-        updateHealthBar();
-        checkDeath(tower);
+            currHP -= dmgTaken * elementalDamageMultiplier;
+            updateHealthBar();
+            checkDeath(tower);
+        }
     }
     
     private void updateHealthBar()
@@ -180,9 +183,8 @@ public class EnemyObject : MonoBehaviour, IDamageable
         if (currHP <= 0)
         {
             if (tower != null)
-            {
                 tower.GetComponent<TowerObject>().RemoveTarget(this.gameObject);
-            }
+
             enemyController.decrementEnemiesAlive();
             currencyController.addMoney(worth);
             Destroy(gameObject);

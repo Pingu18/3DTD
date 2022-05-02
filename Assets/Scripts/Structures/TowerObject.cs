@@ -148,11 +148,14 @@ public class TowerObject : MonoBehaviour, IDamageable
 
     private void takeDamage(float dmgTaken, GameObject enemy)
     {
-        float elementalDamageMultiplier = elementalSystem.getElementalMultiplier(enemy.GetComponent<EnemyObject>().getElement(), element);
+        if (enemy != null)
+        {
+            float elementalDamageMultiplier = elementalSystem.getElementalMultiplier(enemy.GetComponent<EnemyObject>().getElement(), element);
 
-        currentHP -= dmgTaken * elementalDamageMultiplier;
-        updateHealthBar();
-        checkDeath(enemy);
+            currentHP -= dmgTaken * elementalDamageMultiplier;
+            updateHealthBar();
+            checkDeath(enemy);
+        }
     }
 
     // Health functions
@@ -193,7 +196,9 @@ public class TowerObject : MonoBehaviour, IDamageable
     {
         if (currentHP <= 0)
         {
-            enemy.GetComponent<EnemyObject>().removeTarget(this.gameObject);
+            if (enemy != null)
+                enemy.GetComponent<EnemyObject>().removeTarget(this.gameObject);
+
             Destroy(transform.parent.gameObject);
         }
     }
