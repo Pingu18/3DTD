@@ -15,5 +15,8 @@ public class EnemyStats : ScriptableObject
     public float range;
     public float speed;
 
+    public float healAmount;
+    public float healRate;
+
     public int worth;
 }

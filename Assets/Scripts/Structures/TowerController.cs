@@ -187,8 +187,6 @@ public class TowerController : MonoBehaviour
     // Methods
     public void setStatMenu()
     {
-        Debug.Log("Setting stat menu...");
-
         towerNameText.text = towerObj != null ? towerObj.getName() : "";
         towerElementText.text = towerObj != null ? "Element: " + towerObj.getElement() : "";
 
@@ -210,8 +208,6 @@ public class TowerController : MonoBehaviour
 
     public void setUpgradeMenu()
     {
-        Debug.Log("Setting upgrade menu...");
-
         string[] upgrades = towerObj.getUpgrades();
         int numUpgrades = upgrades.Length;
         string costName;

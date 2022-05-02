@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: TestEnemy
   m_EditorClassIdentifier: 
   enemyName: TestEnemy
-  element: 
+  element: Water
   damageMultiplier: 0
   maxHealth: 100
   damage: 1
   attackSpeed: 1
   range: 0
   speed: 7
+  healAmount: 0
+  healRate: 0
   worth: 10
