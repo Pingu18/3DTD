@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6056839, g: 0.65353507, b: 0.53821796, a: 1}
+  m_IndirectSpecularColor: {r: 0.6056839, g: 0.6535351, b: 0.53821796, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15380,6 +15380,8 @@ MonoBehaviour:
   testEnemy: {fileID: 8020436554038406277, guid: 9f432ed880b892348b0f25e5fdd54ce2,
     type: 3}
   testEnemyGiant: {fileID: 8020436554038406277, guid: 0a5ea4937207dbd4c84ef1071e32527a,
+    type: 3}
+  testEnemyHealer: {fileID: 2684435373212293927, guid: 3b551788f6703db48a82ea554819f347,
     type: 3}
 --- !u!4 &512607978
 Transform:
