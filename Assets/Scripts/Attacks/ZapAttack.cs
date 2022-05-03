@@ -18,7 +18,9 @@ public class ZapAttack : MonoBehaviour
     private float duration = 0.05f;
     private float damage;
 
-    private bool miniStunUpgrade = false;
+    // Special Upgrade
+    public bool upgradeUnlocked;
+    public float stunDuration = 0.1f;
 
     private void Update()
     {
@@ -40,9 +42,9 @@ public class ZapAttack : MonoBehaviour
                         parent = parentTower;
                     }
                     target.GetComponent<IDamageable>().queueDamage(damage, parent);
-                    if (miniStunUpgrade)
+                    if (upgradeUnlocked)
                     {
-                        target.gameObject.GetComponent<EnemyNavMesh>().applyStun(0.25f);
+                        StartCoroutine(target.GetComponent<EnemyNavMesh>().applyStun(stunDuration));
                     }
                     if (GetNearbyTargets() > 0 && currentBounces <= maxBounces)
                     {

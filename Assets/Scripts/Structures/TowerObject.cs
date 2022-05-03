@@ -30,6 +30,7 @@ public class TowerObject : MonoBehaviour, IDamageable
     private float fireRate;
     private float range;
     private float special;
+    private float lifesteal;
 
     // Stat levels
     private int hpLvl;
@@ -90,6 +91,7 @@ public class TowerObject : MonoBehaviour, IDamageable
         fireRate = towerStats.attackSpeed;
         range = towerStats.range;
         special = towerStats.special;
+        lifesteal = towerStats.lifesteal;
 
         hpLvl = 0;
         dmgLvl = 0;
@@ -371,6 +373,11 @@ public class TowerObject : MonoBehaviour, IDamageable
         updateRangeCollider(newRange);
     }
 
+    public void setLifesteal(float newLifesteal)
+    {
+        lifesteal = newLifesteal;
+    }
+
     public void setSpecial(float newSpecial)
     {
         special = newSpecial;
@@ -495,6 +502,11 @@ public class TowerObject : MonoBehaviour, IDamageable
     public float getRange()
     {
         return range;
+    }
+
+    public float getLifesteal()
+    {
+        return lifesteal;
     }
 
     public float getSpecial()

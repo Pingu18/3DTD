@@ -14,6 +14,7 @@ public class TowerStats : ScriptableObject
     public float damage;
     public float attackSpeed;
     public float range;
+    public float lifesteal;
 
     [Header("Heal Stats")]
     public float heal;

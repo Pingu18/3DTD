@@ -39,6 +39,9 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private Color maxHPColor;
     private Color minHPColor;
 
+    // Chill stacks
+    private int chillStacks;
+
     // Light / Dark marks
     private bool hasLightMark;
     private bool hasDarkMark;
@@ -75,6 +78,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
         worth = enemyStats.worth;
 
         nextAttack = 0.0f;
+        chillStacks = 0;
 
         enemyController = transform.parent.GetComponent<EnemyController>();
         elementalSystem = transform.parent.GetComponent<ElementalSystem>();
@@ -162,8 +166,10 @@ public class EnemyObject : MonoBehaviour, IDamageable
         if (tower != null)
         {
             float elementalDamageMultiplier = elementalSystem.getElementalMultiplier(tower.GetComponent<TowerObject>().getElement(), element);
+            float realDmg = dmgTaken * elementalDamageMultiplier;
 
-            currHP -= dmgTaken * elementalDamageMultiplier;
+            currHP -= realDmg;
+            tower.GetComponent<TowerObject>().AddHP(dmgTaken * (tower.GetComponent<TowerObject>().getLifesteal() / 100));
             updateHealthBar();
             checkDeath(tower);
         }
@@ -286,6 +292,18 @@ public class EnemyObject : MonoBehaviour, IDamageable
     public float getDistFromGoal()
     {
         return Vector3.Distance(this.transform.position, goal);
+    }
+
+    public void applyChill(float freezeDuration)
+    {
+        chillStacks += 1;
+        print("Chill stacks: " + chillStacks);
+        if (chillStacks == 3)
+        {
+            // apply freeze and reset counter
+            StartCoroutine(this.GetComponent<EnemyNavMesh>().applyStun(freezeDuration));
+            chillStacks = 0;
+        }
     }
 
     public void applyLightMark()

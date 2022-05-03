@@ -24,6 +24,10 @@ public class Heal : MonoBehaviour
 
     private bool keepHealing = true;
 
+    // Special Upgrade
+    public bool upgradeUnlocked = false;
+    public float lifestealAmount = 10.0f;
+
     void Start()
     {
         if (this.tag == "Structure")
@@ -55,11 +59,15 @@ public class Heal : MonoBehaviour
     public void addTarget(GameObject structure)
     {
         targets.Add(structure);
+        if (upgradeUnlocked)
+            structure.GetComponent<TowerObject>().setLifesteal(lifestealAmount);
     }
 
     public void removeTarget(GameObject structure)
     {
         targets.Remove(structure);
+        if (upgradeUnlocked)
+            structure.GetComponent<TowerObject>().setLifesteal(0f);
     }
 
     private IEnumerator startHealCycle()

@@ -9,10 +9,12 @@ public class EnemyNavMesh : MonoBehaviour
     private NavMeshAgent navMeshAgent;
 
     private float baseSpeed;
+    [SerializeField] private bool stunned;
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        stunned = false;
         //navMeshAgent.areaMask = 0;
     }
 
@@ -56,19 +58,27 @@ public class EnemyNavMesh : MonoBehaviour
         // if the timer hits 0, then set speed back to base
         // this way, the timer can be refreshed on each hit
 
-        navMeshAgent.speed = newSpeed;
+        if (!stunned)
+        {
+            navMeshAgent.speed = newSpeed;
+        }
         yield return new WaitForSeconds(duration);
 
-        if (navMeshAgent)
+        if (navMeshAgent && !stunned)
             navMeshAgent.speed = baseSpeed;
     }
 
     public IEnumerator applyStun(float stunDuration)
     {
-        navMeshAgent.speed = 0.0f;
+        stunned = true;
+        Vector3 destination = navMeshAgent.destination;
+        navMeshAgent.SetDestination(gameObject.transform.position);
         yield return new WaitForSeconds(stunDuration);
 
         if (navMeshAgent)
-            navMeshAgent.speed = baseSpeed;
+        {
+            navMeshAgent.SetDestination(destination);
+            stunned = false;
+        }
     }
 }
