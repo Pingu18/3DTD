@@ -5,55 +5,52 @@ using UnityEngine;
 
 public class PathController : MonoBehaviour
 {
-    [SerializeField] private int differentPaths;
-    private int currentPath = 1;
+    private NavMeshSurface navMeshSurface;
 
-    [SerializeField] private NavMeshSurface[] paths;
-    [SerializeField] private NavMeshSurface[] surfaces;
+    [SerializeField] private GameObject activePath;
+    [SerializeField] private GameObject inactivePath;
+
+    private Transform currentPath;
+    private int currentPathNum;
 
     private void Start()
     {
         Debug.Log("Building paths... (PathController)");
 
-        for (int i = 0; i < surfaces.Length; i++)
-        {
-            surfaces[i].BuildNavMesh();
-        }
+        navMeshSurface = activePath.GetComponent<NavMeshSurface>();
+        currentPathNum = 1;
 
         buildPath();
     }
 
     private void buildPath()
     {
-        for (int i = 0; i < paths.Length; i++)
+        for (int i = 0; i < inactivePath.transform.childCount; i++)
         {
-            if (paths[i].name == ("LeftPath" + currentPath).ToString() || paths[i].name == ("RightPath" + currentPath).ToString())
-            {
-                paths[i].defaultArea = 0;
-            } else
-            {
-                paths[i].defaultArea = 1;
-            }
+            Transform childTransform = inactivePath.transform.GetChild(i);
 
-            Debug.Log("Building NavMesh...");
-            paths[i].BuildNavMesh();
+            if (childTransform.name.Equals(("Path" + currentPathNum).ToString()))
+            {
+                childTransform.parent = activePath.transform;
+                currentPath = childTransform;
+                break;
+            }
         }
+
+        navMeshSurface.BuildNavMesh();
     }
 
     private void togglePaths()
     {
         Debug.Log("Toggling paths...");
 
-        if (currentPath == 1)
-        {
-            currentPath = 2;
-            buildPath();
-        }
-        else
-        {
-            currentPath = 1;
-            buildPath();
-        }
+        if (currentPathNum == 1)
+            currentPathNum = 2;
+        else if (currentPathNum == 2)
+            currentPathNum = 1;
+
+        currentPath.parent = inactivePath.transform;
+        buildPath();
     }
 
     // Update is called once per frame

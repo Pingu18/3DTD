@@ -13,6 +13,7 @@ public class EnemyNavMesh : MonoBehaviour
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        //navMeshAgent.areaMask = 0;
     }
 
     private void Update()
