@@ -119,6 +119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4676880263107795636}
+  - component: {fileID: 7540395725552797818}
   m_Layer: 0
   m_Name: DarkTowerParent
   m_TagString: Untagged
@@ -135,13 +136,33 @@ Transform:
   m_GameObject: {fileID: 4676880263107795637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5146810272471500266}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &7540395725552797818
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4676880263107795637}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2de6c605b23005b469be7450249c3a97, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &653999141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -662,8 +683,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerStats: {fileID: 11400000, guid: f98e4b4d209c3b442a69dfe98f1158f0, type: 2}
   targets: []
-  attackFX: {fileID: 1621167109009017354, guid: 2fabf28e37ae4b34490733a0d5c975cf,
-    type: 3}
   healthBarImage: {fileID: 2968620469898458663}
 --- !u!114 &976756256003914822
 MonoBehaviour:

@@ -261,6 +261,20 @@ public class TowerObject : MonoBehaviour, IDamageable
                         atk.GetComponent<ZapAttack>().parentTower = this.gameObject;
                         atk.GetComponent<ZapAttack>().BeginAttack(this.gameObject, target, 3);
                         break;
+                    case "Light Mark":
+                        atk.GetComponent<LightAttack>().target = target;
+                        atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                        target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
+                        target.GetComponent<EnemyObject>().applyLightMark();
+                        Destroy(atk, 1.0f);
+                        break;
+                    case "Dark Mark":
+                        atk.GetComponent<DarkAttack>().target = target;
+                        atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+                        target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
+                        target.GetComponent<EnemyObject>().applyDarkMark();
+                        Destroy(atk, 1.0f);
+                        break;
                 }
             }
 
