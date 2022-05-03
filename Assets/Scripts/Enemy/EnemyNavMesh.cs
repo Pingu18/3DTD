@@ -15,6 +15,20 @@ public class EnemyNavMesh : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
+    private void Update()
+    {
+        if (navMeshAgent.isOnOffMeshLink)
+        {
+            OffMeshLinkData data = navMeshAgent.currentOffMeshLinkData;
+            Vector3 endPos = data.endPos + Vector3.up * navMeshAgent.baseOffset;
+
+            navMeshAgent.transform.position = Vector3.MoveTowards(navMeshAgent.transform.position, endPos, navMeshAgent.speed * Time.deltaTime);
+
+            if (navMeshAgent.transform.position == endPos)
+                navMeshAgent.CompleteOffMeshLink();
+        }
+    }
+
     private void Start()
     {
         updateBaseSpeed();
