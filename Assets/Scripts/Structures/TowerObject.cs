@@ -247,9 +247,11 @@ public class TowerObject : MonoBehaviour, IDamageable
                         Destroy(atk, 1.2f);
                         break;
                     case "Blast":
+                        //atk.GetComponent<BlastAttack>().setParentTower(this.gameObject);
                         atk.GetComponent<BlastAttack>().target = target;
                         atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                         target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
+                        this.GetComponent<Slow>().applySlow(target);
                         Destroy(atk, 1.0f);
                         break;
                     case "Chill":

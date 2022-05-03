@@ -15,7 +15,7 @@ MonoBehaviour:
   towerName: Dark Tower
   element: Dark
   maxHealth: 150
-  damage: 20
+  damage: 30
   attackSpeed: 1
   range: 50
   heal: 0
