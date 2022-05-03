@@ -24,7 +24,7 @@ public class TowerUpgrades : MonoBehaviour
         valueDict.Add("level_5_newHP_Earth", 100);
 
         // DAMAGE
-        // Fire | Lightning | Dark | Light
+        // Fire | Earth | Lightning | Dark | Light
         costDict.Add("level_1_dmgCost", 400);
         costDict.Add("level_2_dmgCost", 800);
         costDict.Add("level_3_dmgCost", 1500);
@@ -36,6 +36,12 @@ public class TowerUpgrades : MonoBehaviour
         valueDict.Add("level_3_newDmg_Fire", 95);
         valueDict.Add("level_4_newDmg_Fire", 120);
         valueDict.Add("level_5_newDmg_Fire", 150);
+
+        valueDict.Add("level_1_newDmg_Earth", 160);
+        valueDict.Add("level_2_newDmg_Earth", 170);
+        valueDict.Add("level_3_newDmg_Earth", 185);
+        valueDict.Add("level_4_newDmg_Earth", 200);
+        valueDict.Add("level_5_newDmg_Earth", 225);
 
         valueDict.Add("level_1_newDmg_Lightning", 30);
         valueDict.Add("level_2_newDmg_Lightning", 35);
@@ -163,6 +169,11 @@ public class TowerUpgrades : MonoBehaviour
         valueDict.Add("level_2_newSlowPercent_Water", 40);
         valueDict.Add("level_3_newSlowPercent_Water", 50);
 
+        // Earth
+        valueDict.Add("level_1_newSlowPercent_Earth", 30);
+        valueDict.Add("level_2_newSlowPercent_Earth", 40);
+        valueDict.Add("level_3_newSlowPercent_Earth", 50);
+
         // SLOW DURATION
         costDict.Add("level_1_slowDurCost", 1000);
         costDict.Add("level_2_slowDurCost", 3000);
@@ -172,6 +183,11 @@ public class TowerUpgrades : MonoBehaviour
         valueDict.Add("level_1_newSlowDur_Water", 0.75f);
         valueDict.Add("level_2_newSlowDur_Water", 1f);
         valueDict.Add("level_3_newSlowDur_Water", 1.25f);
+
+        // Earth
+        valueDict.Add("level_1_newSlowDur_Earth", 0.75f);
+        valueDict.Add("level_2_newSlowDur_Earth", 1f);
+        valueDict.Add("level_3_newSlowDur_Earth", 1.25f);
 
         // SPECIAL
         costDict.Add("level_1_specialCost", 8000);

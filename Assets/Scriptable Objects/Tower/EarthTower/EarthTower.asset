@@ -20,12 +20,16 @@ MonoBehaviour:
   range: 30
   heal: 0
   healRate: 0
-  slowPercent: 0
-  slowDuration: 0
+  slowPercent: 20
+  slowDuration: 0.5
   special: 0
   specialDesc: 
   specialUpgradeDesc: 
   damageMultiplier: 1
   takeDamageMultiplier: 1
   cost: 200
-  upgrades: []
+  upgrades:
+  - Damage
+  - Slow Percent
+  - Slow Duration
+  - Special

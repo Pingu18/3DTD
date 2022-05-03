@@ -9,6 +9,8 @@ public class ActionDict : MonoBehaviour
     [SerializeField] private GameObject chillAttackFX;
     [SerializeField] private GameObject blastAttackFX;
     [SerializeField] private GameObject zapAttackFX;
+    [SerializeField] private GameObject lightAttackFX;
+    [SerializeField] private GameObject darkAttackFX;
 
     [Header("Heals")]
     [SerializeField] private GameObject grassHealFX;
@@ -23,6 +25,8 @@ public class ActionDict : MonoBehaviour
         attackDict.Add("Lightning Tower", zapAttackFX);
         attackDict.Add("Earth Tower", blastAttackFX);
         attackDict.Add("Grass Tower", null);
+        attackDict.Add("Light Tower", lightAttackFX);
+        attackDict.Add("Dark Tower", darkAttackFX);
 
         healDict.Add("Grass Tower", grassHealFX);
     }
@@ -39,6 +43,10 @@ public class ActionDict : MonoBehaviour
                 return "Zap";
             case "Earth Tower":
                 return "Blast";
+            case "Light Tower":
+                return "Light Mark";
+            case "Dark Tower":
+                return "Dark Mark";
             default:
                 return null;
         }

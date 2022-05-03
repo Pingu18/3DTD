@@ -39,6 +39,10 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private Color maxHPColor;
     private Color minHPColor;
 
+    // Light / Dark marks
+    private bool hasLightMark;
+    private bool hasDarkMark;
+
     struct DamageInfo
     {
         public float damageTaken;
@@ -282,5 +286,27 @@ public class EnemyObject : MonoBehaviour, IDamageable
     public float getDistFromGoal()
     {
         return Vector3.Distance(this.transform.position, goal);
+    }
+
+    public void applyLightMark()
+    {
+        if (!hasLightMark)
+            hasLightMark = true;
+    }
+
+    public void applyDarkMark()
+    {
+        if (!hasDarkMark)
+            hasDarkMark = true;
+    }
+
+    public bool getLightMark()
+    {
+        return hasLightMark;
+    }
+
+    public bool getDarkMark()
+    {
+        return hasDarkMark;
     }
 }
