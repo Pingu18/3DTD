@@ -461,7 +461,7 @@ public class TowerController : MonoBehaviour
                 break;
 
             case "Heal Rate":
-                button.onClick.AddListener(() => upgrade(row, heal.getHealAmountLevel(), 5, cost, upgradeName, "_newHealRate_", "_healRateCost"));
+                button.onClick.AddListener(() => upgrade(row, heal.getHealRateLevel(), 5, cost, upgradeName, "_newHealRate_", "_healRateCost"));
                 break;
 
             case "Slow Percent":
