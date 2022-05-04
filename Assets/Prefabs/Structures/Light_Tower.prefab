@@ -137,8 +137,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerStats: {fileID: 11400000, guid: e3fa49fb8a4f7274197fa842339dac35, type: 2}
   targets: []
-  attackFX: {fileID: 1621167109009017354, guid: 6902b30e7c7c312408804d445e3dc594,
-    type: 3}
   healthBarImage: {fileID: 6317695634609834940}
 --- !u!114 &6462162582958062404
 MonoBehaviour:

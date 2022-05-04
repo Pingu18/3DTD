@@ -7,11 +7,13 @@ using UnityEngine.UI;
 public class TowerObject : MonoBehaviour, IDamageable
 {
     [SerializeField] private TowerStats towerStats;
+    private TowerBuffHandler buffHandler;
 
     // Script references
     private BuildController buildCon;
     private ActionDict actionDict;
     private ElementalSystem elementalSystem;
+    private TowerAttack towerAttack;
 
     // Static stats
     private string towerName;
@@ -30,7 +32,6 @@ public class TowerObject : MonoBehaviour, IDamageable
     private float fireRate;
     private float range;
     private float special;
-    private float lifesteal;
 
     // Stat levels
     private int hpLvl;
@@ -91,7 +92,6 @@ public class TowerObject : MonoBehaviour, IDamageable
         fireRate = towerStats.attackSpeed;
         range = towerStats.range;
         special = towerStats.special;
-        lifesteal = towerStats.lifesteal;
 
         hpLvl = 0;
         dmgLvl = 0;
@@ -104,8 +104,11 @@ public class TowerObject : MonoBehaviour, IDamageable
         cost = towerStats.cost;
         resaleValue = (int)Mathf.Ceil(cost * 0.75f);
 
+        buffHandler = GetComponent<TowerBuffHandler>();
+
         actionDict = transform.parent.parent.gameObject.GetComponent<ActionDict>();
         elementalSystem = transform.parent.parent.gameObject.GetComponent<ElementalSystem>();
+        towerAttack = transform.parent.parent.gameObject.GetComponent<TowerAttack>();
 
         buildCon = FindObjectOfType<BuildController>();
         nextFire = 0.0f;
@@ -240,46 +243,7 @@ public class TowerObject : MonoBehaviour, IDamageable
             {
                 GameObject atk = Instantiate(actionDict.getAttackFX(towerName), target.transform.position, Quaternion.identity);
 
-                switch (actionDict.getAttackName(towerName))
-                {
-                    case "Flame Attack":
-                        atk.GetComponent<FlameAttack>().setParams(this.gameObject, target, getDamage());
-                        target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
-                        atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                        Destroy(atk, 1.2f);
-                        break;
-                    case "Blast":
-                        //atk.GetComponent<BlastAttack>().setParentTower(this.gameObject);
-                        atk.GetComponent<BlastAttack>().target = target;
-                        atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                        target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
-                        this.GetComponent<Slow>().applySlow(target);
-                        Destroy(atk, 1.0f);
-                        break;
-                    case "Chill":
-                        atk.GetComponent<ChillAttack>().setParentTower(this.gameObject);
-                        atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                        Destroy(atk, 1.2f);
-                        break;
-                    case "Zap":
-                        atk.GetComponent<ZapAttack>().parentTower = this.gameObject;
-                        atk.GetComponent<ZapAttack>().BeginAttack(this.gameObject, target, 3);
-                        break;
-                    case "Light Mark":
-                        atk.GetComponent<LightAttack>().target = target;
-                        atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                        target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
-                        target.GetComponent<EnemyObject>().applyLightMark();
-                        Destroy(atk, 1.0f);
-                        break;
-                    case "Dark Mark":
-                        atk.GetComponent<DarkAttack>().target = target;
-                        atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                        target.GetComponent<IDamageable>().queueDamage(getDamage(), this.gameObject);
-                        target.GetComponent<EnemyObject>().applyDarkMark();
-                        Destroy(atk, 1.0f);
-                        break;
-                }
+                towerAttack.generateAttack(atk, target, this, actionDict.getAttackName(towerName));
             }
 
             nextFire = Time.time + (1 / fireRate);
@@ -380,11 +344,6 @@ public class TowerObject : MonoBehaviour, IDamageable
         updateRangeCollider(newRange);
     }
 
-    public void setLifesteal(float newLifesteal)
-    {
-        lifesteal = newLifesteal;
-    }
-
     public void setSpecial(float newSpecial)
     {
         special = newSpecial;
@@ -413,6 +372,9 @@ public class TowerObject : MonoBehaviour, IDamageable
     public void setSpecialLevel(int newLvl)
     {
         specialLvl = newLvl;
+
+        if (specialLvl > 0)
+            buffHandler.enableSpecial(towerName);
     }
 
     // Getter methods
@@ -509,11 +471,6 @@ public class TowerObject : MonoBehaviour, IDamageable
     public float getRange()
     {
         return range;
-    }
-
-    public float getLifesteal()
-    {
-        return lifesteal;
     }
 
     public float getSpecial()

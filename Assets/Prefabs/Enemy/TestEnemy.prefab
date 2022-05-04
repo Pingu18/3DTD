@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: -4363959930857223754}
   - component: {fileID: 1647799588049102505}
   - component: {fileID: 4764846116044683220}
+  - component: {fileID: 2883109400932111020}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -279,7 +280,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00017392b0d654440aed449ad3fe7abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkSpeed: 1
+  stunned: 0
+--- !u!114 &2883109400932111020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8020436554038406277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d74046ac9eac854185dae656b620d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chillStacks: 0
+  freezeDuration: 0
 --- !u!1001 &1709918269
 PrefabInstance:
   m_ObjectHideFlags: 0

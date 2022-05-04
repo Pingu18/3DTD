@@ -19,7 +19,6 @@ public class ZapAttack : MonoBehaviour
     private float damage;
 
     // Special Upgrade
-    public bool upgradeUnlocked;
     public float stunDuration = 0.1f;
 
     private void Update()
@@ -42,7 +41,14 @@ public class ZapAttack : MonoBehaviour
                         parent = parentTower;
                     }
                     target.GetComponent<IDamageable>().queueDamage(damage, parent);
-                    if (upgradeUnlocked)
+
+                    TowerBuffHandler buffHandler = parent.GetComponent<TowerBuffHandler>();
+                    TowerObject towerObj = parent.GetComponent<TowerObject>();
+
+                    if (buffHandler.getLifestealEnabled())
+                        towerObj.AddHP(towerObj.getDamage() * buffHandler.getLifestealStrength());
+
+                    if (parent.GetComponent<TowerObject>().getSpecialLevel() > 0)
                     {
                         StartCoroutine(target.GetComponent<EnemyNavMesh>().applyStun(stunDuration));
                     }

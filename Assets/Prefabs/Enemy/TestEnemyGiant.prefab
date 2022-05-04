@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: -4363959930857223754}
   - component: {fileID: 1647799588049102505}
   - component: {fileID: 4764846116044683220}
+  - component: {fileID: 4704599250163011668}
   m_Layer: 0
   m_Name: TestEnemyGiant
   m_TagString: Enemy
@@ -279,9 +280,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00017392b0d654440aed449ad3fe7abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 0}
-  isSlowed: 0
-  isStunned: 0
+  stunned: 0
+--- !u!114 &4704599250163011668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8020436554038406277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d74046ac9eac854185dae656b620d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chillStacks: 0
+  freezeDuration: 0
 --- !u!1001 &900306492194604191
 PrefabInstance:
   m_ObjectHideFlags: 0

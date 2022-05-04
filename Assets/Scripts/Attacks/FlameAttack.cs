@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FlameAttack : MonoBehaviour
 {
+    private TowerBuffHandler buffHandler;
     public GameObject parentTower;
     public GameObject initialTarget;
     private float splashDamage;
@@ -13,6 +14,8 @@ public class FlameAttack : MonoBehaviour
         parentTower = parent;
         initialTarget = target;
         splashDamage = damage * 0.5f;
+
+        buffHandler = parentTower.GetComponent<TowerBuffHandler>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,6 +23,9 @@ public class FlameAttack : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy") && parentTower != null && other.gameObject != initialTarget)
         {
             other.gameObject.GetComponent<IDamageable>().queueDamage(splashDamage, parentTower);
+
+            if (buffHandler.getLifestealEnabled())
+                parentTower.GetComponent<TowerObject>().AddHP(splashDamage * buffHandler.getLifestealStrength());
         }
     }
 }

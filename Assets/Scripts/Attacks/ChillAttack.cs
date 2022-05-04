@@ -5,16 +5,14 @@ using UnityEngine;
 public class ChillAttack : MonoBehaviour
 {
     public GameObject parentTower;
+    private TowerBuffHandler buffHandler;
 
     private Slow slow;
-
-    // Special Upgrade
-    public bool upgradeUnlocked = true;
-    public float freezeDuration = 1.0f;
 
     public void setParentTower(GameObject parent)
     {
         parentTower = parent;
+        buffHandler = parentTower.GetComponent<TowerBuffHandler>();
         slow = parentTower.GetComponent<Slow>();
     }
 
@@ -22,11 +20,18 @@ public class ChillAttack : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy") && parentTower != null)
         {
-            other.gameObject.GetComponent<IDamageable>().queueDamage(parentTower.GetComponent<TowerObject>().getDamage(), parentTower);
+            TowerObject towerObj = parentTower.GetComponent<TowerObject>();
+            TowerBuffHandler buffHandler = parentTower.GetComponent<TowerBuffHandler>();
+
+            other.gameObject.GetComponent<IDamageable>().queueDamage(towerObj.getDamage(), parentTower);
             slow.applySlow(other.gameObject);
-            if (upgradeUnlocked)
+
+            if (buffHandler.getLifestealEnabled())
+                towerObj.AddHP(towerObj.getDamage() * buffHandler.getLifestealStrength());
+
+            if (towerObj.getSpecialLevel() > 0)
             {
-                other.gameObject.GetComponent<EnemyObject>().applyChill(freezeDuration);
+                other.gameObject.GetComponent<EnemyBuffHandler>().addChillStack();
             }
         }
     }

@@ -694,7 +694,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerStats: {fileID: 11400000, guid: 4906f37d4dc1cf446b510a7a630b467e, type: 2}
   targets: []
-  attackFX: {fileID: 918730519828076777, guid: 026a14c7426bc694fbace9e4680aa8a5, type: 3}
   healthBarImage: {fileID: 7702468359719090005}
 --- !u!114 &3469287837313974670
 MonoBehaviour:
@@ -714,3 +713,17 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &805201808284744050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699141977592337004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dfeccfd6c399f34ca0b40a7084d5aec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifestealEnabled: 0
+  lifestealStrength: 0
