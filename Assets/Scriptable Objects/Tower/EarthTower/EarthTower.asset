@@ -18,6 +18,7 @@ MonoBehaviour:
   damage: 150
   attackSpeed: 0.5
   range: 30
+  lifesteal: 0
   heal: 0
   healRate: 0
   slowPercent: 20
@@ -29,7 +30,7 @@ MonoBehaviour:
   takeDamageMultiplier: 1
   cost: 200
   upgrades:
+  - Health
   - Damage
   - Slow Percent
-  - Slow Duration
   - Special

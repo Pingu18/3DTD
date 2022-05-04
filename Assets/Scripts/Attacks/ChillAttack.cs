@@ -8,6 +8,10 @@ public class ChillAttack : MonoBehaviour
 
     private Slow slow;
 
+    // Special Upgrade
+    public bool upgradeUnlocked = true;
+    public float freezeDuration = 1.0f;
+
     public void setParentTower(GameObject parent)
     {
         parentTower = parent;
@@ -20,6 +24,10 @@ public class ChillAttack : MonoBehaviour
         {
             other.gameObject.GetComponent<IDamageable>().queueDamage(parentTower.GetComponent<TowerObject>().getDamage(), parentTower);
             slow.applySlow(other.gameObject);
+            if (upgradeUnlocked)
+            {
+                other.gameObject.GetComponent<EnemyObject>().applyChill(freezeDuration);
+            }
         }
     }
 }

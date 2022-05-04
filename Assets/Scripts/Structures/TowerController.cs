@@ -131,6 +131,10 @@ public class TowerController : MonoBehaviour
         {
             switch (upgradeName)
             {
+                case "Health":
+                    towerObj.setBaseHP((int)newValue);
+                    towerObj.setHPLevel(level + 1);
+                    break;
                 case "Damage":
                     towerObj.setBaseDamage((int)newValue);
                     towerObj.setDMGLevel(level + 1);
@@ -219,6 +223,22 @@ public class TowerController : MonoBehaviour
 
             switch (upgrades[i])
             {
+                case "Health":
+                    costName = "level_" + (towerObj.getHPLevel() + 1).ToString() + "_hpCost";
+                    rowText.text = "Health: " + towerObj.getMaxHP().ToString();
+                    rowDesc.text = "How much health the tower has";
+                    maxLevel = 5;
+
+                    setBars((i + 1), 5);
+                    highlightBars(i, towerObj.getHPLevel(), maxLevel);
+
+                    if (towerObj.getHPLevel() + 1 <= maxLevel)
+                        setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    else
+                        setMaxButtons(i);
+
+                    break;
+
                 case "Damage":
                     costName = "level_" + (towerObj.getDMGLevel() + 1).ToString() + "_dmgCost";
                     rowText.text = "Damage: " + towerObj.getDamage().ToString();
@@ -444,6 +464,10 @@ public class TowerController : MonoBehaviour
 
         switch (upgradeName)
         {
+            case "Health":
+                button.onClick.AddListener(() => upgrade(row, towerObj.getHPLevel(), 5, cost, upgradeName, "_newHP_", "_hpCost"));
+                break;
+
             case "Damage":
                 button.onClick.AddListener(() => upgrade(row, towerObj.getDMGLevel(), 5, cost, upgradeName, "_newDmg_", "_dmgCost"));
                 break;
