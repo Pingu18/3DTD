@@ -336,6 +336,13 @@ public class TowerObject : MonoBehaviour, IDamageable
         this.gameObject.GetComponent<Outline>().enabled = isSelected;
     }
 
+    public void setBaseHP(int newHealth)
+    {
+        baseHP = newHealth;
+        currentHP = newHealth;
+        maxHP = newHealth;
+    }
+
     public void setBaseDamage(int newDamage)
     {
         baseDamage = newDamage;
