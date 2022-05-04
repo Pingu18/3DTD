@@ -21,6 +21,9 @@ public class EnemyController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject towerContainer;
+    [SerializeField] private GameObject level;
+
+    private PathController pathController;
 
     // EnemyDict that contains a reference to each different type of enemy
     private EnemyDict enemyDict;
@@ -46,6 +49,8 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("Getting enemyDict... (EnemyController)");
         enemyDict = GetComponent<EnemyDict>();
+
+        pathController = level.GetComponent<PathController>();
 
         Debug.Log("Initializing parameters... (EnemyController)");
         timerValue = timeToWait;
@@ -114,7 +119,11 @@ public class EnemyController : MonoBehaviour
                 currGroup = groups.groupNum;
                 groupsCleared = false;
 
+                // Set total enemies alive in group (for enemy clear checking)
                 enemiesAlive += groups.totalEnemies;
+
+                if (!pathController.checkPathAdded(groups.path) && groups.path != 0)
+                    pathController.addPath(groups.path);
 
                 // Start spawning the enemies
                 StartCoroutine(spawnEnemies(groups));
@@ -229,6 +238,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log("Waiting until clear...");
         yield return new WaitUntil(() => groupsCleared == true);
         groupsSpawned = 0;
+        pathController.clearPaths();
     }
 
     public void decrementEnemiesAlive()

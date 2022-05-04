@@ -10,29 +10,36 @@ public class PathController : MonoBehaviour
     [SerializeField] private GameObject activePath;
     [SerializeField] private GameObject inactivePath;
 
-    private Transform currentPath;
-    private int currentPathNum;
+    private List<Transform> currentPath = new List<Transform>();
 
     private void Start()
     {
         Debug.Log("Building paths... (PathController)");
 
         navMeshSurface = activePath.GetComponent<NavMeshSurface>();
-        currentPathNum = 1;
-
-        buildPath();
     }
 
-    private void buildPath()
+    public bool checkPathAdded(int pathNum)
+    {
+        for (int i = 0; i < currentPath.Count; i++)
+        {
+            if (currentPath[i].name.Equals(("Path" + pathNum).ToString()))
+                return true;
+        }
+
+        return false;
+    }
+
+    public void addPath(int pathNum)
     {
         for (int i = 0; i < inactivePath.transform.childCount; i++)
         {
             Transform childTransform = inactivePath.transform.GetChild(i);
 
-            if (childTransform.name.Equals(("Path" + currentPathNum).ToString()))
+            if (childTransform.name.Equals(("Path" + pathNum).ToString()))
             {
                 childTransform.parent = activePath.transform;
-                currentPath = childTransform;
+                currentPath.Add(childTransform);
                 break;
             }
         }
@@ -40,17 +47,14 @@ public class PathController : MonoBehaviour
         navMeshSurface.BuildNavMesh();
     }
 
-    private void togglePaths()
+    public void clearPaths()
     {
-        Debug.Log("Toggling paths...");
+        for (int i = 0; i < currentPath.Count; i++)
+        {
+            currentPath[i].parent = inactivePath.transform;
+        }
 
-        if (currentPathNum == 1)
-            currentPathNum = 2;
-        else if (currentPathNum == 2)
-            currentPathNum = 1;
-
-        currentPath.parent = inactivePath.transform;
-        buildPath();
+        currentPath.Clear();
     }
 
     // Update is called once per frame
@@ -58,7 +62,7 @@ public class PathController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            togglePaths();
+            //togglePaths();
         }
     }
 }

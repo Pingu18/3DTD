@@ -9,6 +9,7 @@
           "spawnX": -25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 1,
           "totalEnemies": 5,
           "enemies": [
             {
@@ -23,6 +24,7 @@
           "spawnX": 25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 3,
           "totalEnemies": 5,
           "enemies": [
             {
@@ -44,6 +46,7 @@
           "spawnX": -25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 2,
           "totalEnemies": 6,
           "enemies": [
             {
@@ -63,6 +66,7 @@
           "spawnX": 25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 4,
           "totalEnemies": 6,
           "enemies": [
             {
@@ -89,6 +93,7 @@
           "spawnX": -25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 1,
           "totalEnemies": 12,
           "enemies": [
             {
@@ -108,6 +113,7 @@
           "spawnX": 25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 4,
           "totalEnemies": 12,
           "enemies": [
             {
@@ -127,6 +133,7 @@
           "spawnX": -114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 5,
           "enemies": [
             {
@@ -141,6 +148,7 @@
           "spawnX": 114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 5,
           "enemies": [
             {
@@ -162,6 +170,7 @@
           "spawnX": -25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 2,
           "totalEnemies": 19,
           "enemies": [
             {
@@ -181,6 +190,7 @@
           "spawnX": 25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 3,
           "totalEnemies": 19,
           "enemies": [
             {
@@ -200,6 +210,7 @@
           "spawnX": -114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 10,
           "enemies": [
             {
@@ -214,6 +225,7 @@
           "spawnX": 114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 10,
           "enemies": [
             {
@@ -235,6 +247,7 @@
           "spawnX": -25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 1,
           "totalEnemies": 28,
           "enemies": [
             {
@@ -254,6 +267,7 @@
           "spawnX": 25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 3,
           "totalEnemies": 28,
           "enemies": [
             {
@@ -273,6 +287,7 @@
           "spawnX": -114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 9,
           "enemies": [
             {
@@ -292,6 +307,7 @@
           "spawnX": 114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 9,
           "enemies": [
             {
@@ -318,6 +334,7 @@
           "spawnX": -25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 2,
           "totalEnemies": 35,
           "enemies": [
             {
@@ -337,6 +354,7 @@
           "spawnX": 25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 4,
           "totalEnemies": 35,
           "enemies": [
             {
@@ -356,6 +374,7 @@
           "spawnX": -114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 20,
           "enemies": [
             {
@@ -375,6 +394,7 @@
           "spawnX": 114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 20,
           "enemies": [
             {
@@ -401,6 +421,7 @@
           "spawnX": -25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 1,
           "totalEnemies": 64,
           "enemies": [
             {
@@ -435,6 +456,7 @@
           "spawnX": 25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 4,
           "totalEnemies": 64,
           "enemies": [
             {
@@ -469,6 +491,7 @@
           "spawnX": -114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 70,
           "enemies": [
             {
@@ -503,6 +526,7 @@
           "spawnX": 114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 70,
           "enemies": [
             {
@@ -544,6 +568,7 @@
           "spawnX": -25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 2,
           "totalEnemies": 116,
           "enemies": [
             {
@@ -578,6 +603,7 @@
           "spawnX": 25.5,
           "spawnY": -4.0,
           "spawnZ": 31.0,
+          "path": 3,
           "totalEnemies": 116,
           "enemies": [
             {
@@ -612,6 +638,7 @@
           "spawnX": -114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 110,
           "enemies": [
             {
@@ -656,6 +683,7 @@
           "spawnX": 114.0,
           "spawnY": -2.0,
           "spawnZ": -84,
+          "path": 0,
           "totalEnemies": 110,
           "enemies": [
             {
