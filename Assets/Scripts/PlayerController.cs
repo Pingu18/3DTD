@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     [Header("Jump Power")]
     [SerializeField] private float jumpForce;  // player jump height
 
+    [Header("Animations")]
+    [SerializeField] private Animator playerAnim; // animation controller for the player
+
     private BuildController buildController;    // reference to BuildController script
     private Rigidbody rb;                       // reference to Rigidbody component
 
@@ -94,13 +97,17 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            playerAnim.SetTrigger("Jump");
+        }
     }
 
     private void testShooting()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            playerAnim.SetTrigger("Attack");
             // Sample logic for how to reduce enemy hp on hit by tower (in this case, when shot by player)
             RaycastHit target;
             if (Physics.Raycast(pCamTransform.transform.position, pCamTransform.transform.forward, out target, Mathf.Infinity))
