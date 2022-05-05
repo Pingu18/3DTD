@@ -45,7 +45,11 @@ public class TowerAttack : MonoBehaviour
                 atk.GetComponent<LightAttack>().target = target;
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                 target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject);
-                target.GetComponent<EnemyObject>().applyLightMark();
+
+                if (tower.GetComponent<TowerObject>().getSpecialLevel() > 0)
+                {
+                    target.GetComponent<EnemyObject>().applyLightMark(tower);
+                }
 
                 if (buffHandler.getLifestealEnabled())
                     tower.AddHP(tower.getDamage() * buffHandler.getLifestealStrength());
@@ -56,7 +60,11 @@ public class TowerAttack : MonoBehaviour
                 atk.GetComponent<DarkAttack>().target = target;
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                 target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject);
-                target.GetComponent<EnemyObject>().applyDarkMark();
+
+                if (tower.GetComponent<TowerObject>().getSpecialLevel() > 0)
+                {
+                    target.GetComponent<EnemyObject>().applyDarkMark(tower);
+                }
 
                 if (buffHandler.getLifestealEnabled())
                     tower.AddHP(tower.getDamage() * buffHandler.getLifestealStrength());

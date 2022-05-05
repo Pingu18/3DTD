@@ -46,11 +46,14 @@ public class Lifesteal : MonoBehaviour
     {
         for (int i = 0; i < targets.Count; i++)
         {
-            TowerBuffHandler towerBuffHandler = targets[i].GetComponent<TowerBuffHandler>();
-            towerBuffHandler.enableLifesteal();
+            if (targets[i] != null)
+            {
+                TowerBuffHandler towerBuffHandler = targets[i].GetComponent<TowerBuffHandler>();
+                towerBuffHandler.enableLifesteal();
 
-            if (towerBuffHandler.compareLifesteal(lifestealAmount))
-               towerBuffHandler.setLifestealStrength(lifestealAmount);
+                if (towerBuffHandler.compareLifesteal(lifestealAmount))
+                    towerBuffHandler.setLifestealStrength(lifestealAmount);
+            }
         }
     }
 

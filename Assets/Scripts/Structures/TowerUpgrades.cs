@@ -206,13 +206,13 @@ public class TowerUpgrades : MonoBehaviour
         valueDict.Add("level_2_newSpecial_Lightning", 1f);
         valueDict.Add("level_3_newSpecial_Lightning", 1.25f);
 
-        valueDict.Add("level_1_newSpecial_Dark", 0.75f);
-        valueDict.Add("level_2_newSpecial_Dark", 1f);
-        valueDict.Add("level_3_newSpecial_Dark", 1.25f);
+        valueDict.Add("level_1_newSpecial_Dark", 100f);
+        valueDict.Add("level_2_newSpecial_Dark", 250f);
+        valueDict.Add("level_3_newSpecial_Dark", 500f);
 
-        valueDict.Add("level_1_newSpecial_Light", 0.75f);
-        valueDict.Add("level_2_newSpecial_Light", 1f);
-        valueDict.Add("level_3_newSpecial_Light", 1.25f);
+        valueDict.Add("level_1_newSpecial_Light", 100f);
+        valueDict.Add("level_2_newSpecial_Light", 250f);
+        valueDict.Add("level_3_newSpecial_Light", 500f);
     }
 
     public int getCost(string name)
