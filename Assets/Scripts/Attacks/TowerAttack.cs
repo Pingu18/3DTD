@@ -45,7 +45,7 @@ public class TowerAttack : MonoBehaviour
                 }
 
                 if (buffHandler.getLifestealEnabled())
-                    tower.AddHP(tower.getDamage() * buffHandler.getLifestealStrength());
+                    tower.AddHP(tower.getDamage() * buffHandler.getLifestealPercent());
 
                 Destroy(atk, 1.0f);
                 break;
@@ -60,7 +60,7 @@ public class TowerAttack : MonoBehaviour
                 }
 
                 if (buffHandler.getLifestealEnabled())
-                    tower.AddHP(tower.getDamage() * buffHandler.getLifestealStrength());
+                    tower.AddHP(tower.getDamage() * buffHandler.getLifestealPercent());
 
                 Destroy(atk, 1.0f);
                 break;
