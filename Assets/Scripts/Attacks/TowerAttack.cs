@@ -44,9 +44,6 @@ public class TowerAttack : MonoBehaviour
                     target.GetComponent<EnemyObject>().applyLightMark(tower);
                 }
 
-                if (buffHandler.getLifestealEnabled())
-                    tower.AddHP(tower.getDamage() * buffHandler.getLifestealPercent());
-
                 Destroy(atk, 1.0f);
                 break;
             case "Dark Mark":
@@ -58,9 +55,6 @@ public class TowerAttack : MonoBehaviour
                 {
                     target.GetComponent<EnemyObject>().applyDarkMark(tower);
                 }
-
-                if (buffHandler.getLifestealEnabled())
-                    tower.AddHP(tower.getDamage() * buffHandler.getLifestealPercent());
 
                 Destroy(atk, 1.0f);
                 break;

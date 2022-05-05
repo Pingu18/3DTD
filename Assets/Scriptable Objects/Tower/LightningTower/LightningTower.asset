@@ -18,13 +18,14 @@ MonoBehaviour:
   damage: 25
   attackSpeed: 1.5
   range: 30
+  lifesteal: 0
   heal: 0
   healRate: 0
   slowPercent: 0
   slowDuration: 0
   special: 0
-  specialDesc: Every X attack applies a mini-stun
-  specialUpgradeDesc: Lower amount of attacks for mini-stun by 1
+  specialDesc: Every 3rd attack applies a mini-stun for X seconds
+  specialUpgradeDesc: Increase mini-stun duration to X seconds
   damageMultiplier: 1
   takeDamageMultiplier: 0
   cost: 200

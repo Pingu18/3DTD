@@ -215,6 +215,10 @@ public class TowerUpgrades : MonoBehaviour
         valueDict.Add("level_2_newSpecial_Earth", 0.15f);
         valueDict.Add("level_3_newSpecial_Earth", 0.2f);
 
+        valueDict.Add("level_1_newSpecial_Lightning", 0.1f);
+        valueDict.Add("level_2_newSpecial_Lightning", 0.15f);
+        valueDict.Add("level_3_newSpecial_Lightning", 0.2f);
+
         valueDict.Add("level_1_newSpecial_Dark", 100f);
         valueDict.Add("level_2_newSpecial_Dark", 250f);
         valueDict.Add("level_3_newSpecial_Dark", 500f);
