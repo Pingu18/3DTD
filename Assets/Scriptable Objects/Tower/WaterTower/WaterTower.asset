@@ -18,13 +18,14 @@ MonoBehaviour:
   damage: 15
   attackSpeed: 1
   range: 40
+  lifesteal: 0
   heal: 0
   healRate: 0
   slowPercent: 20
   slowDuration: 0.5
   special: 0
-  specialDesc: Attacks apply stack of Chill. Every third stack freezes for X seconds.
-  specialUpgradeDesc: Increase freeze duration by X seconds.
+  specialDesc: Attacks apply a stack of Chill. Every 3rd stack freezes for X seconds.
+  specialUpgradeDesc: Increase freeze duration to X seconds.
   damageMultiplier: 1
   takeDamageMultiplier: 0
   cost: 200
