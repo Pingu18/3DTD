@@ -180,13 +180,10 @@ public class TowerObject : MonoBehaviour, IDamageable
     public void AddHP(float amount)
     {
         if (currentHP + amount > maxHP)
-        {
             currentHP = maxHP;
-        }
         else
-        {
             currentHP += amount;
-        }
+
         updateHealthBar();
     }
 
@@ -292,6 +289,11 @@ public class TowerObject : MonoBehaviour, IDamageable
     {
         transform.localScale = Vector3.one;
         transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
+    }
+
+    public void addResaleValue(int toAdd)
+    {
+        resaleValue += toAdd;
     }
 
     // Setter methods

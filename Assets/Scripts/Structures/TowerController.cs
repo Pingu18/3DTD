@@ -21,9 +21,10 @@ public class TowerController : MonoBehaviour
     // Automatic references
     private GameObject selectedTower;
 
-    // Tower Abilites
+    // Tower Abilites (excluding Specials)
     private Heal heal;
     private Slow slow;
+    private Bounce bounce;
 
     // Variables
     private TMP_Text text;
@@ -163,13 +164,20 @@ public class TowerController : MonoBehaviour
                     slow.setSlowDuration(newValue);
                     slow.setSlowDurationLevel(level + 1);
                     break;
+                case "Bounces":
+                    bounce.setMaxBounces((int)newValue);
+                    bounce.setBounceLevel(level + 1);
+                    break;
                 case "Special":
                     towerObj.setSpecial(newValue);
                     towerObj.setSpecialLevel(level + 1);
+                    rowDescs.GetChild(row).GetComponent<TMP_Text>().text = towerObj.getSpecialUpgradeDesc();
+                    updateSpecial();
                     break;
             }
 
             buildController.disablePoorText();
+            towerObj.addResaleValue((int)Mathf.Ceil(cost * 0.75f));
 
             costName = "level_" + (level + 2).ToString() + dictCostName;
             rowTexts.GetChild(row).GetComponent<TMP_Text>().text = upgradeName + ": " + newValue.ToString();
@@ -189,6 +197,22 @@ public class TowerController : MonoBehaviour
     }
 
     // Methods
+    public void updateSpecial()
+    {
+        switch (towerObj.getName())
+        {
+            case "Water Tower":
+                towerObj.GetComponent<Stun>().updateDuration(towerObj.getSpecial());
+                break;
+            case "Lightning Tower":
+                towerObj.GetComponent<Stun>().updateDuration(towerObj.getSpecial());
+                break;
+            case "Grass Tower":
+                towerObj.GetComponent<Lifesteal>().updateLifestealAmount(towerObj.getSpecial());
+                break;
+        }
+    }
+
     public void setStatMenu()
     {
         towerNameText.text = towerObj != null ? towerObj.getName() : "";
@@ -229,7 +253,7 @@ public class TowerController : MonoBehaviour
                     rowDesc.text = "How much health the tower has";
                     maxLevel = 5;
 
-                    setBars((i + 1), 5);
+                    setBars((i + 1), maxLevel);
                     highlightBars(i, towerObj.getHPLevel(), maxLevel);
 
                     if (towerObj.getHPLevel() + 1 <= maxLevel)
@@ -245,7 +269,7 @@ public class TowerController : MonoBehaviour
                     rowDesc.text = "How much damage the tower deals";
                     maxLevel = 5;
 
-                    setBars((i + 1), 5);
+                    setBars((i + 1), maxLevel);
                     highlightBars(i, towerObj.getDMGLevel(), maxLevel);
 
                     if (towerObj.getDMGLevel() + 1 <= maxLevel)
@@ -261,7 +285,7 @@ public class TowerController : MonoBehaviour
                     rowDesc.text = "How fast the tower attacks";
                     maxLevel = 5;
 
-                    setBars((i + 1), 5);
+                    setBars((i + 1), maxLevel);
                     highlightBars(i, towerObj.getFireRateLevel(), maxLevel);
 
                     if (towerObj.getFireRateLevel() + 1 <= maxLevel)
@@ -277,7 +301,7 @@ public class TowerController : MonoBehaviour
                     rowDesc.text = "How far the tower can attack";
                     maxLevel = 5;
 
-                    setBars((i + 1), 5);
+                    setBars((i + 1), maxLevel);
                     highlightBars(i, towerObj.getRangeLevel(), maxLevel);
                     
                     if (towerObj.getRangeLevel() + 1 <= maxLevel)
@@ -295,7 +319,7 @@ public class TowerController : MonoBehaviour
                     rowDesc.text = "How much the tower slows enemies on attack";
                     maxLevel = 3;
 
-                    setBars((i + 1), 3);
+                    setBars((i + 1), maxLevel);
                     highlightBars(i, slow.getSlowPercentLevel(), maxLevel);
                     
                     if (slow.getSlowPercentLevel() + 1 <= maxLevel)
@@ -313,7 +337,7 @@ public class TowerController : MonoBehaviour
                     rowDesc.text = "How long the enemies get slowed for";
                     maxLevel = 3;
 
-                    setBars((i + 1), 3);
+                    setBars((i + 1), maxLevel);
                     highlightBars(i, slow.getSlowDurationLevel(), maxLevel);
                     
                     if (slow.getSlowDurationLevel() + 1 <= maxLevel)
@@ -331,7 +355,7 @@ public class TowerController : MonoBehaviour
                     rowDesc.text = "How much the tower heals every pulse";
                     maxLevel = 5;
 
-                    setBars((i + 1), 5);
+                    setBars((i + 1), maxLevel);
                     highlightBars(i, heal.getHealAmountLevel(), maxLevel);
                     
                     if (heal.getHealAmountLevel() + 1 <= maxLevel)
@@ -349,10 +373,28 @@ public class TowerController : MonoBehaviour
                     rowDesc.text = "How many times the tower pulses per second";
                     maxLevel = 5;
 
-                    setBars((i + 1), 5);
+                    setBars((i + 1), maxLevel);
                     highlightBars(i, heal.getHealRateLevel(), maxLevel);
                     
                     if (heal.getHealRateLevel() + 1 <= maxLevel)
+                        setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
+                    else
+                        setMaxButtons(i);
+
+                    break;
+
+                case "Bounces":
+                    bounce = selectedTower.GetComponent<Bounce>();
+
+                    costName = "level_" + (bounce.getBounceLevel() + 1).ToString() + "_bounceCost";
+                    rowText.text = "Bounce: " + bounce.getMaxBounces().ToString();
+                    rowDesc.text = "How many times the tower attack bounces";
+                    maxLevel = 3;
+
+                    setBars((i + 1), maxLevel);
+                    highlightBars(i, bounce.getBounceLevel(), maxLevel);
+
+                    if (bounce.getBounceLevel() + 1 <= maxLevel)
                         setButtons(i, towerUpgrades.getCost(costName), upgrades[i]);
                     else
                         setMaxButtons(i);
@@ -373,7 +415,7 @@ public class TowerController : MonoBehaviour
                         rowDesc.text = towerObj.getSpecialUpgradeDesc();
                     }
 
-                    setBars((i + 1), 3);
+                    setBars((i + 1), maxLevel);
                     highlightBars(i, towerObj.getSpecialLevel(), maxLevel);
 
                     if (towerObj.getSpecialLevel() + 1 <= maxLevel)
@@ -494,6 +536,10 @@ public class TowerController : MonoBehaviour
 
             case "Slow Duration":
                 button.onClick.AddListener(() => upgrade(row, slow.getSlowDurationLevel(), 3, cost, upgradeName, "_newSlowDur_", "_slowDurCost"));
+                break;
+
+            case "Bounces":
+                button.onClick.AddListener(() => upgrade(row, bounce.getBounceLevel(), 3, cost, upgradeName, "_newBounce_", "_bounceCost"));
                 break;
 
             case "Special":

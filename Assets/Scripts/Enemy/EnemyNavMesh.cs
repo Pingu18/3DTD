@@ -37,6 +37,14 @@ public class EnemyNavMesh : MonoBehaviour
         updateBaseSpeed();
     }
 
+    public bool compareSpeed(float newSpeed)
+    {
+        if (newSpeed < navMeshAgent.speed)
+            return true;
+
+        return false;
+    }
+
     public void updateBaseSpeed()
     {
         baseSpeed = GetComponent<EnemyObject>().getMoveSpeed();

@@ -23,9 +23,6 @@ public class FlameAttack : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy") && parentTower != null && other.gameObject != initialTarget)
         {
             other.gameObject.GetComponent<IDamageable>().queueDamage(splashDamage, parentTower);
-
-            if (buffHandler.getLifestealEnabled())
-                parentTower.GetComponent<TowerObject>().AddHP(splashDamage * buffHandler.getLifestealStrength());
         }
     }
 }

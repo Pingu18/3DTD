@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChillAttack : MonoBehaviour
 {
     public GameObject parentTower;
+    private Stun stun;
     private TowerBuffHandler buffHandler;
 
     private Slow slow;
@@ -12,6 +13,7 @@ public class ChillAttack : MonoBehaviour
     public void setParentTower(GameObject parent)
     {
         parentTower = parent;
+        stun = parentTower.GetComponent<Stun>();
         buffHandler = parentTower.GetComponent<TowerBuffHandler>();
         slow = parentTower.GetComponent<Slow>();
     }
@@ -26,12 +28,10 @@ public class ChillAttack : MonoBehaviour
             other.gameObject.GetComponent<IDamageable>().queueDamage(towerObj.getDamage(), parentTower);
             slow.applySlow(other.gameObject);
 
-            if (buffHandler.getLifestealEnabled())
-                towerObj.AddHP(towerObj.getDamage() * buffHandler.getLifestealStrength());
-
             if (towerObj.getSpecialLevel() > 0)
             {
                 other.gameObject.GetComponent<EnemyBuffHandler>().addChillStack();
+                stun.checkForFreeze(other.gameObject);
             }
         }
     }

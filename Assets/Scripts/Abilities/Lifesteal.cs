@@ -8,31 +8,44 @@ public class Lifesteal : MonoBehaviour
     // If lifestealBuff enabled, give Lifesteal to nearby allies
     // If lifestealBuff disabled, give Lifesteal to self
 
+    private TowerObject towerObj;
+
     private List<GameObject> targets = new List<GameObject>(); // list of targets in radius
 
     [SerializeField] private bool lifestealBuff;
     private bool upgradeUnlocked;
 
-    [SerializeField] public float lifestealAmount = 0.1f;
+    [SerializeField] public float lifestealPercent = 10f;
 
     private void Start()
     {
+        if (GetComponent<TowerObject>())
+            towerObj = GetComponent<TowerObject>();
+
         upgradeUnlocked = false;
 
         if (!lifestealBuff)
         {
-            if (GetComponent<TowerObject>())
+            if (towerObj)
             {
                 TowerBuffHandler towerBuffHandler = GetComponent<TowerBuffHandler>();
                 towerBuffHandler.enableLifesteal();
 
-                if (towerBuffHandler.compareLifesteal(lifestealAmount))
-                    towerBuffHandler.setLifestealStrength(lifestealAmount);
+                if (towerBuffHandler.compareLifesteal(lifestealPercent))
+                    towerBuffHandler.setLifestealPercent(lifestealPercent);
             } else if (GetComponent<EnemyObject>())
             {
                 //GetComponent<TowerBuffHandler>().enableLifesteal();
             }
         }
+    }
+
+    public void updateLifestealAmount(float newLifesteal)
+    {
+        lifestealPercent = newLifesteal;
+
+        if (lifestealBuff)
+            applyToTargets();
     }
 
     public void enableUpgrade()
@@ -49,8 +62,8 @@ public class Lifesteal : MonoBehaviour
             TowerBuffHandler towerBuffHandler = targets[i].GetComponent<TowerBuffHandler>();
             towerBuffHandler.enableLifesteal();
 
-            if (towerBuffHandler.compareLifesteal(lifestealAmount))
-               towerBuffHandler.setLifestealStrength(lifestealAmount);
+            if (towerBuffHandler.compareLifesteal(lifestealPercent))
+               towerBuffHandler.setLifestealPercent(lifestealPercent);
         }
     }
 
@@ -63,8 +76,8 @@ public class Lifesteal : MonoBehaviour
             TowerBuffHandler towerBuffHandler = target.GetComponent<TowerBuffHandler>();
             towerBuffHandler.enableLifesteal();
 
-            if (towerBuffHandler.compareLifesteal(lifestealAmount))
-                towerBuffHandler.setLifestealStrength(lifestealAmount);
+            if (towerBuffHandler.compareLifesteal(lifestealPercent))
+                towerBuffHandler.setLifestealPercent(lifestealPercent);
         }
     }
 
@@ -75,7 +88,7 @@ public class Lifesteal : MonoBehaviour
         if (upgradeUnlocked)
         {
             target.GetComponent<TowerBuffHandler>().disableLifesteal();
-            target.GetComponent<TowerBuffHandler>().setLifestealStrength(0f);
+            target.GetComponent<TowerBuffHandler>().setLifestealPercent(0f);
         }
     }
 

@@ -23,9 +23,12 @@ public class Slow : MonoBehaviour
     // Methods
     public void applySlow(GameObject enemy)
     {
+        EnemyNavMesh enemyNavMesh = enemy.GetComponent<EnemyNavMesh>();
+        
         float newSpeed = enemy.GetComponent<EnemyObject>().getMoveSpeed() * (1 - (slowPercent / 100));
 
-        StartCoroutine(enemy.GetComponent<EnemyNavMesh>().applySlow(newSpeed, slowDuration));
+        if (enemyNavMesh.compareSpeed(newSpeed))
+            StartCoroutine(enemyNavMesh.applySlow(newSpeed, slowDuration));
     }
 
     // Setter methods

@@ -164,8 +164,10 @@ public class EnemyObject : MonoBehaviour, IDamageable
             float elementalDamageMultiplier = elementalSystem.getElementalMultiplier(tower.GetComponent<TowerObject>().getElement(), element);
             float realDmg = dmgTaken * elementalDamageMultiplier;
 
+            if (tower.GetComponent<TowerBuffHandler>().getLifestealEnabled())
+                tower.GetComponent<TowerObject>().AddHP(realDmg * tower.GetComponent<TowerBuffHandler>().getLifestealPercent());
+
             currHP -= realDmg;
-            //tower.GetComponent<TowerObject>().AddHP(dmgTaken * (tower.GetComponent<TowerObject>().getLifesteal() / 100));
             updateHealthBar();
             checkDeath(tower);
         }
