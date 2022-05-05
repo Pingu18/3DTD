@@ -160,51 +160,60 @@ public class TowerUpgrades : MonoBehaviour
         valueDict.Add("level_5_newHealRate_Grass", 0.75f);
 
         // SLOW PERCENT
+        // Water | Earth
         costDict.Add("level_1_slowPercentCost", 1250);
         costDict.Add("level_2_slowPercentCost", 3500);
         costDict.Add("level_3_slowPercentCost", 7000);
 
-        // Water
         valueDict.Add("level_1_newSlowPercent_Water", 30);
         valueDict.Add("level_2_newSlowPercent_Water", 40);
         valueDict.Add("level_3_newSlowPercent_Water", 50);
 
-        // Earth
-        valueDict.Add("level_1_newSlowPercent_Earth", 30);
-        valueDict.Add("level_2_newSlowPercent_Earth", 40);
-        valueDict.Add("level_3_newSlowPercent_Earth", 50);
+        valueDict.Add("level_1_newSlowPercent_Earth", 60);
+        valueDict.Add("level_2_newSlowPercent_Earth", 70);
+        valueDict.Add("level_3_newSlowPercent_Earth", 80);
 
         // SLOW DURATION
+        // Water
         costDict.Add("level_1_slowDurCost", 1000);
         costDict.Add("level_2_slowDurCost", 3000);
         costDict.Add("level_3_slowDurCost", 6000);
 
-        // Water
         valueDict.Add("level_1_newSlowDur_Water", 0.75f);
         valueDict.Add("level_2_newSlowDur_Water", 1f);
         valueDict.Add("level_3_newSlowDur_Water", 1.25f);
+
+        // BOUNCES
+        // Lightning
+        costDict.Add("level_1_bounceCost", 3000);
+        costDict.Add("level_2_bounceCost", 8000);
+        costDict.Add("level_3_bounceCost", 15000);
+
+        valueDict.Add("level_1_newBounce_Lightning", 3);
+        valueDict.Add("level_2_newBounce_Lightning", 4);
+        valueDict.Add("level_3_newBounce_Lightning", 5);
 
         // SPECIAL
         costDict.Add("level_1_specialCost", 8000);
         costDict.Add("level_2_specialCost", 15000);
         costDict.Add("level_3_specialCost", 25000);
 
-        // Fire | Water | Grass | Lightning | Dark | Light
-        valueDict.Add("level_1_newSpecial_Fire", 0.75f);    // I have set none of the special values properly yet because idk what to set them as xd
+        // Fire | Water | Grass | Earth | Lightning | Dark | Light
+        valueDict.Add("level_1_newSpecial_Fire", 0.75f);    // haven't set up Fire tower special upgrade
         valueDict.Add("level_2_newSpecial_Fire", 1f);
         valueDict.Add("level_3_newSpecial_Fire", 1.25f);
 
-        valueDict.Add("level_1_newSpecial_Water", 0.75f);
-        valueDict.Add("level_2_newSpecial_Water", 1f);
-        valueDict.Add("level_3_newSpecial_Water", 1.25f);
+        valueDict.Add("level_1_newSpecial_Water", 1f);
+        valueDict.Add("level_2_newSpecial_Water", 1.5f);
+        valueDict.Add("level_3_newSpecial_Water", 2f);
 
-        valueDict.Add("level_1_newSpecial_Grass", 0.75f);
-        valueDict.Add("level_2_newSpecial_Grass", 1f);
-        valueDict.Add("level_3_newSpecial_Grass", 1.25f);
+        valueDict.Add("level_1_newSpecial_Grass", 10f);
+        valueDict.Add("level_2_newSpecial_Grass", 15f);
+        valueDict.Add("level_3_newSpecial_Grass", 20f);
 
-        valueDict.Add("level_1_newSpecial_Lightning", 0.75f);
-        valueDict.Add("level_2_newSpecial_Lightning", 1f);
-        valueDict.Add("level_3_newSpecial_Lightning", 1.25f);
+        valueDict.Add("level_1_newSpecial_Earth", 0.1f);    // haven't set up Earth tower special upgrade
+        valueDict.Add("level_2_newSpecial_Earth", 0.15f);
+        valueDict.Add("level_3_newSpecial_Earth", 0.2f);
 
         valueDict.Add("level_1_newSpecial_Dark", 100f);
         valueDict.Add("level_2_newSpecial_Dark", 250f);

@@ -9,12 +9,12 @@ public class TowerBuffHandler : MonoBehaviour
     // Lifesteal
     [Header("For Debugging")]
     [SerializeField] private bool lifestealEnabled;
-    [SerializeField] private float lifestealStrength;
+    [SerializeField] private float lifestealPercent;
 
     private void Start()
     {
         lifestealEnabled = false;
-        lifestealStrength = 0f;
+        lifestealPercent = 0f;
     }
 
     public void enableSpecial(string towerName)
@@ -27,9 +27,9 @@ public class TowerBuffHandler : MonoBehaviour
         }
     }
 
-    public float getLifestealStrength()
+    public float getLifestealPercent()
     {
-        return lifestealStrength;
+        return lifestealPercent / 100;
     }
 
     public bool getLifestealEnabled()
@@ -48,11 +48,11 @@ public class TowerBuffHandler : MonoBehaviour
 
     public bool compareLifesteal(float newLifesteal)
     {
-        return newLifesteal > lifestealStrength;
+        return newLifesteal > lifestealPercent;
     }
 
-    public void setLifestealStrength(float strength)
+    public void setLifestealPercent(float percent)
     {
-        lifestealStrength = strength;
+        lifestealPercent = percent;
     }
 }

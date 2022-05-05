@@ -15,10 +15,6 @@ public class TowerAttack : MonoBehaviour
                 atk.GetComponent<FlameAttack>().setParams(tower.gameObject, target, tower.getDamage());
                 target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject);
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-
-                if (buffHandler.getLifestealEnabled())
-                    tower.AddHP(tower.getDamage() * buffHandler.getLifestealStrength());
-
                 Destroy(atk, 1.2f);
                 break;
             case "Blast":
@@ -26,10 +22,6 @@ public class TowerAttack : MonoBehaviour
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                 target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject);
                 tower.GetComponent<Slow>().applySlow(target);
-
-                if (buffHandler.getLifestealEnabled())
-                    tower.AddHP(tower.getDamage() * buffHandler.getLifestealStrength());
-
                 Destroy(atk, 1.0f);
                 break;
             case "Chill":
@@ -38,6 +30,7 @@ public class TowerAttack : MonoBehaviour
                 Destroy(atk, 1.2f);
                 break;
             case "Zap":
+                tower.gameObject.GetComponent<Stun>().addAttack();
                 atk.GetComponent<ZapAttack>().parentTower = tower.gameObject;
                 atk.GetComponent<ZapAttack>().BeginAttack(tower.gameObject, target, 3);
                 break;

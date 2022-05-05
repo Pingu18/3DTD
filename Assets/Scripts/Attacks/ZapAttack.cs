@@ -5,8 +5,9 @@ using UnityEngine;
 public class ZapAttack : MonoBehaviour
 {
     public GameObject parentTower;
+    private Bounce bounce;
+    private Stun stun;
     public float radius;
-    public int maxBounces;
     private int currentBounces;
     private bool isStarted;
     private bool isFinished;
@@ -17,9 +18,17 @@ public class ZapAttack : MonoBehaviour
     private float percentageComplete;
     private float duration = 0.05f;
     private float damage;
+    private bool stunned;
 
     // Special Upgrade
     public float stunDuration = 0.1f;
+
+    private void Start()
+    {
+        stun = parentTower.GetComponent<Stun>();
+        bounce = parentTower.GetComponent<Bounce>();
+        stunned = false;
+    }
 
     private void Update()
     {
@@ -46,13 +55,18 @@ public class ZapAttack : MonoBehaviour
                     TowerObject towerObj = parent.GetComponent<TowerObject>();
 
                     if (buffHandler.getLifestealEnabled())
-                        towerObj.AddHP(towerObj.getDamage() * buffHandler.getLifestealStrength());
+                        towerObj.AddHP(towerObj.getDamage() * buffHandler.getLifestealPercent());
 
                     if (parent.GetComponent<TowerObject>().getSpecialLevel() > 0)
                     {
-                        StartCoroutine(target.GetComponent<EnemyNavMesh>().applyStun(stunDuration));
+                        if (stun.checkForStun())
+                        {
+                            stun.stunTarget(target);
+                            stunned = true;
+                        }
+                        //StartCoroutine(target.GetComponent<EnemyNavMesh>().applyStun(stunDuration));
                     }
-                    if (GetNearbyTargets() > 0 && currentBounces <= maxBounces)
+                    if (GetNearbyTargets() > 0 && currentBounces <= bounce.getMaxBounces())
                     {
                         startPos = this.transform.position;
                         target = GetClosestTarget();
@@ -62,6 +76,12 @@ public class ZapAttack : MonoBehaviour
                         Destroy(this.gameObject, 1.0f);
                         this.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
                         isFinished = true;
+
+                        if (stunned)
+                        {
+                            stun.resetAttacks();
+                            stunned = false;
+                        }
                     }
                 }
             } else
@@ -78,7 +98,6 @@ public class ZapAttack : MonoBehaviour
         startPos = currentPosition.transform.position;
         this.target = target;
         this.radius = radius;
-        this.maxBounces = 3;
         this.currentBounces = 0;
         this.damage = parentTower.GetComponent<TowerObject>().getDamage();
         isStarted = true;

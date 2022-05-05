@@ -680,6 +680,20 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3543376499670013547, guid: acd9ba809889ef944875dc39583ad642, type: 3}
+--- !u!114 &805201808284744050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699141977592337004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dfeccfd6c399f34ca0b40a7084d5aec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifestealEnabled: 0
+  lifestealStrength: 0
 --- !u!114 &3469287837313974669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,7 +727,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &805201808284744050
+--- !u!114 &4970105701987920530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -722,8 +736,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 5699141977592337004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dfeccfd6c399f34ca0b40a7084d5aec, type: 3}
+  m_Script: {fileID: 11500000, guid: 7060fb71c5f5e4a49800119d07fd72ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifestealEnabled: 0
-  lifestealStrength: 0
+  attacksToStun: 3
+  stunDuration: 0.1
+  freezeDuration: 0
+  isWaterTower: 0
+  isLightningTower: 1
+--- !u!114 &3006074129102371359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699141977592337004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8076af55d66e741a1dac02e739a675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -21,8 +21,8 @@ MonoBehaviour:
   lifesteal: 0
   heal: 0
   healRate: 0
-  slowPercent: 20
-  slowDuration: 0.5
+  slowPercent: 50
+  slowDuration: 1
   special: 0
   specialDesc: 
   specialUpgradeDesc: 
