@@ -292,16 +292,30 @@ public class EnemyObject : MonoBehaviour, IDamageable
         return Vector3.Distance(this.transform.position, goal);
     }
 
-    public void applyLightMark()
+    public void applyLightMark(TowerObject towerObj)
     {
+        float dmg = towerObj.getDamage() * 2; // change damage value based on upgrade level
+
         if (!hasLightMark)
             hasLightMark = true;
+
+        if (checkMarks())
+        {
+            queueDamage(dmg, towerObj.gameObject);
+        }
     }
 
-    public void applyDarkMark()
+    public void applyDarkMark(TowerObject towerObj)
     {
+        float dmg = towerObj.getDamage() * 2; // change damage value based on upgrade level
+
         if (!hasDarkMark)
             hasDarkMark = true;
+
+        if (checkMarks())
+        {
+            queueDamage(dmg, towerObj.gameObject);
+        }
     }
 
     public bool getLightMark()
@@ -312,5 +326,18 @@ public class EnemyObject : MonoBehaviour, IDamageable
     public bool getDarkMark()
     {
         return hasDarkMark;
+    }
+
+    public bool checkMarks()
+    {
+        if (hasLightMark && hasDarkMark)
+        {
+            hasLightMark = false;
+            hasDarkMark = false;
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 }

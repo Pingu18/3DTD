@@ -38,14 +38,24 @@ public class TowerAttack : MonoBehaviour
                 atk.GetComponent<LightAttack>().target = target;
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                 target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject);
-                target.GetComponent<EnemyObject>().applyLightMark();
+
+                if (tower.GetComponent<TowerObject>().getSpecialLevel() > 0)
+                {
+                    target.GetComponent<EnemyObject>().applyLightMark(tower);
+                }
+
                 Destroy(atk, 1.0f);
                 break;
             case "Dark Mark":
                 atk.GetComponent<DarkAttack>().target = target;
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                 target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject);
-                target.GetComponent<EnemyObject>().applyDarkMark();
+
+                if (tower.GetComponent<TowerObject>().getSpecialLevel() > 0)
+                {
+                    target.GetComponent<EnemyObject>().applyDarkMark(tower);
+                }
+
                 Destroy(atk, 1.0f);
                 break;
         }
