@@ -107,7 +107,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            playerAnim.SetTrigger("Attack");
+            int rand = Random.Range(0, 2);
+            if (rand == 0)
+                playerAnim.SetTrigger("Attack1");
+            else
+                playerAnim.SetTrigger("Attack2");
+
             // Sample logic for how to reduce enemy hp on hit by tower (in this case, when shot by player)
             RaycastHit target;
             if (Physics.Raycast(pCamTransform.transform.position, pCamTransform.transform.forward, out target, Mathf.Infinity))
