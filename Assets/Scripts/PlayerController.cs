@@ -4,6 +4,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private BuildController buildController;    // reference to BuildController script
+    private Rigidbody rb;                       // reference to Rigidbody component
+    private BasicAttack basicAttack;            // reference to BasicAttack script
+
+    private float horizontalMovement;
+    private float verticalMovement;
+
+    private float movementMultiplier = 10f;
+    private float airMultiplier = 0.2f;
+    [SerializeField] private float fallMultiplier = 2f;
+    private float groundDrag = 6f;
+    private float airDrag = 2f;
+
+    private bool isGrounded;        // whether player is currently grounded
+    private float distanceToGround; // player's current distance to the ground
+
+    private Vector3 moveDirection;
+
     [Header("BuildController GameObject Ref")]
     [SerializeField] private GameObject buildControllerObj; // reference to GameObject buildController
 
@@ -25,22 +43,8 @@ public class PlayerController : MonoBehaviour
     [Header("Animations")]
     [SerializeField] private Animator playerAnim; // animation controller for the player
 
-    private BuildController buildController;    // reference to BuildController script
-    private Rigidbody rb;                       // reference to Rigidbody component
-
-    private float horizontalMovement;
-    private float verticalMovement;
-
-    private float movementMultiplier = 10f;
-    private float airMultiplier = 0.2f;
-    [SerializeField] private float fallMultiplier = 2f;
-    private float groundDrag = 6f;
-    private float airDrag = 2f;
-
-    private bool isGrounded;        // whether player is currently grounded
-    private float distanceToGround; // player's current distance to the ground
-
-    private Vector3 moveDirection;
+    [Header("Player Details")]
+    [SerializeField] private string element;
 
     private void Start()
     {
@@ -49,6 +53,8 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("Getting components... (PlayerController)");
         rb = GetComponent<Rigidbody>();
+
+        basicAttack = GetComponent<BasicAttack>();
 
         distanceToGround = model.GetComponent<CapsuleCollider>().bounds.extents.y;
     }
@@ -60,7 +66,8 @@ public class PlayerController : MonoBehaviour
             controlDrag();
             jump();
         }
-        testShooting();
+
+        startBasicAttack();
     }
 
     private void FixedUpdate()
@@ -103,12 +110,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void testShooting()
+    private void startBasicAttack()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Attacking...");
+
             playerAnim.SetTrigger("Attack");
+
+            if (element.Equals("Fire"))
+                basicAttack.spawnVFX();
+
             // Sample logic for how to reduce enemy hp on hit by tower (in this case, when shot by player)
+            /*
             RaycastHit target;
             if (Physics.Raycast(pCamTransform.transform.position, pCamTransform.transform.forward, out target, Mathf.Infinity))
             {
@@ -123,6 +137,7 @@ public class PlayerController : MonoBehaviour
                 //if (damageable != null)
                     //damageable.takeDamage(100);
             }
+            */
         }
     }
     
@@ -131,5 +146,10 @@ public class PlayerController : MonoBehaviour
     {
         if (!isGrounded && rb.velocity.y < 0)
             rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime;
+    }
+
+    public string getElement()
+    {
+        return element;
     }
 }
