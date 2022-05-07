@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerController : MonoBehaviour
 {
@@ -45,6 +46,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Details")]
     [SerializeField] private string element;
+    
+    [Header("Skills")]
+    [SerializeField] private GameObject primarySkill;
 
     private void Start()
     {
@@ -68,6 +72,7 @@ public class PlayerController : MonoBehaviour
         }
 
         startBasicAttack();
+        testSkill();
     }
 
     private void FixedUpdate()
@@ -116,7 +121,12 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Attacking...");
 
-            playerAnim.SetTrigger("Attack");
+            int rand = Random.Range(0, 2);
+            
+            if (rand == 0)
+                playerAnim.SetTrigger("Attack1");
+            else
+                playerAnim.SetTrigger("Attack2");
 
             if (element.Equals("Fire"))
                 basicAttack.spawnVFX();
@@ -140,6 +150,16 @@ public class PlayerController : MonoBehaviour
             */
         }
     }
+
+    private void testSkill()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameObject skill = Instantiate(primarySkill, this.transform.position, Quaternion.identity);
+            skill.transform.parent = this.transform;
+            StartCoroutine(PlaySkill1(skill));
+        }
+    }
     
     // currently unused... might do something else to make player fall faster
     private void fall()
@@ -151,5 +171,13 @@ public class PlayerController : MonoBehaviour
     public string getElement()
     {
         return element;
+    }
+
+    IEnumerator PlaySkill1(GameObject skill)
+    {
+        playerAnim.SetTrigger("Skill1");
+        yield return new WaitForSeconds(0.5f);
+        skill.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+        Destroy(skill, 1f);
     }
 }

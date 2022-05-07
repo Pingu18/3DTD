@@ -51,11 +51,14 @@ public class ZapAttack : MonoBehaviour
                     }
                     target.GetComponent<IDamageable>().queueDamage(damage, parent);
 
-                    TowerBuffHandler buffHandler = parent.GetComponent<TowerBuffHandler>();
-                    TowerObject towerObj = parent.GetComponent<TowerObject>();
+                    if (parent != null)
+                    {
+                        TowerBuffHandler buffHandler = parent.GetComponent<TowerBuffHandler>();
+                        TowerObject towerObj = parent.GetComponent<TowerObject>();
 
-                    if (buffHandler.getLifestealEnabled())
-                        towerObj.AddHP(towerObj.getDamage() * buffHandler.getLifestealPercent());
+                        if (buffHandler.getLifestealEnabled())
+                            towerObj.AddHP(towerObj.getDamage() * buffHandler.getLifestealPercent());
+                    }
 
                     if (parent.GetComponent<TowerObject>().getSpecialLevel() > 0)
                     {
