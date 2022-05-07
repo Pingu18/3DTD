@@ -142,8 +142,7 @@ public class PlayerController : MonoBehaviour
         {
             GameObject skill = Instantiate(primarySkill, this.transform.position, Quaternion.identity);
             skill.transform.parent = this.transform;
-            skill.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-            Destroy(skill, 1f);
+            StartCoroutine(PlaySkill1(skill));
         }
     }
     
@@ -152,5 +151,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!isGrounded && rb.velocity.y < 0)
             rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime;
+    }
+
+    IEnumerator PlaySkill1(GameObject skill)
+    {
+        playerAnim.SetTrigger("Skill1");
+        yield return new WaitForSeconds(0.5f);
+        skill.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+        Destroy(skill, 1f);
     }
 }
