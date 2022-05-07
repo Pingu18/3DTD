@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Animations")]
     [SerializeField] private Animator playerAnim; // animation controller for the player
+
+    [Header("Skills")]
+    [SerializeField] private GameObject primarySkill;
 
     private BuildController buildController;    // reference to BuildController script
     private Rigidbody rb;                       // reference to Rigidbody component
@@ -61,6 +65,7 @@ public class PlayerController : MonoBehaviour
             jump();
         }
         testShooting();
+        testSkill();
     }
 
     private void FixedUpdate()
@@ -128,6 +133,17 @@ public class PlayerController : MonoBehaviour
                 //if (damageable != null)
                     //damageable.takeDamage(100);
             }
+        }
+    }
+
+    private void testSkill()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameObject skill = Instantiate(primarySkill, this.transform.position, Quaternion.identity);
+            skill.transform.parent = this.transform;
+            skill.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+            Destroy(skill, 1f);
         }
     }
     
