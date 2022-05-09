@@ -157,6 +157,11 @@ public class EnemyObject : MonoBehaviour, IDamageable
         damageQueue.Enqueue(dInfo);
     }
 
+    public void queueDamagePlayer(float dmgTaken)
+    {
+        takeDamagePlayer(dmgTaken);
+    }
+
     private void takeDamage(float dmgTaken, GameObject tower)
     {
         if (tower != null)
@@ -170,6 +175,18 @@ public class EnemyObject : MonoBehaviour, IDamageable
             currHP -= realDmg;
             updateHealthBar();
             checkDeath(tower);
+        }
+    }
+
+    private void takeDamagePlayer(float dmgTaken)
+    {
+        currHP -= dmgTaken;
+        updateHealthBar();
+        if (currHP <= 0)
+        {
+            enemyController.decrementEnemiesAlive();
+            currencyController.addMoney(worth);
+            Destroy(gameObject);
         }
     }
     

@@ -46,9 +46,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Details")]
     [SerializeField] private string element;
-    
+
     [Header("Skills")]
+    [SerializeField] private TimerUI timerUI;
     [SerializeField] private GameObject primarySkill;
+    public float primarySkillCD = 5f;
+    public float primarySkillCDTimer = 0.0f;
 
     private void Start()
     {
@@ -153,8 +156,11 @@ public class PlayerController : MonoBehaviour
 
     private void testSkill()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && Time.time > primarySkillCDTimer)
         {
+            primarySkillCDTimer = Time.time + primarySkillCD;
+            StartCoroutine(timerUI.startCooldown(1));
+            timerUI.startCooldown(1);
             GameObject skill = Instantiate(primarySkill, this.transform.position, Quaternion.identity);
             skill.transform.parent = this.transform;
             StartCoroutine(PlaySkill1(skill));
@@ -178,6 +184,7 @@ public class PlayerController : MonoBehaviour
         playerAnim.SetTrigger("Skill1");
         yield return new WaitForSeconds(0.5f);
         skill.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+        skill.GetComponent<SphereCollider>().enabled = true;
         Destroy(skill, 1f);
     }
 }
