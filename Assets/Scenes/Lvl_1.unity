@@ -6585,10 +6585,12 @@ GameObject:
   m_Component:
   - component: {fileID: 470719435}
   - component: {fileID: 470719438}
-  - component: {fileID: 470719437}
   - component: {fileID: 470719436}
   - component: {fileID: 470719439}
   - component: {fileID: 470719440}
+  - component: {fileID: 470719441}
+  - component: {fileID: 470719442}
+  - component: {fileID: 470719443}
   m_Layer: 0
   m_Name: PlayerContainer
   m_TagString: Untagged
@@ -6627,39 +6629,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildControllerObj: {fileID: 480239519}
-  uiContainer: {fileID: 568364603}
+  crosshairContainer: {fileID: 323186165}
   playerCamRef: {fileID: 730005478}
   buildCamRef: {fileID: 270756524}
   playerCamTransform: {fileID: 730005479}
   orientation: {fileID: 1760295447}
   sensX: 50
   sensY: 50
---- !u!114 &470719437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 470719434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b168691f76a1d9b4abf9ed25f204ab20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallMultiplier: 1
-  buildControllerObj: {fileID: 480239519}
-  model: {fileID: 392944310}
-  pCamTransform: {fileID: 1298080978}
-  orientation: {fileID: 1760295447}
-  speed: 10
-  jumpForce: 15
-  playerAnim: {fileID: 1725787467}
-  element: Fire
-  timerUI: {fileID: 1168981235}
-  primarySkill: {fileID: 6537392655905275544, guid: d4a8bb701ed66464b8637c382557d3e6,
-    type: 3}
-  primarySkillCD: 5
-  primarySkillCDTimer: 0
 --- !u!54 &470719438
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6714,6 +6690,60 @@ MonoBehaviour:
   inTeleport: 0
   teleportCD: 3
   teleportTimer: 0
+--- !u!114 &470719441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470719434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e94c8faca765f4b82ba38553c9a143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallMultiplier: 2
+  buildControllerObj: {fileID: 480239519}
+  model: {fileID: 392944310}
+  pCamTransform: {fileID: 533672300}
+  orientation: {fileID: 1760295447}
+  speed: 10
+  jumpForce: 15
+  playerAnim: {fileID: 1725787467}
+  element: Fire
+--- !u!114 &470719442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470719434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26bd46f9d9606d419cb576cd7eb19cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 6537392655905275544, guid: d4a8bb701ed66464b8637c382557d3e6,
+    type: 3}
+  explosionCD: 5
+--- !u!114 &470719443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470719434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef365e8e1417f645a64d67cb6178683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerUI: {fileID: 1168981235}
+  playerAnim: {fileID: 1725787467}
+  element: 
+  skills: []
+  cooldowns: []
+  timers: []
 --- !u!1 &474293375
 GameObject:
   m_ObjectHideFlags: 0
@@ -26702,6 +26732,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill1Image: {fileID: 1611592227}
+  skill2Image: {fileID: 0}
+  skill3Image: {fileID: 0}
   player: {fileID: 470719434}
   TPImage: {fileID: 1714045398}
 --- !u!1001 &1179959239
