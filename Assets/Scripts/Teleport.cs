@@ -9,7 +9,9 @@ public class Teleport : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private LayerMask ground;
     [SerializeField] private TimerUI timerUI;
+    [SerializeField] private BuildController buildCon;
     [SerializeField] private Animator playerAnim;
+    [SerializeField] private Animator fxAnim;
 
     private bool canTeleport;
     private RaycastHit hitInfo;
@@ -29,7 +31,7 @@ public class Teleport : MonoBehaviour
         {
             checkCanTeleport();
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && canTeleport)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && canTeleport && !buildCon.getInBuild())
             {
                 playerAnim.SetTrigger("ActivateTP");
                 tpLocation = new Vector3(hitInfo.point.x, hitInfo.point.y + 1f, hitInfo.point.z);
@@ -44,7 +46,7 @@ public class Teleport : MonoBehaviour
 
     private void checkCanTeleport()
     {
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hitInfo, 50f)) {
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hitInfo, 100f, (1 << LayerMask.NameToLayer("Default") | (1 << LayerMask.NameToLayer("Placeable"))), QueryTriggerInteraction.Ignore)) {
             teleportIndicator.SetActive(true);
             teleportIndicator.transform.position = hitInfo.point;
             canTeleport = true;
@@ -61,15 +63,18 @@ public class Teleport : MonoBehaviour
         {
             inTeleport = true;
             playerAnim.SetTrigger("EnterTP");
+            fxAnim.SetTrigger("EnterTP");
         } else if (inTeleport)
         {
             inTeleport = false;
             playerAnim.SetTrigger("ExitTP");
+            fxAnim.SetTrigger("ExitTP");
         }
     }
 
     private void TP()
     {
+        fxAnim.SetTrigger("ExitTP");
         player.transform.position = tpLocation;
         teleportTimer = Time.time + teleportCD;
         StartCoroutine(timerUI.startCooldown(4));

@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour
     */
 
     private Teleport teleport;
+    private float basicAttackCD = 0.75f;
+    private float basicAttackTimer = 0.0f;
 
     private void Start()
     {
@@ -145,7 +147,7 @@ public class PlayerController : MonoBehaviour
 
     private void startBasicAttack()
     {
-        if (Input.GetMouseButtonDown(0) && !teleport.inTeleport)
+        if (Input.GetMouseButtonDown(0) && !teleport.inTeleport && Time.time > basicAttackTimer)
         {
             Debug.Log("Attacking...");
 
@@ -158,8 +160,8 @@ public class PlayerController : MonoBehaviour
 
             if (element.Equals("Fire"))
                 StartCoroutine(basicAttack.spawnVFX(0.4f));
-                //basicAttack.spawnVFX();
-
+            //basicAttack.spawnVFX();
+            basicAttackTimer = Time.time + basicAttackCD;
             // Sample logic for how to reduce enemy hp on hit by tower (in this case, when shot by player)
             /*
             RaycastHit target;
