@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
     public float primarySkillCD = 5f;
     public float primarySkillCDTimer = 0.0f;
 
+    private Teleport teleport;
+
     private void Start()
     {
         Debug.Log("Getting BuildController script... (PlayerController)");
@@ -62,6 +64,8 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("Getting components... (PlayerController)");
         rb = GetComponent<Rigidbody>();
+
+        teleport = GetComponent<Teleport>();
 
         basicAttack = GetComponent<BasicAttack>();
 
@@ -101,6 +105,11 @@ public class PlayerController : MonoBehaviour
         verticalMovement = Input.GetAxisRaw("Vertical");
 
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            teleport.toggleTeleport();
+        }
     }
 
     private void move()
@@ -132,7 +141,7 @@ public class PlayerController : MonoBehaviour
 
     private void startBasicAttack()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !teleport.inTeleport)
         {
             Debug.Log("Attacking...");
 
