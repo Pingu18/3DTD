@@ -9,12 +9,14 @@ public class Teleport : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private LayerMask ground;
     [SerializeField] private TimerUI timerUI;
+    [SerializeField] private Animator playerAnim;
 
     private bool canTeleport;
     private RaycastHit hitInfo;
     public bool inTeleport;
     public float teleportCD = 3f;
     public float teleportTimer = 0.0f;
+    private Vector3 tpLocation;
 
     private void Start()
     {
@@ -29,10 +31,9 @@ public class Teleport : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && canTeleport)
             {
-                player.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y + 1f, hitInfo.point.z);
-                teleportTimer = Time.time + teleportCD;
-                StartCoroutine(timerUI.startCooldown(4));
-                Invoke(nameof(toggleTeleport), 0.05f);
+                playerAnim.SetTrigger("ActivateTP");
+                tpLocation = new Vector3(hitInfo.point.x, hitInfo.point.y + 1f, hitInfo.point.z);
+                Invoke(nameof(TP), 0.35f);
             }
         } else
         {
@@ -56,6 +57,22 @@ public class Teleport : MonoBehaviour
 
     public void toggleTeleport()
     {
-        inTeleport = !inTeleport;
+        if (!inTeleport && Time.time >= teleportTimer) // only enter teleport if off cooldown
+        {
+            inTeleport = true;
+            playerAnim.SetTrigger("EnterTP");
+        } else if (inTeleport)
+        {
+            inTeleport = false;
+            playerAnim.SetTrigger("ExitTP");
+        }
+    }
+
+    private void TP()
+    {
+        player.transform.position = tpLocation;
+        teleportTimer = Time.time + teleportCD;
+        StartCoroutine(timerUI.startCooldown(4));
+        inTeleport = false;
     }
 }
