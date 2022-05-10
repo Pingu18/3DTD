@@ -9,6 +9,7 @@ public class TimerUI : MonoBehaviour
     [SerializeField] private Image skill2Image;
     [SerializeField] private Image skill3Image;
     [SerializeField] private GameObject player;
+    [SerializeField] private Image TPImage;
 
     public IEnumerator startCooldown(int skill)
     {
@@ -32,6 +33,11 @@ public class TimerUI : MonoBehaviour
                 skillImage = skill3Image;
                 skillTimer = player.GetComponent<PlayerObject>().getCooldownTimer(2);
                 skillCD = player.GetComponent<PlayerObject>().getCooldown(2);
+                break;
+            case 4:
+                skillImage = TPImage;
+                skillTimer = player.GetComponent<Teleport>().teleportTimer;
+                skillCD = player.GetComponent<Teleport>().teleportCD;
                 break;
         }
 

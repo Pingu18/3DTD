@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump Power")]
     [SerializeField] private float jumpForce;  // player jump height
+    private bool readyToJump;
+    private float jumpCooldown;
 
     [Header("Animations")]
     [SerializeField] private Animator playerAnim; // animation controller for the player
@@ -56,6 +58,8 @@ public class PlayerController : MonoBehaviour
     public float primarySkillCDTimer = 0.0f;
     */
 
+    private Teleport teleport;
+
     private void Start()
     {
         Debug.Log("Getting BuildController script... (PlayerController)");
@@ -64,10 +68,14 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Getting components... (PlayerController)");
         rb = GetComponent<Rigidbody>();
 
+        teleport = GetComponent<Teleport>();
+
         basicAttack = GetComponent<BasicAttack>();
         playerObj = GetComponent<PlayerObject>();
 
         distanceToGround = model.GetComponent<CapsuleCollider>().bounds.extents.y;
+        readyToJump = true;
+        jumpCooldown = 0.25f;
     }
     private void Update()
     {
@@ -101,6 +109,11 @@ public class PlayerController : MonoBehaviour
         verticalMovement = Input.GetAxisRaw("Vertical");
 
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            teleport.toggleTeleport();
+        }
     }
 
     private void move()
@@ -115,16 +128,24 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKey(KeyCode.Space) && isGrounded && readyToJump)
         {
+            readyToJump = false;
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
             playerAnim.SetTrigger("Jump");
+            Invoke(nameof(resetJump), jumpCooldown);
         }
+    }
+
+    private void resetJump()
+    {
+        readyToJump = true;
     }
 
     private void startBasicAttack()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !teleport.inTeleport)
         {
             Debug.Log("Attacking...");
 
