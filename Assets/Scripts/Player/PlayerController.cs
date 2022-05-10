@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             teleport.toggleTeleport();
         }
@@ -157,7 +157,8 @@ public class PlayerController : MonoBehaviour
                 playerAnim.SetTrigger("Attack2");
 
             if (element.Equals("Fire"))
-                basicAttack.spawnVFX();
+                StartCoroutine(basicAttack.spawnVFX(0.4f));
+                //basicAttack.spawnVFX();
 
             // Sample logic for how to reduce enemy hp on hit by tower (in this case, when shot by player)
             /*

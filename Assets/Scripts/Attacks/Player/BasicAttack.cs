@@ -24,6 +24,18 @@ public class BasicAttack : MonoBehaviour
             Debug.Log("No fire point...");
     }
 
+    public IEnumerator spawnVFX(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        GameObject vfx;
+
+        if (firePoint != null)
+            vfx = Instantiate(effectToSpawn, firePoint.transform.position, firePoint.transform.rotation);
+        else
+            Debug.Log("No fire point...");
+    }
+
     /*
     private void OnParticleCollision(GameObject other)
     {
