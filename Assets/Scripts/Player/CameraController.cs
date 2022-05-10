@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     [Header("GameObject References")]
     [SerializeField] private GameObject buildControllerObj; // reference to GameObject buildController
-    [SerializeField] private GameObject uiContainer;        // reference to UI container 
+    [SerializeField] private GameObject crosshairContainer; // reference to crosshair container 
 
     [Header("Camera References")]
     [SerializeField] private GameObject playerCamRef;   // reference to GameObject player camera
@@ -71,7 +71,7 @@ public class CameraController : MonoBehaviour
 
     public void toggleCanvas()
     {
-        uiContainer.SetActive(!buildController.getInBuild());
+        crosshairContainer.SetActive(!buildController.getInBuild());
     }
 
     public void toggleCamera()

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class TimerUI : MonoBehaviour
 {
     [SerializeField] private Image skill1Image;
+    [SerializeField] private Image skill2Image;
+    [SerializeField] private Image skill3Image;
     [SerializeField] private GameObject player;
     [SerializeField] private Image TPImage;
 
@@ -19,8 +21,18 @@ public class TimerUI : MonoBehaviour
         {
             case 1:
                 skillImage = skill1Image;
-                skillTimer = player.GetComponent<PlayerController>().primarySkillCDTimer;
-                skillCD = player.GetComponent<PlayerController>().primarySkillCD;
+                skillTimer = player.GetComponent<PlayerObject>().getCooldownTimer(0);
+                skillCD = player.GetComponent<PlayerObject>().getCooldown(0);
+                break;
+            case 2:
+                skillImage = skill2Image;
+                skillTimer = player.GetComponent<PlayerObject>().getCooldownTimer(1);
+                skillCD = player.GetComponent<PlayerObject>().getCooldown(1);
+                break;
+            case 3:
+                skillImage = skill3Image;
+                skillTimer = player.GetComponent<PlayerObject>().getCooldownTimer(2);
+                skillCD = player.GetComponent<PlayerObject>().getCooldown(2);
                 break;
             case 4:
                 skillImage = TPImage;

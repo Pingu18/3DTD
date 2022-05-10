@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private BuildController buildController;    // reference to BuildController script
     private Rigidbody rb;                       // reference to Rigidbody component
     private BasicAttack basicAttack;            // reference to BasicAttack script
+    private PlayerObject playerObj;             // reference to PlayerObject script
 
     private float horizontalMovement;
     private float verticalMovement;
@@ -49,11 +50,13 @@ public class PlayerController : MonoBehaviour
     [Header("Player Details")]
     [SerializeField] private string element;
 
+    /*
     [Header("Skills")]
     [SerializeField] private TimerUI timerUI;
     [SerializeField] private GameObject primarySkill;
     public float primarySkillCD = 5f;
     public float primarySkillCDTimer = 0.0f;
+    */
 
     private Teleport teleport;
 
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
         teleport = GetComponent<Teleport>();
 
         basicAttack = GetComponent<BasicAttack>();
+        playerObj = GetComponent<PlayerObject>();
 
         distanceToGround = model.GetComponent<CapsuleCollider>().bounds.extents.y;
         readyToJump = true;
@@ -80,10 +84,10 @@ public class PlayerController : MonoBehaviour
             input();
             controlDrag();
             jump();
-        }
 
-        startBasicAttack();
-        testSkill();
+            startBasicAttack();
+            //testSkill();
+        }
     }
 
     private void FixedUpdate()
@@ -175,18 +179,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
     private void testSkill()
     {
         if (Input.GetKeyDown(KeyCode.Q) && Time.time > primarySkillCDTimer)
         {
             primarySkillCDTimer = Time.time + primarySkillCD;
             StartCoroutine(timerUI.startCooldown(1));
-            timerUI.startCooldown(1);
+            //timerUI.startCooldown(1);
             GameObject skill = Instantiate(primarySkill, this.transform.position, Quaternion.identity);
             skill.transform.parent = this.transform;
             StartCoroutine(PlaySkill1(skill));
         }
     }
+    */
     
     // currently unused... might do something else to make player fall faster
     private void fall()
@@ -200,6 +206,7 @@ public class PlayerController : MonoBehaviour
         return element;
     }
 
+    /*
     IEnumerator PlaySkill1(GameObject skill)
     {
         playerAnim.SetTrigger("Skill1");
@@ -208,4 +215,5 @@ public class PlayerController : MonoBehaviour
         skill.GetComponent<SphereCollider>().enabled = true;
         Destroy(skill, 1f);
     }
+    */
 }
