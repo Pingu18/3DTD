@@ -101,6 +101,14 @@ public class EnemyObject : MonoBehaviour, IDamageable
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Goal"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void attackCycle()
     {
         if (targets.Count > 0) // enemies in range

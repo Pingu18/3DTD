@@ -7,6 +7,7 @@ public class PlayerObject : MonoBehaviour
 {
     private PlayerController playerController;
     private SkillDict skillDict;
+    private BuildController buildCon;
 
     [SerializeField] private TimerUI timerUI;
 
@@ -22,6 +23,7 @@ public class PlayerObject : MonoBehaviour
     {
         skillDict = GetComponent<SkillDict>();
         playerController = GetComponent<PlayerController>();
+        buildCon = FindObjectOfType<BuildController>();
 
         timers.Add(0f);
         timers.Add(0f);
@@ -33,7 +35,8 @@ public class PlayerObject : MonoBehaviour
 
     private void Update()
     {
-        checkSkill();
+        if (!buildCon.getInBuild())
+            checkSkill();
     }
 
     private void checkSkill()

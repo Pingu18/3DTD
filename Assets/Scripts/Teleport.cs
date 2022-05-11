@@ -34,6 +34,7 @@ public class Teleport : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0) && canTeleport && !buildCon.getInBuild())
             {
                 playerAnim.SetTrigger("ActivateTP");
+                fxAnim.SetTrigger("ActivateTP");
                 tpLocation = new Vector3(hitInfo.point.x, hitInfo.point.y + 1f, hitInfo.point.z);
                 Invoke(nameof(TP), 0.35f);
             }
@@ -74,7 +75,6 @@ public class Teleport : MonoBehaviour
 
     private void TP()
     {
-        fxAnim.SetTrigger("ExitTP");
         player.transform.position = tpLocation;
         teleportTimer = Time.time + teleportCD;
         StartCoroutine(timerUI.startCooldown(4));
