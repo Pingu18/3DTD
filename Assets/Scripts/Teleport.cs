@@ -46,7 +46,7 @@ public class Teleport : MonoBehaviour
 
     private void checkCanTeleport()
     {
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hitInfo, 100f, (1 << LayerMask.NameToLayer("Default") | (1 << LayerMask.NameToLayer("Placeable"))), QueryTriggerInteraction.Ignore)) {
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hitInfo, 200f, (1 << LayerMask.NameToLayer("Default") | (1 << LayerMask.NameToLayer("Placeable"))), QueryTriggerInteraction.Ignore)) {
             teleportIndicator.SetActive(true);
             teleportIndicator.transform.position = hitInfo.point;
             canTeleport = true;

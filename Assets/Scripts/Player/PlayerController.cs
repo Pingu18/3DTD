@@ -41,7 +41,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump Power")]
     [SerializeField] private float jumpForce;  // player jump height
+    [SerializeField] private float superJumpForce;
     private bool readyToJump;
+    private bool readyToSuperJump;
     private float jumpCooldown;
 
     [Header("Animations")]
@@ -77,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
         distanceToGround = model.GetComponent<CapsuleCollider>().bounds.extents.y;
         readyToJump = true;
+        readyToSuperJump = true;
         jumpCooldown = 0.25f;
     }
     private void Update()
@@ -130,6 +133,9 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
 
+        if (isGrounded && !readyToSuperJump)
+            readyToSuperJump = true;
+
         if (Input.GetKey(KeyCode.Space) && isGrounded && readyToJump)
         {
             readyToJump = false;
@@ -138,6 +144,14 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetTrigger("Jump");
             Invoke(nameof(resetJump), jumpCooldown);
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && readyToSuperJump)
+        {
+            rb.AddForce(transform.up * superJumpForce, ForceMode.Impulse);
+            readyToSuperJump = false;
+            playerAnim.SetTrigger("Jump");
+        }
+        print(isGrounded);
     }
 
     private void resetJump()
