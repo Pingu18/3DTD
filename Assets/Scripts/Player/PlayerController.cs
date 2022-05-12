@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
             jump();
 
             startBasicAttack();
-            startSecondaryAttack();
+            //startSecondaryAttack();
             //testSkill();
         }
     }
@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
             readyToSuperJump = false;
             playerAnim.SetTrigger("Jump");
         }
-        print(isGrounded);
+        //print(isGrounded);
     }
 
     private void resetJump()
