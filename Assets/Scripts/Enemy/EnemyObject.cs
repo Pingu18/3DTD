@@ -97,7 +97,10 @@ public class EnemyObject : MonoBehaviour, IDamageable
             if ((currHP - dInfo.damageTaken) <= 0)
                 damageQueue.Clear();
 
-            takeDamage(dInfo.damageTaken, dInfo.tower);
+            if (dInfo.tower == null)
+                takeDamagePlayer(dInfo.damageTaken);
+            else
+                takeDamage(dInfo.damageTaken, dInfo.tower);
         }
     }
 
@@ -167,7 +170,9 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
     public void queueDamagePlayer(float dmgTaken)
     {
-        takeDamagePlayer(dmgTaken);
+        DamageInfo dInfo = new DamageInfo(dmgTaken, null);
+        damageQueue.Enqueue(dInfo);
+        //takeDamagePlayer(dmgTaken);
     }
 
     private void takeDamage(float dmgTaken, GameObject tower)
