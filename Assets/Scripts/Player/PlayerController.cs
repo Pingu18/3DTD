@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private BuildController buildController;    // reference to BuildController script
     private Rigidbody rb;                       // reference to Rigidbody component
     private BasicAttack basicAttack;            // reference to BasicAttack script
+    [SerializeField] private GameObject secondaryAttack;
     private PlayerObject playerObj;             // reference to PlayerObject script
 
     private float horizontalMovement;
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Animations")]
     [SerializeField] private Animator playerAnim; // animation controller for the player
+    [SerializeField] private Animator flamethrowerAnim; // animation controller for the flamethrower skill
 
     [Header("Player Details")]
     [SerializeField] private string element;
@@ -91,6 +93,7 @@ public class PlayerController : MonoBehaviour
             jump();
 
             startBasicAttack();
+            startSecondaryAttack();
             //testSkill();
         }
     }
@@ -196,23 +199,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*
-    private void testSkill()
+    private void startSecondaryAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && Time.time > primarySkillCDTimer)
+        if (Input.GetMouseButtonDown(1))
         {
-            primarySkillCDTimer = Time.time + primarySkillCD;
-            StartCoroutine(timerUI.startCooldown(1));
-            //timerUI.startCooldown(1);
-            GameObject skill = Instantiate(primarySkill, this.transform.position, Quaternion.identity);
-            skill.transform.parent = this.transform;
-            StartCoroutine(PlaySkill1(skill));
+            secondaryAttack.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+            flamethrowerAnim.SetTrigger("StartFlamethrower");
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            secondaryAttack.transform.GetChild(0).GetComponent<VisualEffect>().Stop();
+            flamethrowerAnim.SetTrigger("StopFlamethrower");
         }
     }
-    */
-    
-    // currently unused... might do something else to make player fall faster
-    private void fall()
+
+        /*
+        private void testSkill()
+        {
+            if (Input.GetKeyDown(KeyCode.Q) && Time.time > primarySkillCDTimer)
+            {
+                primarySkillCDTimer = Time.time + primarySkillCD;
+                StartCoroutine(timerUI.startCooldown(1));
+                //timerUI.startCooldown(1);
+                GameObject skill = Instantiate(primarySkill, this.transform.position, Quaternion.identity);
+                skill.transform.parent = this.transform;
+                StartCoroutine(PlaySkill1(skill));
+            }
+        }
+        */
+
+        // currently unused... might do something else to make player fall faster
+        private void fall()
     {
         if (!isGrounded && rb.velocity.y < 0)
             rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime;
