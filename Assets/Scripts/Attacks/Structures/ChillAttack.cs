@@ -25,7 +25,7 @@ public class ChillAttack : MonoBehaviour
             TowerObject towerObj = parentTower.GetComponent<TowerObject>();
             TowerBuffHandler buffHandler = parentTower.GetComponent<TowerBuffHandler>();
 
-            other.gameObject.GetComponent<IDamageable>().queueDamage(towerObj.getDamage(), parentTower);
+            other.gameObject.GetComponent<IDamageable>().queueDamage(towerObj.getDamage(), parentTower, false);
             slow.applySlow(other.gameObject);
 
             if (towerObj.getSpecialLevel() > 0)

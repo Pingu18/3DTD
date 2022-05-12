@@ -7,6 +7,8 @@ public class BasicAttack : MonoBehaviour
     [SerializeField] private GameObject firePoint;
     [SerializeField] private List<GameObject> vfx = new List<GameObject>();
 
+    [SerializeField] private GameObject fireSlashCollider;
+
     private GameObject effectToSpawn;
 
     void Start()
@@ -36,15 +38,13 @@ public class BasicAttack : MonoBehaviour
             Debug.Log("No fire point...");
     }
 
-    /*
     private void OnParticleCollision(GameObject other)
     {
-        for (int i = 0; i < currentAttackContainer.transform.childCount; i++)
-        {
-            ParticleSystem currentParticleSystem = currentAttackContainer.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>();
-
-            currentParticleSystem.Stop();
-        }
+        Debug.Log("Test");
     }
-    */
+
+    public GameObject getFireSlashCollider()
+    {
+        return fireSlashCollider;
+    }
 }

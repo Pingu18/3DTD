@@ -22,6 +22,8 @@ public class PlayerObject : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Starting PlayerObject...");
+
         skillDict = GetComponent<SkillDict>();
         playerController = GetComponent<PlayerController>();
         buildCon = FindObjectOfType<BuildController>();

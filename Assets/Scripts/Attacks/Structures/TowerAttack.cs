@@ -13,14 +13,14 @@ public class TowerAttack : MonoBehaviour
         {
             case "Flame Attack":
                 atk.GetComponent<FlameAttack>().setParams(tower.gameObject, target, tower.getDamage());
-                target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject);
+                target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject, false);
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                 Destroy(atk, 1.2f);
                 break;
             case "Blast":
                 atk.GetComponent<BlastAttack>().target = target;
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject);
+                target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject, false);
                 tower.GetComponent<Slow>().applySlow(target);
                 Destroy(atk, 1.0f);
                 break;
@@ -37,7 +37,7 @@ public class TowerAttack : MonoBehaviour
             case "Light Mark":
                 atk.GetComponent<LightAttack>().target = target;
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject);
+                target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject, false);
 
                 if (tower.GetComponent<TowerObject>().getSpecialLevel() > 0)
                 {
@@ -49,7 +49,7 @@ public class TowerAttack : MonoBehaviour
             case "Dark Mark":
                 atk.GetComponent<DarkAttack>().target = target;
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-                target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject);
+                target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject, false);
 
                 if (tower.GetComponent<TowerObject>().getSpecialLevel() > 0)
                 {

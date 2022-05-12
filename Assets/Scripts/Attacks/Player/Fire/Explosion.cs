@@ -8,7 +8,7 @@ public class Explosion : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<IDamageable>().queueDamagePlayer(75);
+            other.gameObject.GetComponent<IDamageable>().queueDamage(75, null, true);
         }
     }
 }

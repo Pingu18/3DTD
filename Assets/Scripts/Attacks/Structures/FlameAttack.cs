@@ -22,7 +22,7 @@ public class FlameAttack : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy") && parentTower != null && other.gameObject != initialTarget)
         {
-            other.gameObject.GetComponent<IDamageable>().queueDamage(splashDamage, parentTower);
+            other.gameObject.GetComponent<IDamageable>().queueDamage(splashDamage, parentTower, false);
         }
     }
 }

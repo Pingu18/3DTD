@@ -145,15 +145,10 @@ public class TowerObject : MonoBehaviour, IDamageable
     }
 
     // Damage functions
-    public void queueDamage(float dmgTaken, GameObject enemy)
+    public void queueDamage(float dmgTaken, GameObject enemy, bool playerDamage)
     {
         DamageInfo dInfo = new DamageInfo(dmgTaken, enemy);
         damageQueue.Enqueue(dInfo);
-    }
-
-    public void queueDamagePlayer(float dmgTaken)
-    {
-        // empty
     }
 
     private void takeDamage(float dmgTaken, GameObject enemy)
