@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
             jump();
 
             startBasicAttack();
-            startSecondaryAttack();
+            //startSecondaryAttack();
             //testSkill();
         }
     }
