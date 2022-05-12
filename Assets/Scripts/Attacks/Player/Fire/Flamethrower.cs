@@ -43,12 +43,4 @@ public class Flamethrower : MonoBehaviour
             fireTime = Time.time + fireCD;
         }
     }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            other.gameObject.GetComponent<IDamageable>().queueDamagePlayer(2);
-        }
-    }
 }

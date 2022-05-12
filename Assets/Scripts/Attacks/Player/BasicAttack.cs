@@ -7,6 +7,8 @@ public class BasicAttack : MonoBehaviour
     [SerializeField] private GameObject firePoint;
     [SerializeField] private List<GameObject> vfx = new List<GameObject>();
 
+    [SerializeField] private GameObject fireSlashCollider;
+
     private GameObject effectToSpawn;
 
     void Start()
@@ -39,5 +41,10 @@ public class BasicAttack : MonoBehaviour
     private void OnParticleCollision(GameObject other)
     {
         Debug.Log("Test");
+    }
+
+    public GameObject getFireSlashCollider()
+    {
+        return fireSlashCollider;
     }
 }

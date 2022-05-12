@@ -9,6 +9,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private EnemyController enemyController;
     private CurrencyController currencyController;
     private ElementalSystem elementalSystem;
+    private PlayerController playerController;
 
     [SerializeField] private List<GameObject> targets = new List<GameObject>(); // list of enemies in radius
     private GameObject currentTarget;
@@ -47,11 +48,13 @@ public class EnemyObject : MonoBehaviour, IDamageable
     {
         public float damageTaken;
         public GameObject tower;
+        public bool playerDamage;
 
-        public DamageInfo(float dmgTaken, GameObject obj)
+        public DamageInfo(float dmgTaken, GameObject obj, bool player)
         {
             damageTaken = dmgTaken;
             tower = obj;
+            playerDamage = player;
         }
     }
 
@@ -79,6 +82,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
         enemyController = transform.parent.GetComponent<EnemyController>();
         elementalSystem = transform.parent.GetComponent<ElementalSystem>();
         currencyController = GameObject.Find("CurrencyContainer").GetComponent<CurrencyController>();
+        playerController = GameObject.Find("PlayerContainer").GetComponent<PlayerController>();
 
         healthBar = GetComponentInChildren<Slider>();
         maxHPColor = new Color(42f / 255f, 255f / 255f, 46f / 255f);
@@ -97,7 +101,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
             if ((currHP - dInfo.damageTaken) <= 0)
                 damageQueue.Clear();
 
-            takeDamage(dInfo.damageTaken, dInfo.tower);
+            takeDamage(dInfo.damageTaken, dInfo.tower, dInfo.playerDamage);
         }
     }
 
@@ -143,7 +147,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
         {
             if (target != null)
             {
-                target.GetComponent<IDamageable>().queueDamage(damage, this.gameObject);
+                target.GetComponent<IDamageable>().queueDamage(damage, this.gameObject, false);
                 nextAttack = Time.time + (1 / attackSpeed);
             }
         }
@@ -159,20 +163,23 @@ public class EnemyObject : MonoBehaviour, IDamageable
         targets.Remove(target);
     }
 
-    public void queueDamage(float dmgTaken, GameObject tower)
+    public void queueDamage(float dmgTaken, GameObject tower, bool playerDamage)
     {
-        DamageInfo dInfo = new DamageInfo(dmgTaken, tower);
+        DamageInfo dInfo = new DamageInfo(dmgTaken, tower, playerDamage);
         damageQueue.Enqueue(dInfo);
     }
 
-    public void queueDamagePlayer(float dmgTaken)
+    private void takeDamage(float dmgTaken, GameObject tower, bool playerDamage)
     {
-        takeDamagePlayer(dmgTaken);
-    }
+        if (playerDamage == true)
+        {
+            float elementalDamageMultiplier = elementalSystem.getElementalMultiplier(playerController.getElement(), element);
+            float realDmg = dmgTaken * elementalDamageMultiplier;
 
-    private void takeDamage(float dmgTaken, GameObject tower)
-    {
-        if (tower != null)
+            currHP -= realDmg;
+            updateHealthBar();
+            checkDeath(null);
+        } else if (tower != null)
         {
             float elementalDamageMultiplier = elementalSystem.getElementalMultiplier(tower.GetComponent<TowerObject>().getElement(), element);
             float realDmg = dmgTaken * elementalDamageMultiplier;
@@ -186,20 +193,16 @@ public class EnemyObject : MonoBehaviour, IDamageable
         }
     }
 
-    private void takeDamagePlayer(float dmgTaken)
-    {
-        currHP -= dmgTaken;
-        updateHealthBar();
-        if (currHP <= 0)
-        {
-            enemyController.decrementEnemiesAlive();
-            currencyController.addMoney(worth);
-            Destroy(gameObject);
-        }
-    }
-
     private void OnParticleCollision(GameObject other)
     {
+        if (other.name == "FireSlash")
+        {
+            GameObject collider = Instantiate(playerController.getBasicAttack().getFireSlashCollider(), this.transform.position, Quaternion.identity);
+            collider.GetComponent<FireSlashCollider>().setInitialTarget(this.gameObject);
+
+            queueDamage(20f, null, true);
+        }
+
         Destroy(other);
     }
 
@@ -322,6 +325,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
         return Vector3.Distance(this.transform.position, goal);
     }
 
+    // move light/dark marks into enemy debuff script
     public void applyLightMark(TowerObject towerObj)
     {
         float dmg = towerObj.getDamage() * 2; // change damage value based on upgrade level
@@ -331,7 +335,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
         if (checkMarks())
         {
-            queueDamage(dmg, towerObj.gameObject);
+            queueDamage(dmg, towerObj.gameObject, false);
         }
     }
 
@@ -344,7 +348,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
         if (checkMarks())
         {
-            queueDamage(dmg, towerObj.gameObject);
+            queueDamage(dmg, towerObj.gameObject, false);
         }
     }
 

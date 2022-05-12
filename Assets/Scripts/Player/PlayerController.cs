@@ -223,4 +223,8 @@ public class PlayerController : MonoBehaviour
         return element;
     }
 
+    public BasicAttack getBasicAttack()
+    {
+        return basicAttack;
+    }
 }

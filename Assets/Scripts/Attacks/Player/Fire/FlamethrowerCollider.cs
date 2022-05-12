@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class FlamethrowerCollider : MonoBehaviour
 {
+    [SerializeField] private GameObject playerContainer;
     [SerializeField] private float speed;
     [SerializeField] private float duration;
+
     private void Update()
     {
         if (duration > 0)
@@ -21,7 +23,7 @@ public class FlamethrowerCollider : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<IDamageable>().queueDamagePlayer(1f);
+            other.gameObject.GetComponent<IDamageable>().queueDamage(1f, null, true);
         }
     }
 }

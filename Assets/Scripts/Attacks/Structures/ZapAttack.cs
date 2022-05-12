@@ -49,7 +49,7 @@ public class ZapAttack : MonoBehaviour
                     {
                         parent = parentTower;
                     }
-                    target.GetComponent<IDamageable>().queueDamage(damage, parent);
+                    target.GetComponent<IDamageable>().queueDamage(damage, parent, false);
 
                     if (parent != null)
                     {
