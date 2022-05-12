@@ -9,6 +9,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private EnemyController enemyController;
     private CurrencyController currencyController;
     private ElementalSystem elementalSystem;
+    private LivesController livesCon;
 
     [SerializeField] private List<GameObject> targets = new List<GameObject>(); // list of enemies in radius
     private GameObject currentTarget;
@@ -79,6 +80,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
         enemyController = transform.parent.GetComponent<EnemyController>();
         elementalSystem = transform.parent.GetComponent<ElementalSystem>();
         currencyController = GameObject.Find("CurrencyContainer").GetComponent<CurrencyController>();
+        livesCon = FindObjectOfType<LivesController>();
 
         healthBar = GetComponentInChildren<Slider>();
         maxHPColor = new Color(42f / 255f, 255f / 255f, 46f / 255f);
@@ -108,6 +110,8 @@ public class EnemyObject : MonoBehaviour, IDamageable
     {
         if (other.CompareTag("Goal"))
         {
+            livesCon.DecrementPlayerLives();
+            enemyController.decrementEnemiesAlive();
             Destroy(this.gameObject);
         }
     }
