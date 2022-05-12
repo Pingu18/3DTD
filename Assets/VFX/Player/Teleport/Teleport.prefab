@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 232037842}
   - component: {fileID: 232037843}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: Teleport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

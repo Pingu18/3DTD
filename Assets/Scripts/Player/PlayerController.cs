@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     private BuildController buildController;    // reference to BuildController script
     private Rigidbody rb;                       // reference to Rigidbody component
     private BasicAttack basicAttack;            // reference to BasicAttack script
+    [SerializeField] private GameObject secondaryAttack;
+    private PlayerObject playerObj;             // reference to PlayerObject script
 
     private float horizontalMovement;
     private float verticalMovement;
@@ -40,15 +42,29 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump Power")]
     [SerializeField] private float jumpForce;  // player jump height
+    [SerializeField] private float superJumpForce;
+    private bool readyToJump;
+    private bool readyToSuperJump;
+    private float jumpCooldown;
 
     [Header("Animations")]
     [SerializeField] private Animator playerAnim; // animation controller for the player
+    [SerializeField] private Animator flamethrowerAnim; // animation controller for the flamethrower skill
 
     [Header("Player Details")]
     [SerializeField] private string element;
-    
+
+    /*
     [Header("Skills")]
+    [SerializeField] private TimerUI timerUI;
     [SerializeField] private GameObject primarySkill;
+    public float primarySkillCD = 5f;
+    public float primarySkillCDTimer = 0.0f;
+    */
+
+    private Teleport teleport;
+    private float basicAttackCD = 0.75f;
+    private float basicAttackTimer = 0.0f;
 
     private void Start()
     {
@@ -58,9 +74,15 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Getting components... (PlayerController)");
         rb = GetComponent<Rigidbody>();
 
+        teleport = GetComponent<Teleport>();
+
         basicAttack = GetComponent<BasicAttack>();
+        playerObj = GetComponent<PlayerObject>();
 
         distanceToGround = model.GetComponent<CapsuleCollider>().bounds.extents.y;
+        readyToJump = true;
+        readyToSuperJump = true;
+        jumpCooldown = 0.25f;
     }
     private void Update()
     {
@@ -69,10 +91,11 @@ public class PlayerController : MonoBehaviour
             input();
             controlDrag();
             jump();
-        }
 
-        startBasicAttack();
-        testSkill();
+            startBasicAttack();
+            startSecondaryAttack();
+            //testSkill();
+        }
     }
 
     private void FixedUpdate()
@@ -94,6 +117,11 @@ public class PlayerController : MonoBehaviour
         verticalMovement = Input.GetAxisRaw("Vertical");
 
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            teleport.toggleTeleport();
+        }
     }
 
     private void move()
@@ -108,16 +136,35 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (isGrounded && !readyToSuperJump)
+            readyToSuperJump = true;
+
+        if (Input.GetKey(KeyCode.Space) && isGrounded && readyToJump)
         {
+            readyToJump = false;
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
             playerAnim.SetTrigger("Jump");
+            Invoke(nameof(resetJump), jumpCooldown);
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && readyToSuperJump)
+        {
+            rb.AddForce(transform.up * superJumpForce, ForceMode.Impulse);
+            readyToSuperJump = false;
+            playerAnim.SetTrigger("Jump");
+        }
+        print(isGrounded);
+    }
+
+    private void resetJump()
+    {
+        readyToJump = true;
     }
 
     private void startBasicAttack()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !teleport.inTeleport && Time.time > basicAttackTimer)
         {
             Debug.Log("Attacking...");
 
@@ -129,8 +176,9 @@ public class PlayerController : MonoBehaviour
                 playerAnim.SetTrigger("Attack2");
 
             if (element.Equals("Fire"))
-                basicAttack.spawnVFX();
-
+                StartCoroutine(basicAttack.spawnVFX(0.4f));
+            //basicAttack.spawnVFX();
+            basicAttackTimer = Time.time + basicAttackCD;
             // Sample logic for how to reduce enemy hp on hit by tower (in this case, when shot by player)
             /*
             RaycastHit target;
@@ -151,18 +199,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void testSkill()
+    private void startSecondaryAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetMouseButtonDown(1))
         {
-            GameObject skill = Instantiate(primarySkill, this.transform.position, Quaternion.identity);
-            skill.transform.parent = this.transform;
-            StartCoroutine(PlaySkill1(skill));
+            secondaryAttack.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+            flamethrowerAnim.SetTrigger("StartFlamethrower");
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            secondaryAttack.transform.GetChild(0).GetComponent<VisualEffect>().Stop();
+            flamethrowerAnim.SetTrigger("StopFlamethrower");
         }
     }
-    
-    // currently unused... might do something else to make player fall faster
-    private void fall()
+
+        /*
+        private void testSkill()
+        {
+            if (Input.GetKeyDown(KeyCode.Q) && Time.time > primarySkillCDTimer)
+            {
+                primarySkillCDTimer = Time.time + primarySkillCD;
+                StartCoroutine(timerUI.startCooldown(1));
+                //timerUI.startCooldown(1);
+                GameObject skill = Instantiate(primarySkill, this.transform.position, Quaternion.identity);
+                skill.transform.parent = this.transform;
+                StartCoroutine(PlaySkill1(skill));
+            }
+        }
+        */
+
+        // currently unused... might do something else to make player fall faster
+        private void fall()
     {
         if (!isGrounded && rb.velocity.y < 0)
             rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime;
@@ -173,11 +241,14 @@ public class PlayerController : MonoBehaviour
         return element;
     }
 
+    /*
     IEnumerator PlaySkill1(GameObject skill)
     {
         playerAnim.SetTrigger("Skill1");
         yield return new WaitForSeconds(0.5f);
         skill.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+        skill.GetComponent<SphereCollider>().enabled = true;
         Destroy(skill, 1f);
     }
+    */
 }
