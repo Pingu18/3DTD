@@ -154,7 +154,6 @@ public class PlayerController : MonoBehaviour
             readyToSuperJump = false;
             playerAnim.SetTrigger("Jump");
         }
-        print(isGrounded);
     }
 
     private void resetJump()
@@ -166,8 +165,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !teleport.inTeleport && Time.time > basicAttackTimer)
         {
-            Debug.Log("Attacking...");
-
             int rand = Random.Range(0, 2);
             
             if (rand == 0)
@@ -214,23 +211,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-        /*
-        private void testSkill()
-        {
-            if (Input.GetKeyDown(KeyCode.Q) && Time.time > primarySkillCDTimer)
-            {
-                primarySkillCDTimer = Time.time + primarySkillCD;
-                StartCoroutine(timerUI.startCooldown(1));
-                //timerUI.startCooldown(1);
-                GameObject skill = Instantiate(primarySkill, this.transform.position, Quaternion.identity);
-                skill.transform.parent = this.transform;
-                StartCoroutine(PlaySkill1(skill));
-            }
-        }
-        */
-
-        // currently unused... might do something else to make player fall faster
-        private void fall()
+    // currently unused... might do something else to make player fall faster
+    private void fall()
     {
         if (!isGrounded && rb.velocity.y < 0)
             rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime;
@@ -241,14 +223,4 @@ public class PlayerController : MonoBehaviour
         return element;
     }
 
-    /*
-    IEnumerator PlaySkill1(GameObject skill)
-    {
-        playerAnim.SetTrigger("Skill1");
-        yield return new WaitForSeconds(0.5f);
-        skill.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-        skill.GetComponent<SphereCollider>().enabled = true;
-        Destroy(skill, 1f);
-    }
-    */
 }

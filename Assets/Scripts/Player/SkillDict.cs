@@ -16,6 +16,8 @@ public class SkillDict : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Starting SkillDict...");
+
         fireSkills.Add(explosion);
         fireCD.Add(5.0f);
         fireSkills.Add(explosion);

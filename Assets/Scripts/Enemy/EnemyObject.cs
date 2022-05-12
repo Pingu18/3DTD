@@ -197,7 +197,12 @@ public class EnemyObject : MonoBehaviour, IDamageable
             Destroy(gameObject);
         }
     }
-    
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Destroy(other);
+    }
+
     private void updateHealthBar()
     {
         float hpPercent = getHealthPercent();

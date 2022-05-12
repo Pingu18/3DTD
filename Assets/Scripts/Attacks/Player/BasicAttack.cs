@@ -36,10 +36,8 @@ public class BasicAttack : MonoBehaviour
             Debug.Log("No fire point...");
     }
 
-    /*
     private void OnParticleCollision(GameObject other)
     {
-        
+        Debug.Log("Test");
     }
-    */
 }
