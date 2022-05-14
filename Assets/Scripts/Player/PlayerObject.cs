@@ -150,7 +150,11 @@ public class PlayerObject : MonoBehaviour
 
     public void addMana(float mana)
     {
-        currentMana += mana;
+        if (currentMana + mana > maxMana)
+            currentMana = maxMana;
+        else
+            currentMana += mana;
+
         timerUI.updateManaUI(currentMana, maxMana);
     }
 
