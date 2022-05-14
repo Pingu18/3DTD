@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TimerUI : MonoBehaviour
 {
@@ -11,9 +12,14 @@ public class TimerUI : MonoBehaviour
     [SerializeField] private Image skill1Image;
     [SerializeField] private Image skill2Image;
     [SerializeField] private Image skill3Image;
+    [SerializeField] private TMP_Text skill1ManaText;
+    [SerializeField] private TMP_Text skill2ManaText;
+    [SerializeField] private TMP_Text skill3ManaText;
     [SerializeField] private GameObject player;
     [SerializeField] private Image TPSlot;
     [SerializeField] private Image TPImage;
+    [SerializeField] private Image manaBar;
+    [SerializeField] private TMP_Text manaText;
 
     public IEnumerator startCooldown(int skill)
     {
@@ -62,5 +68,18 @@ public class TimerUI : MonoBehaviour
             yield return null;
         }
         skillSlot.color = originalColor;
+    }
+
+    public void updateManaUI(float mana, float maxMana)
+    {
+        manaBar.fillAmount = mana / maxMana;
+        manaText.text = Mathf.Floor(mana).ToString();
+    }
+
+    public void updateManaCostText(float skill1mana, float skill2mana, float skill3mana)
+    {
+        skill1ManaText.text = skill1mana.ToString();
+        skill2ManaText.text = skill2mana.ToString();
+        skill3ManaText.text = skill3mana.ToString();
     }
 }

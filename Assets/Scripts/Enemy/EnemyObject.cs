@@ -11,6 +11,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
     private ElementalSystem elementalSystem;
     private LivesController livesCon;
     private PlayerController playerController;
+    private PlayerObject playerObj;
 
     [SerializeField] private List<GameObject> targets = new List<GameObject>(); // list of enemies in radius
     private GameObject currentTarget;
@@ -85,6 +86,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
         currencyController = GameObject.Find("CurrencyContainer").GetComponent<CurrencyController>();
         livesCon = FindObjectOfType<LivesController>();
         playerController = GameObject.Find("PlayerContainer").GetComponent<PlayerController>();
+        playerObj = FindObjectOfType<PlayerObject>();
 
         healthBar = GetComponentInChildren<Slider>();
         maxHPColor = new Color(42f / 255f, 255f / 255f, 46f / 255f);
@@ -204,6 +206,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
             GameObject collider = Instantiate(playerController.getBasicAttack().getFireSlashCollider(), this.transform.position, Quaternion.identity);
             collider.GetComponent<FireSlashCollider>().setInitialTarget(this.gameObject);
 
+            playerObj.addMana(3.0f);
             queueDamage(20f, null, true);
         }
 

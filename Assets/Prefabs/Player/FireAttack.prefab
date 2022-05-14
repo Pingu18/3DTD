@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleSystem: {fileID: 8236827870083141379}
-  speed: 35
+  speed: 50
   fireRate: 4
   duration: 5
 --- !u!54 &2521330285229989045
