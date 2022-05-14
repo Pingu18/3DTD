@@ -205,6 +205,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
         {
             GameObject collider = Instantiate(playerController.getBasicAttack().getFireSlashCollider(), this.transform.position, Quaternion.identity);
             collider.GetComponent<FireSlashCollider>().setInitialTarget(this.gameObject);
+            Destroy(collider, 1.5f);
 
             playerObj.addMana(3.0f);
             queueDamage(20f, null, true);
