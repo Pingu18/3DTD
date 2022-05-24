@@ -196,7 +196,7 @@ public class BuildController : MonoBehaviour
             cameraController.toggleCanvas();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

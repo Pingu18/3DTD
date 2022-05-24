@@ -6,6 +6,7 @@ using UnityEngine.VFX;
 public class PlayerController : MonoBehaviour
 {
     private BuildController buildController;    // reference to BuildController script
+    private MenuUI menuUI;
     private Rigidbody rb;                       // reference to Rigidbody component
     private BasicAttack basicAttack;            // reference to BasicAttack script
     [SerializeField] private GameObject secondaryAttack;
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour
         layer_mask = LayerMask.GetMask("Default", "Ground", "Placeable");
         Debug.Log("Getting BuildController script... (PlayerController)");
         buildController = buildControllerObj.GetComponent<BuildController>();
+        menuUI = FindObjectOfType<MenuUI>();
 
         Debug.Log("Getting components... (PlayerController)");
         rb = GetComponent<Rigidbody>();
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if (!buildController.getInBuild())
+        if (!buildController.getInBuild() && !menuUI.getInMenu())
         {
             input();
             controlDrag();
