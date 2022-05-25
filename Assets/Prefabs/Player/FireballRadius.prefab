@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7610976921708022672}
   - component: {fileID: 7220529469256798866}
   m_Layer: 0
-  m_Name: FireSlashRadius
+  m_Name: FireballRadius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

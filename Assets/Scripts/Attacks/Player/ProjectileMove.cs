@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileMove : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem particleSystem;
+    //[SerializeField] private new ParticleSystem particleSystem;
 
     [SerializeField] private float speed;
     [SerializeField] private float fireRate;
@@ -12,9 +12,9 @@ public class ProjectileMove : MonoBehaviour
 
     void Start()
     {
-        ParticleSystem.MainModule main = particleSystem.main;
+        //ParticleSystem.MainModule main = particleSystem.main;
 
-        main.startSpeed = speed;
+        //main.startSpeed = speed;
     }
 
     void Update()

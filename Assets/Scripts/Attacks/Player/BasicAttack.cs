@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class BasicAttack : MonoBehaviour
 {
     [SerializeField] private GameObject firePoint;
     [SerializeField] private List<GameObject> vfx = new List<GameObject>();
 
-    [SerializeField] private GameObject fireSlashCollider;
+    [SerializeField] private GameObject fireballCollider;
 
     private GameObject effectToSpawn;
 
@@ -43,8 +44,8 @@ public class BasicAttack : MonoBehaviour
         Debug.Log("Test");
     }
 
-    public GameObject getFireSlashCollider()
+    public GameObject getFireballCollider()
     {
-        return fireSlashCollider;
+        return fireballCollider;
     }
 }

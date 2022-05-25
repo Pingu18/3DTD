@@ -195,10 +195,10 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
     private void OnParticleCollision(GameObject other)
     {
-        if (other.name == "FireSlash")
+        if (other.name == "FireballVFX")
         {
-            GameObject collider = Instantiate(playerController.getBasicAttack().getFireSlashCollider(), this.transform.position, Quaternion.identity);
-            collider.GetComponent<FireSlashCollider>().setInitialTarget(this.gameObject);
+            GameObject collider = Instantiate(playerController.getBasicAttack().getFireballCollider(), this.transform.position, Quaternion.identity);
+            collider.GetComponent<FireballCollider>().setInitialTarget(this.gameObject);
 
             queueDamage(20f, null, true);
         }

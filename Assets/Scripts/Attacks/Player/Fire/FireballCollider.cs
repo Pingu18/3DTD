@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireSlashCollider : MonoBehaviour
+public class FireballCollider : MonoBehaviour
 {
     private SphereCollider sphereCollider;
     private GameObject initialTarget;

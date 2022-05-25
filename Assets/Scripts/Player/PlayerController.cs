@@ -174,25 +174,8 @@ public class PlayerController : MonoBehaviour
 
             if (element.Equals("Fire"))
                 StartCoroutine(basicAttack.spawnVFX(0.4f));
-            //basicAttack.spawnVFX();
+            
             basicAttackTimer = Time.time + basicAttackCD;
-            // Sample logic for how to reduce enemy hp on hit by tower (in this case, when shot by player)
-            /*
-            RaycastHit target;
-            if (Physics.Raycast(pCamTransform.transform.position, pCamTransform.transform.forward, out target, Mathf.Infinity))
-            {
-                TowerObject towerObj;
-
-                if (target.collider.GetComponent<TowerObject>())
-                {
-                    towerObj = target.collider.GetComponent<TowerObject>();
-                    Debug.Log(towerObj.getCurrentHP());
-                }
-
-                //if (damageable != null)
-                    //damageable.takeDamage(100);
-            }
-            */
         }
     }
 
