@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject towerContainer;
     [SerializeField] private GameObject level;
+    private LivesController livesCon;
 
     private PathController pathController;
 
@@ -57,6 +58,8 @@ public class EnemyController : MonoBehaviour
         levelStarted = false;
 
         StartCoroutine(startGame());
+        livesCon = FindObjectOfType<LivesController>();
+        livesCon.UpdateEnemiesLeft(enemiesAlive);
     }
 
     private void Update()
@@ -121,6 +124,7 @@ public class EnemyController : MonoBehaviour
 
                 // Set total enemies alive in group (for enemy clear checking)
                 enemiesAlive += groups.totalEnemies;
+                livesCon.UpdateEnemiesLeft(enemiesAlive);
 
                 if (!pathController.checkPathAdded(groups.path) && groups.path != 0)
                     pathController.addPath(groups.path);
@@ -244,6 +248,7 @@ public class EnemyController : MonoBehaviour
     public void decrementEnemiesAlive()
     {
         enemiesAlive -= 1;
+        livesCon.UpdateEnemiesLeft(enemiesAlive);
 
         if (enemiesAlive == 0)
         {

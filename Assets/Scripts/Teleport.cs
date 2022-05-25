@@ -12,6 +12,7 @@ public class Teleport : MonoBehaviour
     [SerializeField] private BuildController buildCon;
     [SerializeField] private Animator playerAnim;
     [SerializeField] private Animator fxAnim;
+    private Flamethrower flamethrower;
 
     private bool canTeleport;
     private RaycastHit hitInfo;
@@ -23,12 +24,14 @@ public class Teleport : MonoBehaviour
     private void Start()
     {
         inTeleport = false;
+        flamethrower = FindObjectOfType<Flamethrower>();
     }
 
     private void Update()
     {
         if (inTeleport && Time.time > teleportTimer)
         {
+            flamethrower.setCanUseFlamethrower(false);
             checkCanTeleport();
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && canTeleport && !buildCon.getInBuild())
@@ -40,6 +43,7 @@ public class Teleport : MonoBehaviour
             }
         } else
         {
+            flamethrower.setCanUseFlamethrower(true);
             teleportIndicator.SetActive(false);
             canTeleport = false;
         }
@@ -63,6 +67,7 @@ public class Teleport : MonoBehaviour
         if (!inTeleport && Time.time >= teleportTimer) // only enter teleport if off cooldown
         {
             inTeleport = true;
+            playerAnim.ResetTrigger("ExitTP");
             playerAnim.SetTrigger("EnterTP");
             fxAnim.SetTrigger("EnterTP");
         } else if (inTeleport)

@@ -8,6 +8,12 @@ public class PlayerObject : MonoBehaviour
     private PlayerController playerController;
     private SkillDict skillDict;
     private BuildController buildCon;
+    private Teleport teleport;
+    private float currentMana;
+    [SerializeField] private float maxMana;
+    [SerializeField] private float manaRegen;
+    private float manaRegenTimer = 0.0f;
+    private float manaRegenWaitTime = 1.5f;
 
     [SerializeField] private TimerUI timerUI;
 
@@ -18,6 +24,7 @@ public class PlayerObject : MonoBehaviour
     [SerializeField] private List<GameObject> skills;
     [SerializeField] private List<float> cooldowns;
     [SerializeField] private List<float> timers;
+    [SerializeField] private List<float> manaCosts;
 
     private void Start()
     {
@@ -26,6 +33,7 @@ public class PlayerObject : MonoBehaviour
         skillDict = GetComponent<SkillDict>();
         playerController = GetComponent<PlayerController>();
         buildCon = FindObjectOfType<BuildController>();
+        teleport = FindObjectOfType<Teleport>();
 
         timers.Add(0f);
         timers.Add(0f);
@@ -33,28 +41,39 @@ public class PlayerObject : MonoBehaviour
 
         element = playerController.getElement();
         grabSkills();
+
+        currentMana = maxMana;
+        timerUI.updateManaUI(currentMana, maxMana);
+        timerUI.updateManaCostText(manaCosts[0], manaCosts[1], manaCosts[2]);
     }
 
     private void Update()
     {
-        if (!buildCon.getInBuild())
+        if (!buildCon.getInBuild() && !teleport.inTeleport)
             checkSkill();
+
+        if (Time.time > manaRegenTimer)
+            regenerateMana(manaRegen);
     }
 
     private void checkSkill()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && Time.time > timers[0])
+        if (Input.GetKeyDown(KeyCode.Q) && Time.time > timers[0] && currentMana >= manaCosts[0])
         {
             startCooldown(0);
             startSkill(0);
-        } else if (Input.GetKeyDown(KeyCode.E) && Time.time > timers[1])
+            useMana(manaCosts[0]);
+        } else if (Input.GetKeyDown(KeyCode.E) && Time.time > timers[1] && currentMana >= manaCosts[1])
         {
             startCooldown(1);
             startSkill(1);
-        } else if (Input.GetKeyDown(KeyCode.R) && Time.time > timers[2])
+            useMana(manaCosts[1]);
+        }
+        else if (Input.GetKeyDown(KeyCode.R) && Time.time > timers[2] && currentMana >= manaCosts[2])
         {
             startCooldown(2);
             startSkill(2);
+            useMana(manaCosts[2]);
         }
     }
 
@@ -77,7 +96,7 @@ public class PlayerObject : MonoBehaviour
         playerAnim.SetTrigger("Skill1");
         yield return new WaitForSeconds(0.5f);
         skill.transform.GetChild(0).GetComponent<VisualEffect>().Play();
-        skill.GetComponent<SphereCollider>().enabled = true;
+        skill.GetComponent<Animator>().SetTrigger("Explode");
         Destroy(skill, 1f);
     }
 
@@ -106,4 +125,42 @@ public class PlayerObject : MonoBehaviour
     {
         return cooldowns[skillNum];
     }
+
+    private void regenerateMana(float manaRegen)
+    {
+        if (currentMana < maxMana)
+        {
+            currentMana += manaRegen * Time.deltaTime;
+            timerUI.updateManaUI(currentMana, maxMana);
+        }
+
+        Mathf.Clamp(currentMana, 0, maxMana);
+    }
+
+    public void useMana(float manaUsed)
+    {
+        if (currentMana - manaUsed < 0)
+            currentMana = 0;
+        else
+            currentMana -= manaUsed;
+
+        timerUI.updateManaUI(currentMana, maxMana);
+        manaRegenTimer = Time.time + manaRegenWaitTime;
+    }
+
+    public void addMana(float mana)
+    {
+        if (currentMana + mana > maxMana)
+            currentMana = maxMana;
+        else
+            currentMana += mana;
+
+        timerUI.updateManaUI(currentMana, maxMana);
+    }
+
+    public float getMana()
+    {
+        return currentMana;
+    }
+
 }

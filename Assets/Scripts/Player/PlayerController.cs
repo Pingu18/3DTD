@@ -6,6 +6,7 @@ using UnityEngine.VFX;
 public class PlayerController : MonoBehaviour
 {
     private BuildController buildController;    // reference to BuildController script
+    private MenuUI menuUI;
     private Rigidbody rb;                       // reference to Rigidbody component
     private BasicAttack basicAttack;            // reference to BasicAttack script
     [SerializeField] private GameObject secondaryAttack;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded;        // whether player is currently grounded
     private float distanceToGround; // player's current distance to the ground
+    private int layer_mask;
 
     private Vector3 moveDirection;
 
@@ -45,6 +47,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float superJumpForce;
     private bool readyToJump;
     private bool readyToSuperJump;
+    private float superJumpCooldown;
+    private float superJumpTimer = 0.0f;
     private float jumpCooldown;
 
     [Header("Animations")]
@@ -68,8 +72,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        layer_mask = LayerMask.GetMask("Default", "Ground", "Placeable");
         Debug.Log("Getting BuildController script... (PlayerController)");
         buildController = buildControllerObj.GetComponent<BuildController>();
+        menuUI = FindObjectOfType<MenuUI>();
 
         Debug.Log("Getting components... (PlayerController)");
         rb = GetComponent<Rigidbody>();
@@ -83,10 +89,11 @@ public class PlayerController : MonoBehaviour
         readyToJump = true;
         readyToSuperJump = true;
         jumpCooldown = 0.25f;
+        superJumpCooldown = 0.25f;
     }
     private void Update()
     {
-        if (!buildController.getInBuild())
+        if (!buildController.getInBuild() && !menuUI.getInMenu())
         {
             input();
             controlDrag();
@@ -134,9 +141,9 @@ public class PlayerController : MonoBehaviour
 
     private void jump()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f, layer_mask);
 
-        if (isGrounded && !readyToSuperJump)
+        if (isGrounded && !readyToSuperJump && Time.time > superJumpTimer)
             readyToSuperJump = true;
 
         if (Input.GetKey(KeyCode.Space) && isGrounded && readyToJump)
@@ -150,8 +157,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && readyToSuperJump)
         {
-            rb.AddForce(transform.up * superJumpForce, ForceMode.Impulse);
             readyToSuperJump = false;
+            superJumpTimer = Time.time + superJumpCooldown;
+            rb.AddForce(transform.up * superJumpForce, ForceMode.Impulse);
             playerAnim.SetTrigger("Jump");
         }
     }

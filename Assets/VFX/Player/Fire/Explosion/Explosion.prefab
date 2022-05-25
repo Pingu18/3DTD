@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 232037841}
   - component: {fileID: 232037842}
   - component: {fileID: 232037843}
+  - component: {fileID: 869355471}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -46,7 +47,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 8
+  m_Radius: 22
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &232037842
 MonoBehaviour:
@@ -76,6 +77,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &869355471
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537392655905275544}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bef17bd80689b784794ca29d5c48d8c5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6537392656165441626
 GameObject:
   m_ObjectHideFlags: 0

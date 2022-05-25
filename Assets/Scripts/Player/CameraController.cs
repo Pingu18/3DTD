@@ -17,10 +17,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform orientation;         // reference to player orientation
 
     [Header("Sensitivity")]
-    [SerializeField] private float sensX = 50f;     // x sensitivity
-    [SerializeField] private float sensY = 50f;     // y sensitivity
+    [SerializeField] private float sensX = 5f;     // x sensitivity
+    [SerializeField] private float sensY = 5f;     // y sensitivity
 
     private BuildController buildController;    // reference to BuildController script
+    private MenuUI menuUI;
 
     private Camera pCam;    // reference to player camera
     private Camera bCam;    // reference to build camera
@@ -37,6 +38,7 @@ public class CameraController : MonoBehaviour
     {
         Debug.Log("Getting BuildController script... (CameraController)");
         buildController = buildControllerObj.GetComponent<BuildController>();
+        menuUI = FindObjectOfType<MenuUI>();
 
         Debug.Log("Getting cameras... (CameraController)");
         pCam = playerCamRef.GetComponent<Camera>();
@@ -52,8 +54,14 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!buildController.getInBuild())
+        if (!buildController.getInBuild() && !menuUI.getInMenu())
             rotateCamera();
+    }
+
+    public void setSens(float sens)
+    {
+        sensX = sens;
+        sensY = sens;
     }
 
     public void toggleMouseLock()
@@ -93,8 +101,8 @@ public class CameraController : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X");
         float mouseY = Input.GetAxisRaw("Mouse Y");
 
-        yRotation += mouseX * sensX * multiplier;
-        xRotation -= mouseY * sensY * multiplier;
+        yRotation += mouseX * sensX * 10 * multiplier;
+        xRotation -= mouseY * sensY * 10 * multiplier;
 
         xRotation = Mathf.Clamp(xRotation, minAngle, maxAngle);
 

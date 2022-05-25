@@ -257,6 +257,7 @@ MonoBehaviour:
   colliderSpawnPoint: {fileID: 287923070}
   colliderObj: {fileID: 5569276583786339622, guid: f55d97f3581637e469f89ecc2c246816,
     type: 3}
+  playerAnim: {fileID: 0}
 --- !u!54 &626651767
 Rigidbody:
   m_ObjectHideFlags: 0
