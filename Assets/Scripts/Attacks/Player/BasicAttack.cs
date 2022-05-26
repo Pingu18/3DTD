@@ -10,10 +10,12 @@ public class BasicAttack : MonoBehaviour
     [SerializeField] private GameObject fireSlashCollider;
 
     private GameObject effectToSpawn;
+    private AudioController audioCon;
 
     void Start()
     {
         effectToSpawn = vfx[0];
+        audioCon = FindObjectOfType<AudioController>();
     }
 
     public void spawnVFX()
@@ -33,9 +35,14 @@ public class BasicAttack : MonoBehaviour
         GameObject vfx;
 
         if (firePoint != null)
+        {
             vfx = Instantiate(effectToSpawn, firePoint.transform.position, firePoint.transform.rotation);
-        else
+            audioCon.PlaySound("FireBasicAtk");
+
+        } else
+        {
             Debug.Log("No fire point...");
+        }
     }
 
     private void OnParticleCollision(GameObject other)
