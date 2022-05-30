@@ -12,6 +12,7 @@ public class Teleport : MonoBehaviour
     [SerializeField] private BuildController buildCon;
     [SerializeField] private Animator playerAnim;
     [SerializeField] private Animator fxAnim;
+    private AudioController audioCon;
     private Flamethrower flamethrower;
 
     private bool canTeleport;
@@ -25,6 +26,7 @@ public class Teleport : MonoBehaviour
     {
         inTeleport = false;
         flamethrower = FindObjectOfType<Flamethrower>();
+        audioCon = FindObjectOfType<AudioController>();
     }
 
     private void Update()
@@ -80,6 +82,7 @@ public class Teleport : MonoBehaviour
 
     private void TP()
     {
+        audioCon.PlaySound("Teleport", player);
         player.transform.position = tpLocation;
         teleportTimer = Time.time + teleportCD;
         StartCoroutine(timerUI.startCooldown(4));

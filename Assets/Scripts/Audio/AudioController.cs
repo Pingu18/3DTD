@@ -19,8 +19,8 @@ public class AudioController : MonoBehaviour
 
             if (parent != null)
             {
-                soundObject.transform.parent = parent.transform;
-                soundObject.transform.localPosition = new Vector3(0, 0, 0);
+                soundObject.AddComponent<FollowObject>();
+                soundObject.GetComponent<FollowObject>().toFollow = parent;
             }
 
             audioSource.volume = s.volume;
