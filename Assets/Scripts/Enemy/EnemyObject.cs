@@ -81,7 +81,7 @@ public class EnemyObject : MonoBehaviour, IDamageable
 
         enemyController = transform.parent.GetComponent<EnemyController>();
         elementalSystem = transform.parent.GetComponent<ElementalSystem>();
-        currencyController = GameObject.Find("CurrencyContainer").GetComponent<CurrencyController>();
+        currencyController = GameObject.Find("GameLogic").GetComponent<CurrencyController>();
         playerController = GameObject.Find("PlayerContainer").GetComponent<PlayerController>();
 
         healthBar = GetComponentInChildren<Slider>();

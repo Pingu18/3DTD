@@ -17,8 +17,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform orientation;         // reference to player orientation
 
     [Header("Sensitivity")]
-    [SerializeField] private float sensX = 5f;     // x sensitivity
-    [SerializeField] private float sensY = 5f;     // y sensitivity
+    [SerializeField] private float sensX = 10f;     // x sensitivity
+    [SerializeField] private float sensY = 10f;     // y sensitivity
 
     private BuildController buildController;    // reference to BuildController script
     private MenuUI menuUI;

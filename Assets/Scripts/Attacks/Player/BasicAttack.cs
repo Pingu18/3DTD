@@ -46,11 +46,6 @@ public class BasicAttack : MonoBehaviour
         }
     }
 
-    private void OnParticleCollision(GameObject other)
-    {
-        Debug.Log("Test");
-    }
-
     public GameObject getFireballCollider()
     {
         return fireballCollider;
