@@ -6,6 +6,7 @@ using UnityEngine.VFX;
 public class PlayerObject : MonoBehaviour
 {
     private PlayerController playerController;
+    private AudioController audioCon;
     private SkillDict skillDict;
     private BuildController buildCon;
     private Teleport teleport;
@@ -34,6 +35,7 @@ public class PlayerObject : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         buildCon = FindObjectOfType<BuildController>();
         teleport = FindObjectOfType<Teleport>();
+        audioCon = FindObjectOfType<AudioController>();
 
         timers.Add(0f);
         timers.Add(0f);
@@ -96,6 +98,7 @@ public class PlayerObject : MonoBehaviour
         playerAnim.SetTrigger("Skill1");
         yield return new WaitForSeconds(0.5f);
         skill.transform.GetChild(0).GetComponent<VisualEffect>().Play();
+        audioCon.PlaySound("FireSkill1", this.gameObject);
         skill.GetComponent<Animator>().SetTrigger("Explode");
         Destroy(skill, 1f);
     }

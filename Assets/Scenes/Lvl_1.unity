@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.005
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.6572624, g: 0.6583007, b: 0.6603774, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.7
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 17b57161b0ea818469714001659b2de1, type: 2}
   m_HaloStrength: 0.5
@@ -8298,8 +8298,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 1460437464}
   vfx:
-  - {fileID: 8236827869729201986, guid: 8b79dc1714df681429de862222ab1803, type: 3}
-  fireSlashCollider: {fileID: 7435166695039519149, guid: 0ac4f77c4a251ee42b6944adac794127,
+  - {fileID: 5022102107193551213, guid: 385e1e7a908b8a14aba0300acfddf7c6, type: 3}
+  fireballCollider: {fileID: 7435166695039519149, guid: 0ac4f77c4a251ee42b6944adac794127,
     type: 3}
 --- !u!114 &470719440
 MonoBehaviour:
@@ -10958,7 +10958,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &514887502
 MonoBehaviour:
@@ -10975,7 +10975,11 @@ MonoBehaviour:
   sounds:
   - name: FireBasicAtk
     clip: {fileID: 8300000, guid: 22f97ad26db7df54e9640d9a95592664, type: 3}
-    source: {fileID: 0}
+    volume: 0.5
+    loop: 0
+    playOnAwake: 0
+  - name: FireSkill1
+    clip: {fileID: 8300000, guid: 790045269b643994f93e35df1802778d, type: 3}
     volume: 0.5
     loop: 0
     playOnAwake: 0

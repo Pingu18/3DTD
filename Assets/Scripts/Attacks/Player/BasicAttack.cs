@@ -38,7 +38,7 @@ public class BasicAttack : MonoBehaviour
         if (firePoint != null)
         {
             vfx = Instantiate(effectToSpawn, firePoint.transform.position, firePoint.transform.rotation);
-            audioCon.PlaySound("FireBasicAtk");
+            audioCon.PlaySound("FireBasicAtk", vfx);
 
         } else
         {
