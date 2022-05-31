@@ -13,7 +13,7 @@
           "totalEnemies": 5,
           "enemies": [
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 5
             }
@@ -28,7 +28,7 @@
           "totalEnemies": 5,
           "enemies": [
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 5
             }
@@ -50,12 +50,12 @@
           "totalEnemies": 6,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 1
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 5
             }
@@ -70,12 +70,12 @@
           "totalEnemies": 6,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 1
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 5
             }
@@ -97,12 +97,12 @@
           "totalEnemies": 12,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 2
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 10
             }
@@ -117,12 +117,12 @@
           "totalEnemies": 12,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 2
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 10
             }
@@ -137,7 +137,7 @@
           "totalEnemies": 5,
           "enemies": [
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 5
             }
@@ -152,7 +152,7 @@
           "totalEnemies": 5,
           "enemies": [
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 5
             }
@@ -174,12 +174,12 @@
           "totalEnemies": 19,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 4
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 15
             }
@@ -194,12 +194,12 @@
           "totalEnemies": 19,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 4
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 15
             }
@@ -214,7 +214,7 @@
           "totalEnemies": 10,
           "enemies": [
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 10
             }
@@ -229,7 +229,7 @@
           "totalEnemies": 10,
           "enemies": [
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 10
             }
@@ -251,12 +251,12 @@
           "totalEnemies": 28,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 8
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 20
             }
@@ -271,12 +271,12 @@
           "totalEnemies": 28,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 8
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 20
             }
@@ -291,12 +291,12 @@
           "totalEnemies": 9,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 4
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 5
             }
@@ -311,12 +311,12 @@
           "totalEnemies": 9,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 4
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 5
             }
@@ -338,12 +338,12 @@
           "totalEnemies": 35,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 15
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 20
             }
@@ -358,12 +358,12 @@
           "totalEnemies": 35,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 15
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 20
             }
@@ -378,12 +378,12 @@
           "totalEnemies": 20,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 10
             }
@@ -398,12 +398,12 @@
           "totalEnemies": 20,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 10
             }
@@ -425,27 +425,27 @@
           "totalEnemies": 64,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 8
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 8
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 2,
               "toSpawn": 20
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 8
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 20
             }
@@ -460,27 +460,27 @@
           "totalEnemies": 64,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 8
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 8
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 2,
               "toSpawn": 20
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 8
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 20
             }
@@ -495,27 +495,27 @@
           "totalEnemies": 70,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 2,
               "toSpawn": 20
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 20
             }
@@ -530,27 +530,27 @@
           "totalEnemies": 70,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 2,
               "toSpawn": 20
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 20
             }
@@ -572,27 +572,27 @@
           "totalEnemies": 116,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 12
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 12
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 2,
               "toSpawn": 40
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 12
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 40
             }
@@ -607,27 +607,27 @@
           "totalEnemies": 116,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 12
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 12
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 2,
               "toSpawn": 40
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 12
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 40
             }
@@ -642,37 +642,37 @@
           "totalEnemies": 110,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 2,
               "toSpawn": 30
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 30
             }
@@ -687,37 +687,37 @@
           "totalEnemies": 110,
           "enemies": [
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 2,
               "toSpawn": 30
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "TestEnemyGiant",
+              "enemyName": "EarthBlobGiant",
               "toWait": 2,
               "toSpawn": 10
             },
             {
-              "enemyName": "EnemyBlob",
+              "enemyName": "WaterBlob",
               "toWait": 0,
               "toSpawn": 30
             }

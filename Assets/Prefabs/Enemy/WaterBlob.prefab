@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 8680295341559692608}
   - component: {fileID: 1253957915}
   m_Layer: 0
-  m_Name: EnemyBlob
+  m_Name: WaterBlob
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
