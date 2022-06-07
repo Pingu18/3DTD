@@ -25,6 +25,7 @@ public class EnemyController : MonoBehaviour
     private LivesController livesCon;
 
     private PathController pathController;
+    private PlayerObject playerObj;
 
     // EnemyDict that contains a reference to each different type of enemy
     private EnemyDict enemyDict;
@@ -52,6 +53,7 @@ public class EnemyController : MonoBehaviour
         enemyDict = GetComponent<EnemyDict>();
 
         pathController = level.GetComponent<PathController>();
+        playerObj = FindObjectOfType<PlayerObject>();
 
         Debug.Log("Initializing parameters... (EnemyController)");
         timerValue = timeToWait;
@@ -137,8 +139,9 @@ public class EnemyController : MonoBehaviour
                 yield return StartCoroutine(checkGroupsSpawned(wave.groupsToSpawn));
             }
 
-            // When wave ends, heal all towers to full
+            // When wave ends, heal all towers to full & refill player mana
             healAllTowers();
+            playerObj.refillMana();
 
             // Add yield return for set amount of time or check for player skip
             Debug.Log("Break between waves...");

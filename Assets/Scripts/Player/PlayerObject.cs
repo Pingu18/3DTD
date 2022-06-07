@@ -166,4 +166,9 @@ public class PlayerObject : MonoBehaviour
         return currentMana;
     }
 
+    public void refillMana()
+    {
+        currentMana = maxMana;
+    }
+
 }

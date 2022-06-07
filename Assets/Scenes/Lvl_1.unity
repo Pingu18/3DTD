@@ -5086,17 +5086,17 @@ PrefabInstance:
     - target: {fileID: 3257189355272094441, guid: 6accb374ee67d9b4cbfab029d75a5114,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3257189355272094441, guid: 6accb374ee67d9b4cbfab029d75a5114,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5768213818046756617, guid: 6accb374ee67d9b4cbfab029d75a5114,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5768213818046756617, guid: 6accb374ee67d9b4cbfab029d75a5114,
         type: 3}
@@ -5152,6 +5152,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WaterBlob
+      objectReference: {fileID: 0}
+    - target: {fileID: 6577260189519277491, guid: 6accb374ee67d9b4cbfab029d75a5114,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6accb374ee67d9b4cbfab029d75a5114, type: 3}
@@ -22419,7 +22424,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8dc2ac2f0f7724340a652c95a82ac9a7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8dc2ac2f0f7724340a652c95a82ac9a7,
         type: 3}
@@ -32526,22 +32531,27 @@ PrefabInstance:
     - target: {fileID: 2502678135967000101, guid: 40095f54faeff414dae2c85a00d30a7e,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2502678135967000101, guid: 40095f54faeff414dae2c85a00d30a7e,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6111261257816541567, guid: 40095f54faeff414dae2c85a00d30a7e,
         type: 3}
       propertyPath: m_Name
       value: EarthBlobGiant
       objectReference: {fileID: 0}
+    - target: {fileID: 6111261257816541567, guid: 40095f54faeff414dae2c85a00d30a7e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6882730655729537989, guid: 40095f54faeff414dae2c85a00d30a7e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6882730655729537989, guid: 40095f54faeff414dae2c85a00d30a7e,
         type: 3}
@@ -35601,12 +35611,12 @@ PrefabInstance:
     - target: {fileID: 3257189355272094441, guid: 0e59c6e22ba13e446a4606f93e1b1b94,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3257189355272094441, guid: 0e59c6e22ba13e446a4606f93e1b1b94,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5768213818046756617, guid: 0e59c6e22ba13e446a4606f93e1b1b94,
         type: 3}
@@ -35667,6 +35677,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassBlob
+      objectReference: {fileID: 0}
+    - target: {fileID: 6577260189519277491, guid: 0e59c6e22ba13e446a4606f93e1b1b94,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e59c6e22ba13e446a4606f93e1b1b94, type: 3}
@@ -53945,7 +53960,7 @@ Transform:
   m_Children:
   - {fileID: 254709502}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2001951567
 GameObject:
@@ -62288,7 +62303,7 @@ PrefabInstance:
     - target: {fileID: 7361548204680977677, guid: 4008378a0f694ff449e7b907986968bc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7361548204680977677, guid: 4008378a0f694ff449e7b907986968bc,
         type: 3}
