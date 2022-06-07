@@ -12,8 +12,15 @@ public class TowerAttack : MonoBehaviour
         switch (attackName)
         {
             case "Flame Attack":
+                DamageRamp dRamp = tower.gameObject.GetComponent<DamageRamp>();
+
+                if (tower.GetComponent<TowerObject>().getSpecialLevel() > 0)
+                {
+                    dRamp.setTarget(target);
+                }
+
                 atk.GetComponent<FlameAttack>().setParams(tower.gameObject, target, tower.getDamage());
-                target.GetComponent<IDamageable>().queueDamage(tower.getDamage(), tower.gameObject, false);
+                target.GetComponent<IDamageable>().queueDamage(tower.getDamage() * dRamp.getDamageMultiplier(), tower.gameObject, false);
                 atk.transform.GetChild(0).GetComponent<VisualEffect>().Play();
                 Destroy(atk, 1.2f);
                 break;
@@ -41,7 +48,7 @@ public class TowerAttack : MonoBehaviour
 
                 if (tower.GetComponent<TowerObject>().getSpecialLevel() > 0)
                 {
-                    target.GetComponent<EnemyObject>().applyLightMark(tower);
+                    target.GetComponent<EnemyBuffHandler>().applyLightMark(tower);
                 }
 
                 Destroy(atk, 1.0f);
@@ -53,7 +60,7 @@ public class TowerAttack : MonoBehaviour
 
                 if (tower.GetComponent<TowerObject>().getSpecialLevel() > 0)
                 {
-                    target.GetComponent<EnemyObject>().applyDarkMark(tower);
+                    target.GetComponent<EnemyBuffHandler>().applyDarkMark(tower);
                 }
 
                 Destroy(atk, 1.0f);

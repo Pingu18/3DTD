@@ -512,6 +512,7 @@ GameObject:
   - component: {fileID: 5004236167075603827}
   - component: {fileID: 7700342143981371230}
   - component: {fileID: 8031885407898096703}
+  - component: {fileID: 7866226870913169469}
   m_Layer: 7
   m_Name: FireTower
   m_TagString: Structure
@@ -649,7 +650,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifestealEnabled: 0
-  lifestealStrength: 0
+  lifestealPercent: 0
+--- !u!114 &7866226870913169469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5968427632749837380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7898747b5afa6b340a0c5128ded0bf50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1307431311414186101
 PrefabInstance:
   m_ObjectHideFlags: 0

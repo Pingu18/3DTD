@@ -3593,7 +3593,7 @@ Transform:
   m_Children:
   - {fileID: 4688340777618746330}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &199782374
 GameObject:
@@ -8056,7 +8056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildControllerObj: {fileID: 480239519}
-  crosshairContainer: {fileID: 1017453}
+  playerUI: {fileID: 199782374}
   playerCamRef: {fileID: 1460164241}
   buildCamRef: {fileID: 270756524}
   playerCamTransform: {fileID: 1460164242}
@@ -10902,6 +10902,12 @@ MonoBehaviour:
     type: 3}
   testEnemyHealer: {fileID: 2684435373212293927, guid: 3b551788f6703db48a82ea554819f347,
     type: 3}
+  waterBlob: {fileID: 6577260189519277491, guid: 6accb374ee67d9b4cbfab029d75a5114,
+    type: 3}
+  grassBlob: {fileID: 6577260189519277491, guid: 0e59c6e22ba13e446a4606f93e1b1b94,
+    type: 3}
+  earthBlobGiant: {fileID: 6111261257816541567, guid: 40095f54faeff414dae2c85a00d30a7e,
+    type: 3}
 --- !u!4 &512607978
 Transform:
   m_ObjectHideFlags: 0
@@ -12618,7 +12624,7 @@ Transform:
   - {fileID: 1977708163}
   - {fileID: 2027543256}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &615617364
 Mesh:
@@ -24361,7 +24367,7 @@ Transform:
   - {fileID: 2101501441}
   - {fileID: 41001100}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &935950973
 GameObject:
@@ -29047,6 +29053,66 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1169133406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1169133408}
+  - component: {fileID: 1169133407}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!114 &1169133407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169133406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 341543a3dc0679a4ab01bdb0f6b63f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: FireBasicAtk
+    clip: {fileID: 8300000, guid: 22f97ad26db7df54e9640d9a95592664, type: 3}
+    volume: 0.5
+    loop: 0
+    playOnAwake: 0
+  - name: FireSkill1
+    clip: {fileID: 8300000, guid: 790045269b643994f93e35df1802778d, type: 3}
+    volume: 0.5
+    loop: 0
+    playOnAwake: 0
+  - name: Teleport
+    clip: {fileID: 8300000, guid: 39a9ebc83c706854faa70d93e49583b3, type: 3}
+    volume: 0.5
+    loop: 0
+    playOnAwake: 0
+--- !u!4 &1169133408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169133406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -33.15084, y: -1.6506195, z: 2.255858}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1178989401
 GameObject:
   m_ObjectHideFlags: 0
@@ -44775,7 +44841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -45.599976, y: -3.9000244}
+  m_AnchoredPosition: {x: -45.600098, y: -3.9000244}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1698329583

@@ -509,4 +509,9 @@ public class TowerObject : MonoBehaviour, IDamageable
     {
         return towerStats.upgrades;
     }
+
+    public float getDamageMultiplier()
+    {
+        return damageMultiplier;
+    }
 }

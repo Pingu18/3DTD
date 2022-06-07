@@ -140,7 +140,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6462162582958062404, guid: 8f3855fcbc6e2624680dc055e2ac2d5d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8f3855fcbc6e2624680dc055e2ac2d5d, type: 3}
 --- !u!1 &8151202069003576746 stripped
 GameObject:
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifestealEnabled: 0
-  lifestealStrength: 0
+  lifestealPercent: 0
 --- !u!4 &8815008697556369168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5528015991219386673, guid: 8f3855fcbc6e2624680dc055e2ac2d5d,
