@@ -199,9 +199,9 @@ public class TowerUpgrades : MonoBehaviour
         costDict.Add("level_3_specialCost", 25000);
 
         // Fire | Water | Grass | Earth | Lightning | Dark | Light
-        valueDict.Add("level_1_newSpecial_Fire", 0.75f);    // haven't set up Fire tower special upgrade
-        valueDict.Add("level_2_newSpecial_Fire", 1f);
-        valueDict.Add("level_3_newSpecial_Fire", 1.25f);
+        valueDict.Add("level_1_newSpecial_Fire", 1f);
+        valueDict.Add("level_2_newSpecial_Fire", 2f);
+        valueDict.Add("level_3_newSpecial_Fire", 3f);
 
         valueDict.Add("level_1_newSpecial_Water", 1f);
         valueDict.Add("level_2_newSpecial_Water", 1.5f);
