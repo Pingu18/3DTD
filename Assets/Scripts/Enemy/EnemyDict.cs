@@ -22,9 +22,9 @@ public class EnemyDict : MonoBehaviour
         Debug.Log("Creating enemy dictionary... (EnemyDict)");
 
         // Add enemies into dictionary
-        dict.Add(testEnemy.name, testEnemy);
-        dict.Add(testEnemyGiant.name, testEnemyGiant);
-        dict.Add(testEnemyHealer.name, testEnemyHealer);
+        //dict.Add(testEnemy.name, testEnemy);
+        //dict.Add(testEnemyGiant.name, testEnemyGiant);
+        //dict.Add(testEnemyHealer.name, testEnemyHealer);
 
         dict.Add(waterBlob.name, waterBlob);
         dict.Add(grassBlob.name, grassBlob);
