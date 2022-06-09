@@ -7,6 +7,7 @@ public class EnemyNavMesh : MonoBehaviour
 {
     //[SerializeField] private Transform destination;
     private NavMeshAgent navMeshAgent;
+    [SerializeField] private GameObject FreezeMesh;
 
     private float baseSpeed;
     [SerializeField] private bool stunned;
@@ -79,6 +80,7 @@ public class EnemyNavMesh : MonoBehaviour
     public IEnumerator applyStun(float stunDuration)
     {
         stunned = true;
+        FreezeMesh.SetActive(true);
         Vector3 destination = navMeshAgent.destination;
         navMeshAgent.SetDestination(gameObject.transform.position);
         yield return new WaitForSeconds(stunDuration);
@@ -87,6 +89,7 @@ public class EnemyNavMesh : MonoBehaviour
         {
             navMeshAgent.SetDestination(destination);
             stunned = false;
+            FreezeMesh.SetActive(false);
         }
     }
 }

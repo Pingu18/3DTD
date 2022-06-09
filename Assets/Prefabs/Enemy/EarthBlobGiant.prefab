@@ -335,6 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00017392b0d654440aed449ad3fe7abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FreezeMesh: {fileID: 7258333260322118165}
   stunned: 0
 --- !u!114 &8646359777153833356
 MonoBehaviour:

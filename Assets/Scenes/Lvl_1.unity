@@ -5085,6 +5085,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 512607978}
     m_Modifications:
+    - target: {fileID: 1708926164, guid: 6accb374ee67d9b4cbfab029d75a5114, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3257189355272094441, guid: 6accb374ee67d9b4cbfab029d75a5114,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -32492,17 +32496,22 @@ PrefabInstance:
     - target: {fileID: 2502678135967000101, guid: 40095f54faeff414dae2c85a00d30a7e,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2502678135967000101, guid: 40095f54faeff414dae2c85a00d30a7e,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6111261257816541567, guid: 40095f54faeff414dae2c85a00d30a7e,
         type: 3}
       propertyPath: m_Name
       value: EarthBlobGiant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111261257816541567, guid: 40095f54faeff414dae2c85a00d30a7e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6882730655729537989, guid: 40095f54faeff414dae2c85a00d30a7e,
         type: 3}
